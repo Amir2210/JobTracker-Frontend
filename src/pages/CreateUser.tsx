@@ -21,8 +21,8 @@ export function CreateUser() {
   const navigate = useNavigate()
 
   function handleCredentialsChange(ev: React.ChangeEvent<HTMLInputElement>) {
-    const field = ev.target.name
-    const value = ev.target.value
+    const field: string = ev.target.name
+    const value: string = ev.target.value
     setCredentials((credentials) => ({ ...credentials, [field]: value }))
   }
 
