@@ -1,6 +1,7 @@
 import { Link, useNavigate } from 'react-router-dom'
 import { useState } from 'react'
 import { signup, login } from '../store/actions/user.actions'
+import { toast } from 'react-toastify'
 
 type EmptyCredentials = {
   fullName: string,
@@ -37,7 +38,10 @@ export function CreateUser() {
       await signup(newUser)
       await login(newUser)
       navigate('/jobs')
+      toast.success(`welcome ${fullName} 😀`)
     } catch (err) {
+      toast.error(`failed to create user try again later`)
+
     }
   }
 
