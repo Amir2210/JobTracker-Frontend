@@ -47,7 +47,6 @@ async function ajax(endpoint: string, method: Method = "GET", data: any = null):
         console.dir(err);
         if (err.response && err.response.status === 401) {
             sessionStorage.clear();
-            window.location.assign("/")
         }
         throw err;
     }

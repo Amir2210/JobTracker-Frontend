@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { login } from '../store/actions/user.actions'
-
+import { toast } from 'react-toastify'
 type EmptyCredentials = {
   userName: string,
   password: string,
@@ -29,9 +29,10 @@ export function Login() {
     try {
       await login(credentials)
       navigate('/jobs')
-      window.location.reload()
+      toast.success(`You've logged in successfully`)
     } catch (err) {
       console.log(err)
+      toast.error(`invalid username or password`)
     }
   }
 

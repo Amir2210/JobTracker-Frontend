@@ -9,10 +9,14 @@ import { store } from './store/store'
 import { Provider } from 'react-redux'
 import { Jobs } from './pages/Jobs'
 
+import 'react-toastify/dist/ReactToastify.css'
+import { ToastContainer } from 'react-toastify'
+
 function App() {
 
   return (
     <Provider store={store}>
+      <ToastContainer position='top-center' autoClose={2000} />
       <Router>
         <Routes>
           <Route path='/' element={<HomeIndex />} />
