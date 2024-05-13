@@ -27,14 +27,8 @@ export function Login() {
   async function onLogin(ev: React.MouseEvent<HTMLButtonElement, MouseEvent>) {
     ev.preventDefault()
     try {
-      // const formData = new FormData(ev.target as HTMLFormElement)
-      // const userName = formData.get('userName') as string
-      // const password = formData.get('password') as string
-      // const existUser: EmptyCredentials = { userName, password }
-      // console.log(existUser)
-      // await login(existUser)
       await login(credentials)
-      navigate('/')
+      navigate('/jobs')
       window.location.reload()
     } catch (err) {
       console.log(err)

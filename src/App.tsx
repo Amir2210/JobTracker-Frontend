@@ -7,6 +7,7 @@ import { CreateUser } from './pages/CreateUser'
 //store
 import { store } from './store/store'
 import { Provider } from 'react-redux'
+import { Jobs } from './pages/Jobs'
 
 function App() {
 
@@ -17,6 +18,7 @@ function App() {
           <Route path='/' element={<HomeIndex />} />
           <Route path='/login' element={<Login />} />
           <Route path='/createUser' element={<CreateUser />} />
+          <Route path='/jobs' element={<Jobs />} />
         </Routes>
       </Router>
     </Provider>

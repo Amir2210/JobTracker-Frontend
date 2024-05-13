@@ -36,7 +36,7 @@ export function CreateUser() {
       const newUser: EmptyCredentials = { fullName, userName, password }
       await signup(newUser)
       await login(newUser)
-      navigate('/')
+      navigate('/jobs')
     } catch (err) {
     }
   }
