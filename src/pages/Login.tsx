@@ -2,9 +2,15 @@ import { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { login } from '../store/actions/user.actions'
 import { toast } from 'react-toastify'
+
 type EmptyCredentials = {
   userName: string,
   password: string,
+}
+
+type demoUserCredentials = {
+  userName: string,
+  password: string
 }
 
 function getEmptyCredentials(): EmptyCredentials {
@@ -36,6 +42,21 @@ export function Login() {
     }
   }
 
+  async function handleDemoLogin() {
+    const demoUser: demoUserCredentials = {
+      userName: 'demoUser',
+      password: '123'
+    }
+    try {
+      await login(demoUser)
+      navigate('/jobs')
+      toast.success(`You've logged in successfully`)
+    } catch (err) {
+      console.log(err)
+      toast.error(`invalid username or password`)
+    }
+  }
+
   const { userName, password } = credentials
   return (
     <section className='bg-zinc-100 h-screen flex flex-col justify-center items-center px-10'>
@@ -56,7 +77,7 @@ export function Login() {
           <input type="password" className="grow" placeholder="Password" name='password' value={password} onChange={handleCredentialsChange} required />
         </label>
         <button onClick={onLogin} className='btn bg-white border-solid border-2 border-sky-400 text-sky-400 hover:bg-sky-400 hover:text-white hover:border-white  capitalize text-2xl w-full my-3'>Login</button>
-        <button className='btn  bg-sky-400 capitalize text-2xl w-full my-3 text-white hover:bg-sky-600'>demo Login</button>
+        <button onClick={handleDemoLogin} className='btn  bg-sky-400 capitalize text-2xl w-full my-3 text-white hover:bg-sky-600'>demo Login</button>
         <span className='text-lg'>Not a member yet? <Link className=' capitalize text-sky-400 font-medium' to={'/createUser'}> register</Link></span>
       </form>
     </section>
