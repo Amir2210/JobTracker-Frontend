@@ -8,7 +8,7 @@ export const SET_IS_LOADING: string = 'SET_IS_LOADING'
 
 type SetUserAction = {
   type: typeof SET_USER
-  user: User
+  user: User | null
 }
 
 type SetIsLoadingAction = {

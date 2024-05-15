@@ -2,7 +2,7 @@
 import Axios, { Method } from "axios";
 
 const BASE_URL: string =
-    process.env.NODE_ENV === "production" ? "/api/" : "//localhost:3030/api/";
+    "//localhost:3030/api/";
 
 const axios = Axios.create({
     withCredentials: true,

@@ -5,7 +5,7 @@ export type User = {
 }
 
 export type UserState = {
-  loggedInUser: User,
+  loggedInUser: User | null,
   isLoading: boolean,
 }
 

@@ -1,10 +1,25 @@
 import { useSelector } from 'react-redux'
 import { NavLinks } from './NavLinks'
 import { UserModule } from '../types/types'
+import { logout } from '../store/actions/user.actions'
+import { toast } from 'react-toastify'
+import { useNavigate } from 'react-router-dom'
 
 export function Navbar() {
   const user = useSelector((storeState: UserModule) => storeState.userModule.loggedInUser)
-  console.log(user)
+  const navigate = useNavigate()
+
+  async function onLogout() {
+    try {
+      await logout()
+      toast.success(`logged out successfully`)
+      navigate('/')
+    } catch (err) {
+      console.log('err:', err)
+      toast.error(`failed to logged out`)
+    }
+  }
+
   return (
     <nav className='small-container sm:big-container'>
       <div className="navbar bg-base-100">
@@ -26,10 +41,10 @@ export function Navbar() {
             <li>
               <details>
                 <summary className=''>
-                  {user.fullName}
+                  {user?.fullName}
                 </summary>
                 <ul className="p-2 bg-base-100 rounded-t-none">
-                  <li><a>logout</a></li>
+                  <li><button onClick={onLogout}>logout</button></li>
                 </ul>
               </details>
             </li>
