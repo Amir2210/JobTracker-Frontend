@@ -10,7 +10,6 @@ import { CgProfile } from "react-icons/cg";
 export function Navbar() {
   const user = useSelector((storeState: UserModule) => storeState.userModule.loggedInUser)
   const navigate = useNavigate()
-
   async function onLogout() {
     try {
       await logout()
