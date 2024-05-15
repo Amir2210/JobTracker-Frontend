@@ -4,6 +4,8 @@ import { UserModule } from '../types/types'
 import { logout } from '../store/actions/user.actions'
 import { toast } from 'react-toastify'
 import { useNavigate } from 'react-router-dom'
+import { CgProfile } from "react-icons/cg";
+
 
 export function Navbar() {
   const user = useSelector((storeState: UserModule) => storeState.userModule.loggedInUser)
@@ -34,14 +36,29 @@ export function Navbar() {
           </div>
         </div>
         <div className="navbar-center">
-          <a className="text-3xl font-mono font-bold">JobTracker</a>
+          <a className=" text-2xl sm:text-3xl font-mono font-bold">JobTracker</a>
         </div>
-        <div className="navbar-end">
+        <div className="navbar-end hidden sm:flex">
           <ul className="menu menu-horizontal px-1">
             <li>
               <details>
-                <summary className=''>
+                <summary className='bg-sky-400 text-white text-lg hover:bg-sky-600'>
+                  <CgProfile className='text-2xl' />
                   {user?.fullName}
+                </summary>
+                <ul className="p-2 bg-base-100 rounded-t-none">
+                  <li><button onClick={onLogout}>logout</button></li>
+                </ul>
+              </details>
+            </li>
+          </ul>
+        </div>
+        <div className="navbar-end flex sm:hidden">
+          <ul className="menu menu-horizontal px-1">
+            <li>
+              <details>
+                <summary className='bg-sky-400 text-white text-lg hover:bg-sky-600'>
+                  <CgProfile className='text-2xl' />
                 </summary>
                 <ul className="p-2 bg-base-100 rounded-t-none">
                   <li><button onClick={onLogout}>logout</button></li>
