@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { login } from '../store/actions/user.actions'
 import { toast } from 'react-toastify'
-import { LoginCredentials } from '../types/types'
+import { LoginCredentials } from '../types/user.types'
 
 function getEmptyCredentials(): LoginCredentials {
   return {

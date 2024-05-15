@@ -1,6 +1,6 @@
 import { userService } from "../../services/user.service.ts"
-import { UserState } from '../../types/types.ts'
-import { User } from '../../types/types.ts'
+import { UserState } from '../../types/user.types.ts'
+import { User } from '../../types/user.types.ts'
 export const SET_USER: string = 'SET_USER'
 // loading
 export const SET_IS_LOADING: string = 'SET_IS_LOADING'

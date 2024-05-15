@@ -1,6 +1,6 @@
 import { useSelector } from 'react-redux'
 import { NavLinks } from './NavLinks'
-import { UserModule } from '../types/types'
+import { UserModule } from '../types/user.types'
 import { logout } from '../store/actions/user.actions'
 import { toast } from 'react-toastify'
 import { useNavigate } from 'react-router-dom'

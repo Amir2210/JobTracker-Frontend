@@ -1,7 +1,7 @@
 import { store } from "../store.ts"
 import { userService } from "../../services/user.service.ts"
 import { SET_USER, SET_IS_LOADING } from '../reducers/user.reducer.ts'
-import { LoginCredentials, signUpCredentials, User } from '../../types/types.ts'
+import { LoginCredentials, signUpCredentials, User } from '../../types/user.types.ts'
 
 export async function login(credentials: LoginCredentials) {
   try {

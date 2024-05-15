@@ -1,7 +1,10 @@
+import { Job } from './job.types'
+
 export type User = {
   fullName: string,
   userName: string,
   _id: string
+  jobs: Job[]
 }
 
 export type UserState = {
@@ -16,7 +19,7 @@ export type LoginCredentials = {
 export type signUpCredentials = {
   userName: string,
   password: string,
-  fullName: string
+  fullName: string,
 }
 
 export type UserModule = {
