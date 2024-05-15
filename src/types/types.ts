@@ -19,3 +19,7 @@ export type signUpCredentials = {
   fullName: string
 }
 
+export type UserModule = {
+  userModule: UserState
+}
+

@@ -1,6 +1,10 @@
-import { NavLinks } from './NavLinks';
+import { useSelector } from 'react-redux'
+import { NavLinks } from './NavLinks'
+import { UserModule } from '../types/types'
 
 export function Navbar() {
+  const user = useSelector((storeState: UserModule) => storeState.userModule.loggedInUser)
+  console.log(user)
   return (
     <nav className='small-container sm:big-container'>
       <div className="navbar bg-base-100">
@@ -22,7 +26,7 @@ export function Navbar() {
             <li>
               <details>
                 <summary className=''>
-                  Parent
+                  {user.fullName}
                 </summary>
                 <ul className="p-2 bg-base-100 rounded-t-none">
                   <li><a>Link 1</a></li>
