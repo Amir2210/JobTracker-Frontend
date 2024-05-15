@@ -48,7 +48,7 @@ export function CreateUser() {
   const { userName, password, fullName } = credentials
   return (
     <section className='bg-zinc-100 h-screen flex flex-col justify-center items-center px-10'>
-      <form onSubmit={onSubmit} className='sm:bg-white px-11 py-8 rounded-lg sm:border-solid sm:border-y-4 sm:border-t-sky-400 sm:shadow-xl'>
+      <form onSubmit={onSubmit} className='sm:bg-white sm:px-11 py-8 rounded-lg sm:border-solid sm:border-y-4 sm:border-t-sky-400 sm:shadow-xl'>
         <div className=' flex justify-center items-center'>
           <div className=' flex text-4xl bg-sky-400 text-white font-mono font-bold size-14 justify-center items-center rounded-lg'>J</div>
           <div className=' ml-4 text-3xl font-bold tracking-wide text-sky-400'>JobTracker</div>
