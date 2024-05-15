@@ -2,18 +2,9 @@ import { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { login } from '../store/actions/user.actions'
 import { toast } from 'react-toastify'
+import { LoginCredentials } from '../types/types'
 
-type EmptyCredentials = {
-  userName: string,
-  password: string,
-}
-
-type demoUserCredentials = {
-  userName: string,
-  password: string
-}
-
-function getEmptyCredentials(): EmptyCredentials {
+function getEmptyCredentials(): LoginCredentials {
   return {
     userName: '',
     password: '',
@@ -43,7 +34,7 @@ export function Login() {
   }
 
   async function handleDemoLogin() {
-    const demoUser: demoUserCredentials = {
+    const demoUser: LoginCredentials = {
       userName: 'demoUser',
       password: '123'
     }
