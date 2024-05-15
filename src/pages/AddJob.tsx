@@ -22,15 +22,15 @@ export function AddJob() {
             </div>
             <div>
               <label className='text-xl capitalize cursor-pointer mb-2' htmlFor="category">select category</label>
-              <select className="select border-solid border-2 border-sky-300 focus:border-sky-600 focus:outline-none  w-full max-w-xs mt-3">
+              <select className="font-medium text-lg select border-solid border-2 border-sky-300 focus:border-sky-600 focus:outline-none w-full max-w-xs mt-3">
+                <option >pending</option>
                 <option>interview</option>
                 <option>declined</option>
-                <option>pending</option>
               </select>
             </div>
             <div>
               <label className='text-xl capitalize cursor-pointer mb-2' htmlFor="category">job type</label>
-              <select className="select border-solid border-2 border-sky-300 focus:border-sky-600 focus:outline-none  w-full max-w-xs mt-3">
+              <select className="font-medium text-lg select border-solid border-2 border-sky-300 focus:border-sky-600 focus:outline-none  w-full max-w-xs mt-3">
                 <option>full-time</option>
                 <option>part-time</option>
                 <option>remote</option>
