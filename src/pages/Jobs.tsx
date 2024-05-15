@@ -1,7 +1,9 @@
+import { Navbar } from '../cmps/Navbar';
+
 export function Jobs() {
   return (
-    <section>
-      <h1>jobs</h1>
+    <section >
+      <Navbar />
     </section>
   )
 }
