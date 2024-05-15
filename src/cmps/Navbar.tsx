@@ -23,8 +23,8 @@ export function Navbar() {
   }
 
   return (
-    <nav className='small-container sm:big-container'>
-      <div className="navbar bg-base-100">
+    <nav className=' w-full'>
+      <div className="navbar bg-base-100 small-container sm:big-container">
         <div className="navbar-start">
           <div className="dropdown">
             <div tabIndex={0} role="button" className="btn btn-ghost btn-circle">
