@@ -2,7 +2,8 @@ import { useState } from 'react'
 import { Navbar } from '../cmps/Navbar'
 import { Job } from '../types/job.types'
 import { addJob } from '../store/actions/user.actions'
-import { v4 as uuidv4 } from 'uuid';
+import { toast } from 'react-toastify'
+import { v4 as uuidv4 } from 'uuid'
 function getEmptyNewJob(): Job {
   return {
     _id: uuidv4(),
@@ -27,8 +28,10 @@ export function AddJob() {
     ev.preventDefault()
     try {
       addJob(job)
+      toast.success('a new job has been added')
     } catch (error) {
       console.log(error)
+      toast.error('A new job cannot be added')
     }
   }
 
