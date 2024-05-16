@@ -2,8 +2,10 @@ import { useState } from 'react'
 import { Navbar } from '../cmps/Navbar'
 import { Job } from '../types/job.types'
 import { addJob } from '../store/actions/user.actions'
+import { v4 as uuidv4 } from 'uuid';
 function getEmptyNewJob(): Job {
   return {
+    _id: uuidv4(),
     position: '',
     company: '',
     jobLocation: '',

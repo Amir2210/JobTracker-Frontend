@@ -40,6 +40,7 @@ export async function logout() {
 
 
 export function addJob(job: Job) {
+  console.log(job)
   store.dispatch({
     type: ADD_JOB,
     job
