@@ -24,7 +24,7 @@ export function AddJob() {
   async function onAddNewJob(ev: React.FormEvent) {
     ev.preventDefault()
     try {
-      const savedJob = await addJob(job)
+      addJob(job)
     } catch (error) {
       console.log(error)
     }
