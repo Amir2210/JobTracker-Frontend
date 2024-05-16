@@ -50,7 +50,7 @@ export function AddJob() {
         <div className='small-container sm:big-container sm:shadow-xl sm:mt-4 sm:py-4 py-2 px-2 rounded-lg sm:bg-white'>
           <h1 className='text-2xl capitalize font-medium'>Add job</h1>
           <form onSubmit={onAddNewJob} className='grid sm:grid-cols-3 gap-5 mt-4'>
-            <div className=''>
+            <div>
               <label className='text-xl' htmlFor="position">position</label>
               <input onChange={handleInputsChange} id='position' name='position' value={position} type="text" required className="input input-bordered w-full mt-3 border-sky-400 focus:border-sky-600 focus:outline-none" />
             </div>

@@ -22,7 +22,7 @@ export function Navbar() {
   }
 
   return (
-    <nav className=' w-full'>
+    <nav>
       <div className="navbar bg-base-100 small-container sm:big-container">
         <div className="navbar-start">
           <div className="dropdown">
