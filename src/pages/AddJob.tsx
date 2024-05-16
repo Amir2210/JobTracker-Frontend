@@ -4,6 +4,7 @@ import { Job } from '../types/job.types'
 import { addJob } from '../store/actions/user.actions'
 import { toast } from 'react-toastify'
 import { v4 as uuidv4 } from 'uuid'
+import { useNavigate } from 'react-router-dom'
 function getEmptyNewJob(): Job {
   return {
     _id: uuidv4(),
@@ -17,7 +18,7 @@ function getEmptyNewJob(): Job {
 
 export function AddJob() {
   const [job, setJob] = useState(getEmptyNewJob())
-
+  const navigate = useNavigate()
   function handleInputsChange(ev: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) {
     const field = ev.target.name
     const value = ev.target.value
@@ -29,6 +30,7 @@ export function AddJob() {
     try {
       addJob(job)
       toast.success('a new job has been added')
+      navigate('/jobs')
     } catch (error) {
       console.log(error)
       toast.error('A new job cannot be added')
