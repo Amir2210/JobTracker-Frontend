@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { Navbar } from '../cmps/Navbar'
 import { Job } from '../types/job.types'
+import { addJob } from '../store/actions/user.actions'
 function getEmptyNewJob(): Job {
   return {
     position: '',
@@ -20,9 +21,13 @@ export function AddJob() {
     setJob((job) => ({ ...job, [field]: value }))
   }
 
-  function onAddNewJob(ev: React.FormEvent) {
+  async function onAddNewJob(ev: React.FormEvent) {
     ev.preventDefault()
-    console.log(job)
+    try {
+      const savedJob = await addJob(job)
+    } catch (error) {
+      console.log(error)
+    }
   }
 
   function onClearInputs(ev: React.MouseEvent<HTMLButtonElement, MouseEvent>) {
