@@ -1,6 +1,6 @@
 import { store } from "../store.ts"
 import { userService } from "../../services/user.service.ts"
-import { SET_USER, ADD_JOB, DELETE_JOB } from '../reducers/user.reducer.ts'
+import { SET_USER, ADD_JOB, DELETE_JOB, UPDATE_JOB } from '../reducers/user.reducer.ts'
 import { LoginCredentials, signUpCredentials, User } from '../../types/user.types.ts'
 import { Job } from '../../types/job.types.ts'
 
@@ -51,6 +51,15 @@ export function deleteJob(job_id: string) {
   store.dispatch({
     type: DELETE_JOB,
     job_id
+  })
+  _updateUser()
+}
+
+export function editJob(job: Job) {
+  console.log(job)
+  store.dispatch({
+    type: UPDATE_JOB,
+    job
   })
   _updateUser()
 }

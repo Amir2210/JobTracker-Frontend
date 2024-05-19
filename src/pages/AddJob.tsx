@@ -1,10 +1,10 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Navbar } from '../cmps/Navbar'
 import { Job } from '../types/job.types'
-import { addJob } from '../store/actions/user.actions'
+import { addJob, editJob } from '../store/actions/user.actions'
 import { toast } from 'react-toastify'
 import { v4 as uuidv4 } from 'uuid'
-import { useNavigate } from 'react-router-dom'
+import { useLocation, useNavigate } from 'react-router-dom'
 function getEmptyNewJob(): Job {
   return {
     _id: uuidv4(),
@@ -18,8 +18,17 @@ function getEmptyNewJob(): Job {
 }
 
 export function AddJob() {
-  const [job, setJob] = useState(getEmptyNewJob())
+  const location = useLocation()
+  const jobToEdit = location.state?.job as Job | undefined;
+  const [job, setJob] = useState<Job>(jobToEdit || getEmptyNewJob())
+  console.log(jobToEdit)
   const navigate = useNavigate()
+
+  // useEffect(() => {
+  //   if (jobToEdit) {
+  //     setJob(jobToEdit);
+  //   }
+  // }, [jobToEdit]);
 
   function handleInputsChange(ev: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) {
     const field = ev.target.name
@@ -30,9 +39,15 @@ export function AddJob() {
   async function onAddNewJob(ev: React.FormEvent) {
     ev.preventDefault()
     try {
-      addJob(job)
-      toast.success('a new job has been added')
-      navigate('/jobs')
+      if (jobToEdit) {
+        editJob(job)
+        toast.success('job has been updated')
+        navigate('/jobs')
+      } else {
+        addJob(job)
+        toast.success('a new job has been added')
+        navigate('/jobs')
+      }
     } catch (error) {
       console.log(error)
       toast.error('A new job cannot be added')
@@ -43,14 +58,17 @@ export function AddJob() {
     ev.preventDefault()
     setJob(getEmptyNewJob())
   }
-
   const { position, jobType, status, jobLocation, company } = job
   return (
     <section >
       <Navbar />
       <div className='bg-zinc-100 h-screen flex flex-col w-full'>
         <div className='small-container sm:big-container sm:shadow-xl sm:mt-4 sm:py-4 py-2 px-2 rounded-lg sm:bg-white'>
-          <h1 className='text-2xl capitalize font-medium'>Add job</h1>
+          {!jobToEdit ? (
+            <h1 className='text-2xl capitalize font-medium'>Add job</h1>
+          ) : (
+            <h1 className='text-2xl capitalize font-medium'>edit job</h1>
+          )}
           <form onSubmit={onAddNewJob} className='grid sm:grid-cols-3 gap-5 mt-4'>
             <div>
               <label className='text-xl' htmlFor="position">position</label>

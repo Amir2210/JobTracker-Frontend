@@ -25,12 +25,17 @@ type AddJobAction = {
   job: Job
 }
 
+type editJobAction = {
+  type: typeof UPDATE_JOB
+  job: Job
+}
+
 type deleteJobAction = {
   type: typeof DELETE_JOB
   job_id: String
 }
 
-type UserAction = SetUserAction | SetIsLoadingAction | AddJobAction | deleteJobAction
+type UserAction = SetUserAction | SetIsLoadingAction | AddJobAction | deleteJobAction | editJobAction
 
 const initialState: UserState = {
   loggedInUser: userService.getLoggedInUser(),
@@ -61,6 +66,12 @@ export function userReducer(state: UserState = initialState, action: UserAction)
         const userJobs: Job[] = [...state.loggedInUser.jobs]
         const newUserJobs: Job[] = userJobs.filter(job => job._id !== action.job_id)
         return { ...state, loggedInUser: { ...state.loggedInUser, jobs: newUserJobs } }
+      }
+      break
+    case UPDATE_JOB:
+      if ('job' in action && state.loggedInUser) {
+        userJobs = state.loggedInUser.jobs.map(job => job._id === action.job._id ? action.job : job)
+        return { ...state, loggedInUser: { ...state.loggedInUser, jobs: userJobs } }
       }
       break
     default:
