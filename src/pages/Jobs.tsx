@@ -50,7 +50,7 @@ export function Jobs() {
                   <h2 className='text-slate-500 capitalize'>{job.company}</h2>
                 </div>
               </div>
-              <div className='grid sm:grid-cols-2 gap-8 py-3 px-3'>
+              <div className='grid sm:grid-cols-2 gap-6 sm:gap-8 py-3 px-3'>
                 <div className='flex items-center gap-5'>
                   <FaLocationArrow className='text-slate-400' />
                   <p className='text-sky-950 text-lg capitalize'>{job.jobLocation}</p>
@@ -60,7 +60,7 @@ export function Jobs() {
                   <p className='text-sky-950 text-lg capitalize'>{job.jobType}</p>
                 </div>
               </div>
-              <div className='grid sm:grid-cols-2 gap-8 py-3 px-3'>
+              <div className='grid sm:grid-cols-2 gap-6 sm:gap-8 py-3 px-3'>
                 <div className='flex items-center gap-5'>
                   <p className={`${statusClass(job.status)} btn  font-medium rounded-sm `}>{job.status}</p>
                 </div>
