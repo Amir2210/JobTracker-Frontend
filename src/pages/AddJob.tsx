@@ -101,7 +101,11 @@ export function AddJob() {
             </div>
             <div className='flex items-end gap-5'>
               <button type='button' onClick={onClearInputs} className='btn bg-sky-700 text-white capitalize hover:bg-sky-800 w-1/3'>clear</button>
-              <button type='submit' className='btn bg-sky-400 text-white capitalize hover:bg-sky-600 w-1/3'>add</button>
+              {!jobToEdit ? (
+                <button type='submit' className='btn bg-sky-400 text-white capitalize hover:bg-sky-600 w-1/3'>add</button>
+              ) : (
+                <button type='submit' className='btn bg-sky-400 text-white capitalize hover:bg-sky-600 w-1/3'>update</button>
+              )}
             </div>
           </form>
         </div>
