@@ -20,6 +20,7 @@ function getEmptyNewJob(): Job {
 export function AddJob() {
   const [job, setJob] = useState(getEmptyNewJob())
   const navigate = useNavigate()
+
   function handleInputsChange(ev: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) {
     const field = ev.target.name
     const value = ev.target.value

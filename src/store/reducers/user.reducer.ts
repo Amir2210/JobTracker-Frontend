@@ -8,7 +8,7 @@ export const SET_IS_LOADING: string = 'SET_IS_LOADING'
 // job
 export const UPDATE_JOB: string = 'UPDATE_JOB'
 export const ADD_JOB: string = 'ADD_JOB'
-
+export const DELETE_JOB: string = 'DELETE_JOB'
 
 type SetUserAction = {
   type: typeof SET_USER
@@ -25,7 +25,12 @@ type AddJobAction = {
   job: Job
 }
 
-type UserAction = SetUserAction | SetIsLoadingAction | AddJobAction
+type deleteJobAction = {
+  type: typeof DELETE_JOB
+  job_id: String
+}
+
+type UserAction = SetUserAction | SetIsLoadingAction | AddJobAction | deleteJobAction
 
 const initialState: UserState = {
   loggedInUser: userService.getLoggedInUser(),
@@ -49,6 +54,13 @@ export function userReducer(state: UserState = initialState, action: UserAction)
       if ('job' in action && state.loggedInUser) {
         userJobs = [action.job, ...state.loggedInUser.jobs]
         return { ...state, loggedInUser: { ...state.loggedInUser, jobs: userJobs } }
+      }
+      break
+    case DELETE_JOB:
+      if ('job_id' in action && state.loggedInUser) {
+        const userJobs: Job[] = [...state.loggedInUser.jobs]
+        const newUserJobs: Job[] = userJobs.filter(job => job._id !== action.job_id)
+        return { ...state, loggedInUser: { ...state.loggedInUser, jobs: newUserJobs } }
       }
       break
     default:

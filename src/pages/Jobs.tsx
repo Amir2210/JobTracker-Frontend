@@ -7,18 +7,28 @@ import { FaLocationArrow } from "react-icons/fa"
 import { FaSuitcase } from "react-icons/fa"
 import { FaCalendarAlt } from "react-icons/fa";
 import { formatDate } from '../utils/util'
+import { deleteJob } from '../store/actions/user.actions'
 
 
 
 export function Jobs() {
   const userJobs: Job[] | undefined = useSelector((storeState: UserModule) => storeState.userModule.loggedInUser?.jobs)
   function statusClass(status: string): string {
+
     if (status === 'pending') {
       return 'bg-orange-200 text-orange-600 hover:bg-orange-200 border-none shadow-lg shadow-orange-200/50'
     } else if (status === 'interview') {
       return 'bg-blue-200 text-blue-600 hover:bg-blue-200 border-none shadow-lg shadow-blue-200/50'
     } else {
       return 'bg-red-200 text-red-600 hover:bg-red-200 border-none shadow-lg shadow-red-200/50'
+    }
+  }
+
+  async function onDeleteJob(job_id: string) {
+    try {
+      await deleteJob(job_id)
+    } catch (error) {
+      console.log(error)
     }
   }
   return (
@@ -60,7 +70,7 @@ export function Jobs() {
                   <button className='btn capitalize bg-lime-100 text-lime-600 shadow-lg shadow-lime-100/50 rounded-sm hover:bg-lime-200 border-none'>edit</button>
                 </div>
                 <div className='flex items-center '>
-                  <button className='btn capitalize bg-red-100 text-red-600 shadow-lg shadow-red100/50 hover:bg-red-200 border-none'>delete</button>
+                  <button onClick={() => onDeleteJob(job._id)} className='btn capitalize bg-red-100 text-red-600 shadow-lg shadow-red100/50 hover:bg-red-200 border-none'>delete</button>
                 </div>
               </div>
             </article>)}
