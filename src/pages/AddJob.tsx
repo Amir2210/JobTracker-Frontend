@@ -12,7 +12,8 @@ function getEmptyNewJob(): Job {
     company: '',
     jobLocation: '',
     status: 'pending',
-    jobType: 'full-time'
+    jobType: 'full-time',
+    time: Date.now()
   }
 }
 
