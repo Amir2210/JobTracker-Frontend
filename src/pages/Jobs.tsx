@@ -8,6 +8,7 @@ import { FaSuitcase } from "react-icons/fa"
 import { FaCalendarAlt } from "react-icons/fa";
 import { formatDate } from '../utils/util'
 import { deleteJob } from '../store/actions/user.actions'
+import { toast } from 'react-toastify'
 
 
 
@@ -27,8 +28,10 @@ export function Jobs() {
   async function onDeleteJob(job_id: string) {
     try {
       deleteJob(job_id)
+      toast.success('Job deleted successfully')
     } catch (error) {
       console.log(error)
+      toast.error('Unfortunately, we could not delete a job')
     }
   }
   return (
