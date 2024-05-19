@@ -38,7 +38,7 @@ export function Jobs() {
   return (
     <section >
       <Navbar />
-      <div className='bg-zinc-100 h-full w-full'>
+      <div className='bg-zinc-100 min-h-screen'>
         <div className='small-container sm:big-container sm:mt-4 sm:py-4 py-2  '>
           <h1 className='text-2xl capitalize font-medium'>{userJobs?.length} {userJobs?.length === 1 ? 'job' : 'jobs'} found</h1>
           <div className='grid sm:grid-cols-2 gap-5 mt-4'>
