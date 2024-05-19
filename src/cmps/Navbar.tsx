@@ -3,7 +3,7 @@ import { NavLinks } from './NavLinks'
 import { UserModule } from '../types/user.types'
 import { logout } from '../store/actions/user.actions'
 import { toast } from 'react-toastify'
-import { useNavigate } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { CgProfile } from "react-icons/cg";
 
 
@@ -35,7 +35,7 @@ export function Navbar() {
           </div>
         </div>
         <div className="navbar-center">
-          <a className=" text-2xl sm:text-3xl font-mono font-bold">JobTracker</a>
+          <Link to={'/jobs'} className=" text-2xl sm:text-3xl font-mono font-bold">JobTracker</Link>
         </div>
         <div className="navbar-end hidden sm:flex">
           <ul className="menu menu-horizontal px-1">
