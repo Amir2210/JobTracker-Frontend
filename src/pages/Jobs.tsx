@@ -5,7 +5,8 @@ import { Job } from '../types/job.types'
 import { MdOutlinePendingActions } from "react-icons/md"
 import { FaLocationArrow } from "react-icons/fa"
 import { FaSuitcase } from "react-icons/fa"
-
+import { FaCalendarAlt } from "react-icons/fa";
+import { formatDate } from '../utils/util'
 
 
 
@@ -13,11 +14,11 @@ export function Jobs() {
   const userJobs: Job[] | undefined = useSelector((storeState: UserModule) => storeState.userModule.loggedInUser?.jobs)
   function statusClass(status: string): string {
     if (status === 'pending') {
-      return 'bg-orange-200 text-orange-600 shadow-lg shadow-orange-200/50'
+      return 'bg-orange-200 text-orange-600 hover:bg-orange-200 border-none shadow-lg shadow-orange-200/50'
     } else if (status === 'interview') {
-      return 'bg-blue-200 text-blue-600 shadow-lg shadow-blue-200/50'
+      return 'bg-blue-200 text-blue-600 hover:bg-blue-200 border-none shadow-lg shadow-blue-200/50'
     } else {
-      return 'bg-red-200 text-red-600 shadow-lg shadow-red-200/50'
+      return 'bg-red-200 text-red-600 hover:bg-red-200 border-none shadow-lg shadow-red-200/50'
     }
   }
   return (
@@ -35,7 +36,7 @@ export function Jobs() {
                   <h2 className='text-slate-500 capitalize'>{job.company}</h2>
                 </div>
               </div>
-              <div className='flex gap-16 sm:gap-32 py-3 px-3'>
+              <div className='grid sm:grid-cols-2 gap-8 py-3 px-3'>
                 <div className='flex items-center gap-5'>
                   <FaLocationArrow className='text-slate-400' />
                   <p className='text-sky-950 text-lg capitalize'>{job.jobLocation}</p>
@@ -45,12 +46,21 @@ export function Jobs() {
                   <p className='text-sky-950 text-lg capitalize'>{job.jobLocation}</p>
                 </div>
               </div>
-              <div className='flex gap-32 py-3 px-3'>
+              <div className='grid sm:grid-cols-2 gap-8 py-3 px-3'>
                 <div className='flex items-center gap-5'>
-                  <p className={`${statusClass(job.status)} p-2 font-medium rounded-sm`}>{job.status}</p>
+                  <p className={`${statusClass(job.status)} btn  font-medium rounded-sm `}>{job.status}</p>
                 </div>
                 <div className='flex items-center gap-5'>
-
+                  <FaCalendarAlt className='text-slate-400' />
+                  <p className='text-sky-950 text-lg capitalize'>{formatDate(job.time)}</p>
+                </div>
+              </div>
+              <div className='flex gap-5 py-3 px-3'>
+                <div className='flex items-center '>
+                  <button className='btn capitalize bg-lime-100 text-lime-600 shadow-lg shadow-lime-100/50 rounded-sm hover:bg-lime-200 border-none'>edit</button>
+                </div>
+                <div className='flex items-center '>
+                  <button className='btn capitalize bg-red-100 text-red-600 shadow-lg shadow-red100/50 hover:bg-red-200 border-none'>delete</button>
                 </div>
               </div>
             </article>)}

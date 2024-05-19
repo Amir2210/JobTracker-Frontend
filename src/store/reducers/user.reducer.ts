@@ -47,7 +47,7 @@ export function userReducer(state: UserState = initialState, action: UserAction)
       break
     case ADD_JOB:
       if ('job' in action && state.loggedInUser) {
-        userJobs = [...state.loggedInUser.jobs, action.job]
+        userJobs = [action.job, ...state.loggedInUser.jobs]
         return { ...state, loggedInUser: { ...state.loggedInUser, jobs: userJobs } }
       }
       break
