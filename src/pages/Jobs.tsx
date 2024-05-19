@@ -57,7 +57,7 @@ export function Jobs() {
                 </div>
                 <div className='flex items-center gap-5'>
                   <FaSuitcase className='text-slate-400' />
-                  <p className='text-sky-950 text-lg capitalize'>{job.jobLocation}</p>
+                  <p className='text-sky-950 text-lg capitalize'>{job.jobType}</p>
                 </div>
               </div>
               <div className='grid sm:grid-cols-2 gap-8 py-3 px-3'>
