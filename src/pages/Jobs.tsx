@@ -26,7 +26,7 @@ export function Jobs() {
 
   async function onDeleteJob(job_id: string) {
     try {
-      await deleteJob(job_id)
+      deleteJob(job_id)
     } catch (error) {
       console.log(error)
     }
