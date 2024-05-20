@@ -37,8 +37,6 @@ export async function logout() {
   }
 }
 
-
-
 export function addJob(job: Job) {
   store.dispatch({
     type: ADD_JOB,
@@ -62,6 +60,15 @@ export function editJob(job: Job) {
     job
   })
   _updateUser()
+}
+
+export async function loadJobs(user_id: string) {
+  try {
+    const job = await userService.getById(user_id)
+    console.log('job aka user:', job)
+  } catch (error) {
+    console.log(error)
+  }
 }
 
 

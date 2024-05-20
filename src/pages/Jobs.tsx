@@ -1,22 +1,31 @@
 import { useSelector } from 'react-redux'
 import { Navbar } from '../cmps/Navbar'
-import { UserModule } from '../types/user.types'
+import { User, UserModule, UserState } from '../types/user.types'
 import { Job } from '../types/job.types'
 import { MdOutlinePendingActions } from "react-icons/md"
 import { FaLocationArrow } from "react-icons/fa"
 import { FaSuitcase } from "react-icons/fa"
 import { FaCalendarAlt } from "react-icons/fa";
 import { formatDate } from '../utils/util'
-import { deleteJob } from '../store/actions/user.actions'
+import { deleteJob, loadJobs } from '../store/actions/user.actions'
 import { toast } from 'react-toastify'
 import { Link } from 'react-router-dom'
+import { useEffect } from 'react'
+import { FilterJob } from '../cmps/FilterJob'
 
 
 
 export function Jobs() {
   const userJobs: Job[] | undefined = useSelector((storeState: UserModule) => storeState.userModule.loggedInUser?.jobs)
-  function statusClass(status: string): string {
+  const user: User | null = useSelector((storeState: UserModule) => storeState.userModule.loggedInUser)
 
+  useEffect(() => {
+    if (user) {
+      loadJobs(user._id)
+    }
+  }, [])
+
+  function statusClass(status: string): string {
     if (status === 'pending') {
       return 'bg-orange-200 text-orange-600 hover:bg-orange-200 border-none shadow-lg shadow-orange-200/50'
     } else if (status === 'interview') {
@@ -40,6 +49,7 @@ export function Jobs() {
       <Navbar />
       <div className='bg-zinc-100 min-h-screen'>
         <div className='small-container sm:big-container sm:mt-4 sm:py-4 py-2  '>
+          <FilterJob />
           <h1 className='text-2xl capitalize font-medium'>{userJobs?.length} {userJobs?.length === 1 ? 'job' : 'jobs'} found</h1>
           <div className='grid sm:grid-cols-2 gap-5 mt-4'>
             {userJobs?.map(job => <article key={job._id} className='sm:shadow-xl sm:mt-4 sm:py-4 py-2 px-2 rounded-lg bg-white'>
