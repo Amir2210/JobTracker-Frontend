@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { Navbar } from '../cmps/Navbar'
 import { Job } from '../types/job.types'
 import { addJob, editJob } from '../store/actions/user.actions'
@@ -21,14 +21,7 @@ export function AddJob() {
   const location = useLocation()
   const jobToEdit = location.state?.job as Job | undefined;
   const [job, setJob] = useState<Job>(jobToEdit || getEmptyNewJob())
-  console.log(jobToEdit)
   const navigate = useNavigate()
-
-  // useEffect(() => {
-  //   if (jobToEdit) {
-  //     setJob(jobToEdit);
-  //   }
-  // }, [jobToEdit]);
 
   function handleInputsChange(ev: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) {
     const field = ev.target.name

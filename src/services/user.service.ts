@@ -1,6 +1,7 @@
 
 import { httpService } from './http.service.js'
 import { LoginCredentials, User, signUpCredentials } from '../types/user.types.js'
+import { FilterBy } from '../types/filter-sort.js'
 const BASE_URL: string = 'auth/'
 const STORAGE_KEY_LOGGEDIN: string = 'loggedInUser'
 export const userService = {
@@ -18,8 +19,8 @@ function getUsers() {
     return httpService.get(`user`)
 }
 
-async function getById(userId: string) {
-    const user = await httpService.get(`user/${userId}`)
+async function getById(userId: string, filterBy: FilterBy) {
+    const user = await httpService.get(`user/${userId}`, { params: { filterBy } })
     return user
 }
 

@@ -1,4 +1,6 @@
+import { jobsService } from '../../services/jobs.service.ts'
 import { userService } from "../../services/user.service.ts"
+import { FilterBy } from '../../types/filter-sort.ts'
 import { Job } from '../../types/job.types.ts'
 import { UserState } from '../../types/user.types.ts'
 import { User } from '../../types/user.types.ts'
@@ -9,6 +11,7 @@ export const SET_IS_LOADING: string = 'SET_IS_LOADING'
 export const UPDATE_JOB: string = 'UPDATE_JOB'
 export const ADD_JOB: string = 'ADD_JOB'
 export const DELETE_JOB: string = 'DELETE_JOB'
+export const SET_FILTER_BY: string = 'SET_FILTER_BY'
 
 type SetUserAction = {
   type: typeof SET_USER
@@ -35,11 +38,17 @@ type deleteJobAction = {
   job_id: String
 }
 
-type UserAction = SetUserAction | SetIsLoadingAction | AddJobAction | deleteJobAction | editJobAction
+type filterJobAction = {
+  type: typeof SET_FILTER_BY
+  filterBy: FilterBy
+}
+
+type UserAction = SetUserAction | SetIsLoadingAction | AddJobAction | deleteJobAction | editJobAction | filterJobAction
 
 const initialState: UserState = {
   loggedInUser: userService.getLoggedInUser(),
   isLoading: false,
+  filterBy: jobsService.getDefaultFilterBy()
 }
 
 export function userReducer(state: UserState = initialState, action: UserAction): UserState {
@@ -72,6 +81,11 @@ export function userReducer(state: UserState = initialState, action: UserAction)
       if ('job' in action && state.loggedInUser) {
         userJobs = state.loggedInUser.jobs.map(job => job._id === action.job._id ? action.job : job)
         return { ...state, loggedInUser: { ...state.loggedInUser, jobs: userJobs } }
+      }
+      break
+    case SET_FILTER_BY:
+      if ('filterBy' in action && state.loggedInUser) {
+        return { ...state, filterBy: { ...state.filterBy, ...action.filterBy } }
       }
       break
     default:

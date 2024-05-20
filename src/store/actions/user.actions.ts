@@ -1,8 +1,9 @@
 import { store } from "../store.ts"
 import { userService } from "../../services/user.service.ts"
-import { SET_USER, ADD_JOB, DELETE_JOB, UPDATE_JOB } from '../reducers/user.reducer.ts'
+import { SET_USER, ADD_JOB, DELETE_JOB, UPDATE_JOB, SET_FILTER_BY } from '../reducers/user.reducer.ts'
 import { LoginCredentials, signUpCredentials, User } from '../../types/user.types.ts'
 import { Job } from '../../types/job.types.ts'
+import { FilterBy } from '../../types/filter-sort.ts'
 
 export async function login(credentials: LoginCredentials) {
   try {
@@ -62,10 +63,12 @@ export function editJob(job: Job) {
   _updateUser()
 }
 
-export async function loadJobs(user_id: string) {
+export async function loadJobs(user_id: string, filterBy: FilterBy) {
+  // console.log(filterBy)
   try {
-    const job = await userService.getById(user_id)
-    console.log('job aka user:', job)
+    const user = await userService.getById(user_id, filterBy)
+    // console.log('job aka user:', job)
+    store.dispatch({ type: SET_USER, user: user })
   } catch (error) {
     console.log(error)
   }
@@ -86,4 +89,8 @@ async function _updateUser() {
     console.log('error:', error)
     throw error
   }
+}
+
+export function setFilterBy(filterBy: FilterBy) {
+  store.dispatch({ type: SET_FILTER_BY, filterBy })
 }
