@@ -20,7 +20,7 @@ export function Jobs() {
   const userJobs: Job[] | undefined = useSelector((storeState: UserModule) => storeState.userModule.loggedInUser?.jobs)
   const user: User | null = useSelector((storeState: UserModule) => storeState.userModule.loggedInUser)
   const filterBy: FilterBy = useSelector((storeState: UserModule) => storeState.userModule.filterBy)
-
+  console.log(filterBy)
   useEffect(() => {
     if (user) {
       loadJobs(user._id, filterBy)
@@ -95,8 +95,8 @@ export function Jobs() {
               </div>
             </article>)}
           </div>
-          <p className='capitalize my-4 text-2xl sm:text-4xl'>add more jobs <span className='link text-sky-400'><Link to={'/addJob'}>here</Link> </span></p>
-          {!userJobs?.length && <div className='flex flex-col justify-center items-center mt-4'>
+          {userJobs?.length && !filterBy.txt && !filterBy.status && !filterBy.jobType ? <p className='capitalize my-4 text-2xl sm:text-4xl'>add more jobs <span className='link text-sky-400'><Link to={'/addJob'}>here</Link> </span></p> : null}
+          {!userJobs?.length && !filterBy.txt && !filterBy.status && !filterBy.jobType && <div className='flex flex-col justify-center items-center mt-4'>
             <img className='size-48 sm:size-96' src="https://res.cloudinary.com/dxm0sqcfp/image/upload/v1715154175/job%20tracker/ocfxopyi3lshmxzmucwd.svg" alt="" />
             <p className='capitalize mt-4 text-2xl sm:text-4xl'>add your first job <span className='link text-sky-400'><Link to={'/addJob'}>here</Link> </span></p>
           </div>}
