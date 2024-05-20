@@ -1,6 +1,6 @@
 import { store } from "../store.ts"
 import { userService } from "../../services/user.service.ts"
-import { SET_USER, ADD_JOB, DELETE_JOB, UPDATE_JOB, SET_FILTER_BY } from '../reducers/user.reducer.ts'
+import { SET_USER, ADD_JOB, DELETE_JOB, UPDATE_JOB, SET_FILTER_BY, SET_IS_LOADING } from '../reducers/user.reducer.ts'
 import { LoginCredentials, signUpCredentials, User } from '../../types/user.types.ts'
 import { Job } from '../../types/job.types.ts'
 import { FilterBy } from '../../types/filter-sort.ts'
@@ -64,13 +64,14 @@ export function editJob(job: Job) {
 }
 
 export async function loadJobs(user_id: string, filterBy: FilterBy) {
-  // console.log(filterBy)
+  store.dispatch({ type: SET_IS_LOADING, isLoading: true })
   try {
     const user = await userService.getById(user_id, filterBy)
-    // console.log('job aka user:', job)
     store.dispatch({ type: SET_USER, user: user })
   } catch (error) {
     console.log(error)
+  } finally {
+    store.dispatch({ type: SET_IS_LOADING, isLoading: false })
   }
 }
 

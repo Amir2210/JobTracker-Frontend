@@ -13,14 +13,15 @@ import { Link } from 'react-router-dom'
 import { useEffect } from 'react'
 import { FilterJob } from '../cmps/FilterJob'
 import { FilterBy } from '../types/filter-sort'
-
+// LOADER
+import { FallingLines } from 'react-loader-spinner'
 
 
 export function Jobs() {
   const userJobs: Job[] | undefined = useSelector((storeState: UserModule) => storeState.userModule.loggedInUser?.jobs)
   const user: User | null = useSelector((storeState: UserModule) => storeState.userModule.loggedInUser)
   const filterBy: FilterBy = useSelector((storeState: UserModule) => storeState.userModule.filterBy)
-  console.log(filterBy)
+  const isLoading: boolean = useSelector((storeState: UserModule) => storeState.userModule.isLoading)
   useEffect(() => {
     if (user) {
       loadJobs(user._id, filterBy)
@@ -58,7 +59,7 @@ export function Jobs() {
           <FilterJob filterBy={filterBy} onSetFilter={onSetFilter} />
           <h1 className='text-2xl capitalize font-medium'>{userJobs?.length} {userJobs?.length === 1 ? 'job' : 'jobs'} found</h1>
           <div className='grid sm:grid-cols-2 gap-5 mt-4'>
-            {userJobs?.map(job => <article key={job._id} className='sm:shadow-xl sm:mt-4 sm:py-4 py-2 px-2 rounded-lg bg-white'>
+            {!isLoading && userJobs?.map(job => <article key={job._id} className='sm:shadow-xl sm:mt-4 sm:py-4 py-2 px-2 rounded-lg bg-white'>
               <div className='flex gap-8 border-solid border-indigo-100 border-b py-3 px-3'>
                 <div className='text-4xl bg-sky-400 text-white font-mono font-bold size-14 flex justify-center items-center rounded-lg'><MdOutlinePendingActions /></div>
                 <div>
@@ -94,6 +95,11 @@ export function Jobs() {
                 </div>
               </div>
             </article>)}
+            {isLoading && <FallingLines
+              color="#38bdf8"
+              width="100"
+              visible={true}
+            />}
           </div>
           {userJobs?.length && !filterBy.txt && !filterBy.status && !filterBy.jobType ? <p className='capitalize my-4 text-2xl sm:text-4xl'>add more jobs <span className='link text-sky-400'><Link to={'/addJob'}>here</Link> </span></p> : null}
           {!userJobs?.length && !filterBy.txt && !filterBy.status && !filterBy.jobType && <div className='flex flex-col justify-center items-center mt-4'>
