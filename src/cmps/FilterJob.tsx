@@ -59,11 +59,11 @@ export function FilterJob({ filterBy, onSetFilter }: FilterProps) {
           <form className='flex flex-col' onSubmit={handleSubmit}>
             <div className='grid sm:grid-cols-3 gap-5'>
               <div className='flex flex-col'>
-                <label className='capitalize cursor-pointer mb-2' htmlFor="txt">search job</label>
+                <label className='capitalize cursor-pointer mb-2 text-lg' htmlFor="txt">search job</label>
                 <input onChange={handleChange} id='txt' name='txt' type="text" value={filterByToEdit.txt} className="input border-sky-400 focus:border-sky-600 focus:outline-none w-full max-w-xs" />
               </div>
               <div className='flex flex-col'>
-                <label className='capitalize cursor-pointer mb-2' htmlFor="status">status</label>
+                <label className='capitalize cursor-pointer mb-2 text-lg' htmlFor="status">status</label>
                 <select onChange={handleChange} id='status' name='status' value={filterByToEdit.status} className="select border-sky-400 focus:border-sky-600 focus:outline-none w-full max-w-xs">
                   <option value={''}>all</option>
                   <option>Interview</option>
@@ -72,7 +72,7 @@ export function FilterJob({ filterBy, onSetFilter }: FilterProps) {
                 </select>
               </div>
               <div className='flex flex-col'>
-                <label className='capitalize cursor-pointer mb-2' htmlFor="jobType">type</label>
+                <label className='capitalize cursor-pointer mb-2 text-lg' htmlFor="jobType">type</label>
                 <select onChange={handleChange} id='jobType' name='jobType' value={filterByToEdit.jobType} className="select border-sky-400 focus:border-sky-600 focus:outline-none w-full max-w-xs">
                   <option value={''}>all</option>
                   <option>full-time</option>
@@ -82,7 +82,7 @@ export function FilterJob({ filterBy, onSetFilter }: FilterProps) {
                 </select>
               </div>
               <div className='flex flex-col'>
-                <label className='capitalize cursor-pointer mb-2' htmlFor="sortBy">sort by</label>
+                <label className='capitalize cursor-pointer mb-2 text-lg' htmlFor="sortBy">sort by</label>
                 <select id='sortBy' name='by' className="select border-sky-400 focus:border-sky-600 focus:outline-none w-full max-w-xs">
                   <option value={'title'}>a-z</option>
                   <option value={'-title'}>z-a</option>
