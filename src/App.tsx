@@ -13,7 +13,6 @@ import 'react-toastify/dist/ReactToastify.css'
 import { ToastContainer } from 'react-toastify'
 import { AddJob } from './pages/AddJob'
 import { Stats } from './cmps/Stats'
-import { EditJob } from './pages/EditJob'
 
 function App() {
 
@@ -27,7 +26,6 @@ function App() {
           <Route path='/createUser' element={<CreateUser />} />
           <Route path='/jobs' element={<Jobs />} />
           <Route path='/addJob' element={<AddJob />} />
-          <Route path='/editJob' element={<EditJob />} />
           <Route path='/stats' element={<Stats />} />
         </Routes>
       </Router>
