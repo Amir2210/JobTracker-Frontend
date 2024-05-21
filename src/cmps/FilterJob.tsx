@@ -1,19 +1,27 @@
 import { useRef, useState } from 'react'
 import { IoIosArrowDropdownCircle } from "react-icons/io"
 import { IoIosArrowDropupCircle } from "react-icons/io"
-import { FilterBy } from '../types/filter-sort'
+import { FilterBy, SortBy } from '../types/filter-sort'
 
 type FilterProps = {
   filterBy: FilterBy,
   onSetFilter: (filterBy: FilterBy) => void
+  sortBy: SortBy
+  onSetSort: (sortBy: SortBy) => void
 }
+
 
 type FilterByToEdit = FilterBy & {
   [key: string]: string | number | boolean | string[];
 }
 
-export function FilterJob({ filterBy, onSetFilter }: FilterProps) {
+type SortByToEdit = SortBy & {
+  [key: string]: string | number | boolean | string[];
+}
+
+export function FilterJob({ filterBy, onSetFilter, sortBy, onSetSort }: FilterProps) {
   const [filterByToEdit, setFilterByToEdit] = useState<FilterByToEdit>({ ...filterBy })
+  const [sortByToEdit, setSortByToEdit] = useState<SortByToEdit>({ ...sortBy })
   const [isFilterModalOpen, setIsFilterModalOpen] = useState(false)
   const filterModalRef = useRef<HTMLInputElement>(null)
 
@@ -32,9 +40,26 @@ export function FilterJob({ filterBy, onSetFilter }: FilterProps) {
     setFilterByToEdit((prevFilter: FilterByToEdit) => ({ ...prevFilter, [field]: newValue }))
   }
 
+
+  function handleSortChange(event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) {
+    const { value, name: field, type } = event.target
+
+    let newValue: string | number | boolean | string[] = value
+    if (type === 'number') {
+      newValue = +value
+    } else if (type === 'checkbox') {
+      newValue = (event.target as HTMLInputElement).checked
+    } else if (type === 'select-multiple') {
+      newValue = Array.from((event.target as HTMLSelectElement).selectedOptions, (option) => option.value)
+    }
+
+    setSortByToEdit((prevSort: SortByToEdit) => ({ ...prevSort, [field]: newValue }))
+  }
+
   function handleSubmit(ev: React.FormEvent) {
     ev.preventDefault()
     onSetFilter(filterByToEdit)
+    onSetSort(sortByToEdit)
     if (filterModalRef.current) {
       filterModalRef.current.checked = false
       setIsFilterModalOpen(false)
@@ -83,11 +108,11 @@ export function FilterJob({ filterBy, onSetFilter }: FilterProps) {
               </div>
               <div className='flex flex-col'>
                 <label className='capitalize cursor-pointer mb-2 text-lg' htmlFor="sortBy">sort by</label>
-                <select id='sortBy' name='by' className="select border-sky-400 focus:border-sky-600 focus:outline-none w-full max-w-xs">
-                  <option value={'title'}>a-z</option>
-                  <option value={'-title'}>z-a</option>
-                  <option value={'latest'}>latest</option>
-                  <option value={'oldest'}>oldest</option>
+                <select onChange={handleSortChange} id='sortBy' name='subject' value={sortByToEdit.subject} className="select border-sky-400 focus:border-sky-600 focus:outline-none w-full max-w-xs">
+                  <option className='capitalize' value={'position'}>a-z</option>
+                  <option className='capitalize' value={'-position'}>z-a</option>
+                  <option className='capitalize' value={'-time'}>latest</option>
+                  <option className='capitalize' value={'time'}>oldest</option>
                 </select>
               </div>
               <div className='flex flex-col justify-end'>

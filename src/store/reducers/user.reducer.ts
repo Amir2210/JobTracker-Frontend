@@ -1,6 +1,6 @@
 import { jobsService } from '../../services/jobs.service.ts'
 import { userService } from "../../services/user.service.ts"
-import { FilterBy } from '../../types/filter-sort.ts'
+import { FilterBy, SortBy } from '../../types/filter-sort.ts'
 import { Job } from '../../types/job.types.ts'
 import { UserState } from '../../types/user.types.ts'
 import { User } from '../../types/user.types.ts'
@@ -12,6 +12,7 @@ export const UPDATE_JOB: string = 'UPDATE_JOB'
 export const ADD_JOB: string = 'ADD_JOB'
 export const DELETE_JOB: string = 'DELETE_JOB'
 export const SET_FILTER_BY: string = 'SET_FILTER_BY'
+export const SET_SORT_BY: string = 'SET_SORT_BY'
 export const RESET_FILTER_BY: string = 'RESET_FILTER_BY: string'
 
 type SetUserAction = {
@@ -44,18 +45,23 @@ type FilterJobAction = {
   filterBy: FilterBy
 }
 
+type SortJobAction = {
+  type: typeof SET_SORT_BY
+  sortBy: SortBy
+}
+
 type ResetFilter = {
   type: typeof RESET_FILTER_BY
-  // filterBy: FilterBy
 }
 
 
-type UserAction = SetUserAction | SetIsLoadingAction | AddJobAction | DeleteJobAction | EditJobAction | FilterJobAction | ResetFilter
+type UserAction = SetUserAction | SetIsLoadingAction | AddJobAction | DeleteJobAction | EditJobAction | FilterJobAction | ResetFilter | SortJobAction
 
 const initialState: UserState = {
   loggedInUser: userService.getLoggedInUser(),
   isLoading: false,
-  filterBy: jobsService.getDefaultFilterBy()
+  filterBy: jobsService.getDefaultFilterBy(),
+  sortBy: jobsService.getDefaultSortBy()
 }
 
 export function userReducer(state: UserState = initialState, action: UserAction): UserState {
@@ -97,6 +103,11 @@ export function userReducer(state: UserState = initialState, action: UserAction)
       break
     case RESET_FILTER_BY:
       return { ...state, filterBy: initialState.filterBy }
+      break
+    case SET_SORT_BY:
+      if ('sortBy' in action && state.loggedInUser) {
+        return { ...state, sortBy: { ...state.sortBy, ...action.sortBy } }
+      }
       break
     default:
       return state

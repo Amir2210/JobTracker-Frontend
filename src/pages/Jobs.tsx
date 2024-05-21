@@ -7,12 +7,12 @@ import { FaLocationArrow } from "react-icons/fa"
 import { FaSuitcase } from "react-icons/fa"
 import { FaCalendarAlt } from "react-icons/fa";
 import { formatDate } from '../utils/util'
-import { deleteJob, loadJobs, resetFilterBy, setFilterBy } from '../store/actions/user.actions'
+import { deleteJob, loadJobs, resetFilterBy, setFilterBy, setSortBy } from '../store/actions/user.actions'
 import { toast } from 'react-toastify'
 import { Link } from 'react-router-dom'
 import { useEffect } from 'react'
 import { FilterJob } from '../cmps/FilterJob'
-import { FilterBy } from '../types/filter-sort'
+import { FilterBy, SortBy } from '../types/filter-sort'
 // LOADER
 import { FallingLines } from 'react-loader-spinner'
 
@@ -21,15 +21,16 @@ export function Jobs() {
   const userJobs: Job[] | undefined = useSelector((storeState: UserModule) => storeState.userModule.loggedInUser?.jobs)
   const user: User | null = useSelector((storeState: UserModule) => storeState.userModule.loggedInUser)
   const filterBy: FilterBy = useSelector((storeState: UserModule) => storeState.userModule.filterBy)
+  const sortBy: SortBy = useSelector((storeState: UserModule) => storeState.userModule.sortBy)
   const isLoading: boolean = useSelector((storeState: UserModule) => storeState.userModule.isLoading)
   useEffect(() => {
     if (user) {
-      loadJobs(user._id, filterBy)
+      loadJobs(user._id, filterBy, sortBy)
     }
     return () => {
 
     }
-  }, [filterBy])
+  }, [filterBy, sortBy])
 
   useEffect(() => {
     return () => {
@@ -39,6 +40,11 @@ export function Jobs() {
 
   function onSetFilter(filterBy: FilterBy) {
     setFilterBy(filterBy)
+  }
+
+  function onSetSort(sortBy: SortBy) {
+    console.log(sortBy)
+    setSortBy(sortBy)
   }
 
   function statusClass(status: string): string {
@@ -65,7 +71,7 @@ export function Jobs() {
       <Navbar />
       <div className='bg-zinc-100 min-h-screen'>
         <div className='small-container sm:big-container sm:mt-4 sm:py-4 py-2  '>
-          <FilterJob filterBy={filterBy} onSetFilter={onSetFilter} />
+          <FilterJob filterBy={filterBy} onSetFilter={onSetFilter} sortBy={sortBy} onSetSort={onSetSort} />
           <h1 className='text-2xl capitalize font-medium'>{userJobs?.length} {userJobs?.length === 1 ? 'job' : 'jobs'} found</h1>
           <div className='grid sm:grid-cols-2 gap-5 mt-4'>
             {!isLoading && userJobs?.map(job => <article key={job._id} className='sm:shadow-xl sm:mt-4 sm:py-4 py-2 px-2 rounded-lg bg-white'>

@@ -1,4 +1,4 @@
-import { FilterBy } from './filter-sort'
+import { FilterBy, SortBy } from './filter-sort'
 import { Job } from './job.types'
 
 export type User = {
@@ -12,6 +12,7 @@ export type UserState = {
   loggedInUser: User | null,
   isLoading: boolean,
   filterBy: FilterBy
+  sortBy: SortBy
 }
 
 export type LoginCredentials = {

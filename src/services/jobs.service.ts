@@ -1,7 +1,8 @@
-import { FilterBy } from '../types/filter-sort'
+import { FilterBy, SortBy } from '../types/filter-sort'
 
 export const jobsService = {
-  getDefaultFilterBy
+  getDefaultFilterBy,
+  getDefaultSortBy
 }
 
 function getDefaultFilterBy(): FilterBy {
@@ -9,5 +10,11 @@ function getDefaultFilterBy(): FilterBy {
     txt: '',
     status: '',
     jobType: '',
+  }
+}
+
+function getDefaultSortBy(): SortBy {
+  return {
+    subject: ''
   }
 }

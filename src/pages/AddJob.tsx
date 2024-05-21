@@ -28,7 +28,7 @@ export function AddJob() {
 
   useEffect(() => {
     if (user) {
-      loadJobs(user._id, { txt: '', status: '', jobType: '' })
+      loadJobs(user._id, { txt: '', status: '', jobType: '' }, { subject: '' })
     }
   }, [])
 

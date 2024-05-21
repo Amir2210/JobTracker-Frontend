@@ -3,3 +3,7 @@ export type FilterBy = {
   status: string,
   jobType: string,
 }
+
+export type SortBy = {
+  subject: string
+}
