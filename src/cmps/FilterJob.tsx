@@ -68,8 +68,11 @@ export function FilterJob({ filterBy, onSetFilter, sortBy, onSetSort }: FilterPr
 
   function handleReset() {
     const resetFilter: FilterBy = { txt: '', status: '', jobType: '' }
+    const resetSort: SortBy = { subject: '' }
     setFilterByToEdit(resetFilter)
     onSetFilter(resetFilter)
+    setSortByToEdit(resetSort)
+    onSetSort(resetSort)
   }
 
   return (

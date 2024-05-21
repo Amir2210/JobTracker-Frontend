@@ -13,7 +13,7 @@ export const ADD_JOB: string = 'ADD_JOB'
 export const DELETE_JOB: string = 'DELETE_JOB'
 export const SET_FILTER_BY: string = 'SET_FILTER_BY'
 export const SET_SORT_BY: string = 'SET_SORT_BY'
-export const RESET_FILTER_BY: string = 'RESET_FILTER_BY: string'
+export const RESET_FILTER_AND_SORT_BY: string = 'RESET_FILTER_AND_SORT_BY: string'
 
 type SetUserAction = {
   type: typeof SET_USER
@@ -50,12 +50,12 @@ type SortJobAction = {
   sortBy: SortBy
 }
 
-type ResetFilter = {
-  type: typeof RESET_FILTER_BY
+type ResetFilterAndSort = {
+  type: typeof RESET_FILTER_AND_SORT_BY
 }
 
 
-type UserAction = SetUserAction | SetIsLoadingAction | AddJobAction | DeleteJobAction | EditJobAction | FilterJobAction | ResetFilter | SortJobAction
+type UserAction = SetUserAction | SetIsLoadingAction | AddJobAction | DeleteJobAction | EditJobAction | FilterJobAction | ResetFilterAndSort | SortJobAction
 
 const initialState: UserState = {
   loggedInUser: userService.getLoggedInUser(),
@@ -101,9 +101,8 @@ export function userReducer(state: UserState = initialState, action: UserAction)
         return { ...state, filterBy: { ...state.filterBy, ...action.filterBy } }
       }
       break
-    case RESET_FILTER_BY:
-      return { ...state, filterBy: initialState.filterBy }
-      break
+    case RESET_FILTER_AND_SORT_BY:
+      return { ...state, filterBy: initialState.filterBy, sortBy: initialState.sortBy }
     case SET_SORT_BY:
       if ('sortBy' in action && state.loggedInUser) {
         return { ...state, sortBy: { ...state.sortBy, ...action.sortBy } }

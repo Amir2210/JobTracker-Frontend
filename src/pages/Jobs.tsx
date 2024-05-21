@@ -7,7 +7,7 @@ import { FaLocationArrow } from "react-icons/fa"
 import { FaSuitcase } from "react-icons/fa"
 import { FaCalendarAlt } from "react-icons/fa";
 import { formatDate } from '../utils/util'
-import { deleteJob, loadJobs, resetFilterBy, setFilterBy, setSortBy } from '../store/actions/user.actions'
+import { deleteJob, loadJobs, resetFilterAndSortBy, setFilterBy, setSortBy } from '../store/actions/user.actions'
 import { toast } from 'react-toastify'
 import { Link } from 'react-router-dom'
 import { useEffect } from 'react'
@@ -34,7 +34,7 @@ export function Jobs() {
 
   useEffect(() => {
     return () => {
-      resetFilterBy()
+      resetFilterAndSortBy()
     }
   }, [])
 
