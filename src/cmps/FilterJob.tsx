@@ -66,19 +66,19 @@ export function FilterJob({ filterBy, onSetFilter }: FilterProps) {
                 <label className='capitalize cursor-pointer mb-2 text-lg' htmlFor="status">status</label>
                 <select onChange={handleChange} id='status' name='status' value={filterByToEdit.status} className="select border-sky-400 focus:border-sky-600 focus:outline-none w-full max-w-xs">
                   <option value={''}>all</option>
-                  <option>Interview</option>
-                  <option>Declined</option>
-                  <option>Pending</option>
+                  <option className='capitalize'>interview</option>
+                  <option className='capitalize'>declined</option>
+                  <option className='capitalize'>pending</option>
                 </select>
               </div>
               <div className='flex flex-col'>
                 <label className='capitalize cursor-pointer mb-2 text-lg' htmlFor="jobType">type</label>
                 <select onChange={handleChange} id='jobType' name='jobType' value={filterByToEdit.jobType} className="select border-sky-400 focus:border-sky-600 focus:outline-none w-full max-w-xs">
                   <option value={''}>all</option>
-                  <option>full-time</option>
-                  <option>part-time</option>
-                  <option>remote</option>
-                  <option>internship</option>
+                  <option className='capitalize'>full-time</option>
+                  <option className='capitalize'>part-time</option>
+                  <option className='capitalize'>remote</option>
+                  <option className='capitalize'>internship</option>
                 </select>
               </div>
               <div className='flex flex-col'>
