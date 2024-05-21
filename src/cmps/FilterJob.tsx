@@ -112,11 +112,11 @@ export function FilterJob({ filterBy, onSetFilter, sortBy, onSetSort }: FilterPr
               <div className='flex flex-col'>
                 <label className='capitalize cursor-pointer mb-2 text-lg' htmlFor="sortBy">sort by</label>
                 <select onChange={handleSortChange} id='sortBy' name='subject' value={sortByToEdit.subject} className="select border-sky-400 focus:border-sky-600 focus:outline-none w-full max-w-xs">
-                  <option className='capitalize hidden' value={''}></option>
-                  <option className='capitalize' value={'position'}>a-z</option>
-                  <option className='capitalize' value={'-position'}>z-a</option>
-                  <option className='capitalize' value={'-time'}>latest</option>
-                  <option className='capitalize' value={'time'}>oldest</option>
+                  <option className='hidden' value={''}></option>
+                  <option value={'position'}>a-z</option>
+                  <option value={'-position'}>z-a</option>
+                  <option value={'-time'}>latest</option>
+                  <option value={'time'}>oldest</option>
                 </select>
               </div>
               <div className='flex flex-col justify-end'>
