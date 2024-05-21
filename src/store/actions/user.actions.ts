@@ -1,6 +1,6 @@
 import { store } from "../store.ts"
 import { userService } from "../../services/user.service.ts"
-import { SET_USER, ADD_JOB, DELETE_JOB, UPDATE_JOB, SET_FILTER_BY, SET_IS_LOADING } from '../reducers/user.reducer.ts'
+import { SET_USER, ADD_JOB, DELETE_JOB, UPDATE_JOB, SET_FILTER_BY, SET_IS_LOADING, RESET_FILTER_BY } from '../reducers/user.reducer.ts'
 import { LoginCredentials, signUpCredentials, User } from '../../types/user.types.ts'
 import { Job } from '../../types/job.types.ts'
 import { FilterBy } from '../../types/filter-sort.ts'
@@ -94,4 +94,8 @@ async function _updateUser() {
 
 export function setFilterBy(filterBy: FilterBy) {
   store.dispatch({ type: SET_FILTER_BY, filterBy })
+}
+
+export function resetFilterBy() {
+  store.dispatch({ type: RESET_FILTER_BY })
 }

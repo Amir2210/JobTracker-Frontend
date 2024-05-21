@@ -1,14 +1,12 @@
 import { useEffect, useState } from 'react'
 import { Navbar } from '../cmps/Navbar'
 import { Job } from '../types/job.types'
-import { addJob, editJob, loadJobs, setFilterBy } from '../store/actions/user.actions'
+import { addJob, editJob, loadJobs } from '../store/actions/user.actions'
 import { toast } from 'react-toastify'
 import { v4 as uuidv4 } from 'uuid'
 import { useLocation, useNavigate } from 'react-router-dom'
 import { useSelector } from 'react-redux'
-import { FilterBy } from '../types/filter-sort'
 import { User, UserModule } from '../types/user.types'
-import { jobsService } from '../services/jobs.service'
 function getEmptyNewJob(): Job {
   return {
     _id: uuidv4(),
@@ -27,13 +25,12 @@ export function AddJob() {
   const [job, setJob] = useState<Job>(jobToEdit || getEmptyNewJob())
   const navigate = useNavigate()
   const user: User | null = useSelector((storeState: UserModule) => storeState.userModule.loggedInUser)
-  console.log(user)
+
   useEffect(() => {
     if (user) {
-      loadJobs(user._id, { txt: '', status: '', jobType: '', })
+      loadJobs(user._id, { txt: '', status: '', jobType: '' })
     }
   }, [])
-
 
   function handleInputsChange(ev: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) {
     const field = ev.target.name

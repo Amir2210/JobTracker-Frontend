@@ -12,6 +12,7 @@ export const UPDATE_JOB: string = 'UPDATE_JOB'
 export const ADD_JOB: string = 'ADD_JOB'
 export const DELETE_JOB: string = 'DELETE_JOB'
 export const SET_FILTER_BY: string = 'SET_FILTER_BY'
+export const RESET_FILTER_BY: string = 'RESET_FILTER_BY: string'
 
 type SetUserAction = {
   type: typeof SET_USER
@@ -28,22 +29,28 @@ type AddJobAction = {
   job: Job
 }
 
-type editJobAction = {
+type EditJobAction = {
   type: typeof UPDATE_JOB
   job: Job
 }
 
-type deleteJobAction = {
+type DeleteJobAction = {
   type: typeof DELETE_JOB
   job_id: String
 }
 
-type filterJobAction = {
+type FilterJobAction = {
   type: typeof SET_FILTER_BY
   filterBy: FilterBy
 }
 
-type UserAction = SetUserAction | SetIsLoadingAction | AddJobAction | deleteJobAction | editJobAction | filterJobAction
+type ResetFilter = {
+  type: typeof RESET_FILTER_BY
+  // filterBy: FilterBy
+}
+
+
+type UserAction = SetUserAction | SetIsLoadingAction | AddJobAction | DeleteJobAction | EditJobAction | FilterJobAction | ResetFilter
 
 const initialState: UserState = {
   loggedInUser: userService.getLoggedInUser(),
@@ -87,6 +94,9 @@ export function userReducer(state: UserState = initialState, action: UserAction)
       if ('filterBy' in action && state.loggedInUser) {
         return { ...state, filterBy: { ...state.filterBy, ...action.filterBy } }
       }
+      break
+    case RESET_FILTER_BY:
+      return { ...state, filterBy: initialState.filterBy }
       break
     default:
       return state
