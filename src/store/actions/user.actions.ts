@@ -19,7 +19,6 @@ export async function login(credentials: LoginCredentials) {
 export async function signup(credentials: signUpCredentials) {
   try {
     const user: User = await userService.signup(credentials)
-    console.log(user)
     store.dispatch({ type: SET_USER, user: user })
     return user
   } catch (err) {
@@ -55,7 +54,6 @@ export function deleteJob(job_id: string) {
 }
 
 export function editJob(job: Job) {
-  console.log(job)
   store.dispatch({
     type: UPDATE_JOB,
     job
@@ -67,7 +65,6 @@ export async function loadJobs(user_id: string, filterBy: FilterBy, sortBy: Sort
   store.dispatch({ type: SET_IS_LOADING, isLoading: true })
   try {
     const user = await userService.getById(user_id, filterBy, sortBy)
-    console.log(user.jobs)
     store.dispatch({ type: SET_USER, user: user })
   } catch (error) {
     console.log(error)
