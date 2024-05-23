@@ -73,6 +73,10 @@ export function FilterJob({ filterBy, onSetFilter, sortBy, onSetSort }: FilterPr
     onSetFilter(resetFilter)
     setSortByToEdit(resetSort)
     onSetSort(resetSort)
+    if (filterModalRef.current) {
+      filterModalRef.current.checked = false
+      setIsFilterModalOpen(false)
+    }
   }
 
   return (
