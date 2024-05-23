@@ -46,7 +46,7 @@ export function Stats() {
               <p className='mt-4 font-mono text-2xl text-sky-950'>Jobs Declined</p>
             </div>
           </div>
-          <div className='flex justify-center my-8'>
+          <div className='flex justify-center my-8 sm:h-72'>
             <DoughnutChart
               pendingJobs={pendingJobs?.length || 0}
               interviewJobs={interviewJobs?.length || 0}
