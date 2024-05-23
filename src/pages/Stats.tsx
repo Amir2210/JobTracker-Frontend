@@ -8,6 +8,9 @@ import { FaBug } from "react-icons/fa"
 
 export function Stats() {
   const userJobs: Job[] | undefined = useSelector((storeState: UserModule) => storeState.userModule.loggedInUser?.jobs)
+  const pendingJobs = userJobs?.filter(job => job.status === 'pending')
+  const interviewJobs = userJobs?.filter(job => job.status === 'interview')
+  const declinedJobs = userJobs?.filter(job => job.status === 'declined')
   return (
     <section>
       <Navbar />
@@ -16,7 +19,7 @@ export function Stats() {
           <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-5'>
             <div className='sm:shadow-xl sm:mt-4 p-8 rounded-lg bg-white border-b-4 border-orange-400'>
               <div className='flex items-center justify-between'>
-                <p className='text-5xl'>17</p>
+                <p className='text-5xl'>{pendingJobs?.length}</p>
                 <div className='bg-orange-200 text-orange-600 p-2 rounded-md'>
                   <MdOutlinePendingActions className='text-5xl' />
                 </div>
@@ -25,7 +28,7 @@ export function Stats() {
             </div>
             <div className='sm:shadow-xl sm:mt-4 p-8 rounded-lg bg-white border-b-4 border-blue-600'>
               <div className='flex items-center justify-between'>
-                <p className='text-5xl'>17</p>
+                <p className='text-5xl'>{interviewJobs?.length}</p>
                 <div className='bg-blue-200 text-blue-600 p-2 rounded-md'>
                   <AiOutlineSchedule className='text-5xl' />
                 </div>
@@ -34,7 +37,7 @@ export function Stats() {
             </div>
             <div className='sm:shadow-xl sm:mt-4 p-8 rounded-lg bg-white border-b-4 border-red-600'>
               <div className='flex items-center justify-between'>
-                <p className='text-5xl'>17</p>
+                <p className='text-5xl'>{declinedJobs?.length}</p>
                 <div className='bg-red-200 text-red-600 p-2 rounded-md'>
                   <FaBug className='text-5xl' />
                 </div>
