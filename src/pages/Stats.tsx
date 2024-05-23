@@ -5,6 +5,7 @@ import { Job } from '../types/job.types'
 import { MdOutlinePendingActions } from "react-icons/md"
 import { AiOutlineSchedule } from "react-icons/ai"
 import { FaBug } from "react-icons/fa"
+import { DoughnutChart } from '../cmps/DoughnutChart'
 
 export function Stats() {
   const userJobs: Job[] | undefined = useSelector((storeState: UserModule) => storeState.userModule.loggedInUser?.jobs)
@@ -44,6 +45,13 @@ export function Stats() {
               </div>
               <p className='mt-4 font-mono text-2xl text-sky-950'>Jobs Declined</p>
             </div>
+          </div>
+          <div className='flex justify-center my-8'>
+            <DoughnutChart
+              pendingJobs={pendingJobs?.length || 0}
+              interviewJobs={interviewJobs?.length || 0}
+              declinedJobs={declinedJobs?.length || 0}
+            />
           </div>
         </div>
       </div>
