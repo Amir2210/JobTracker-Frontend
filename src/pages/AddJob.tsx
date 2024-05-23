@@ -4,7 +4,7 @@ import { Job } from '../types/job.types'
 import { addJob, editJob, loadJobs } from '../store/actions/user.actions'
 import { toast } from 'react-toastify'
 import { v4 as uuidv4 } from 'uuid'
-import { useLocation, useNavigate } from 'react-router-dom'
+import { Link, useLocation, useNavigate } from 'react-router-dom'
 import { useSelector } from 'react-redux'
 import { User, UserModule } from '../types/user.types'
 function getEmptyNewJob(): Job {
@@ -64,7 +64,7 @@ export function AddJob() {
   return (
     <section >
       <Navbar />
-      <div className='bg-zinc-100 h-screen flex flex-col w-full'>
+      <div className='bg-zinc-100 min-h-screen flex flex-col w-full'>
         <div className='small-container sm:big-container sm:shadow-xl sm:mt-4 sm:py-4 py-2 px-2 rounded-lg sm:bg-white'>
           {!jobToEdit ? (
             <h1 className='text-2xl capitalize font-medium'>Add job</h1>
@@ -109,6 +109,7 @@ export function AddJob() {
                 <button type='submit' className='btn bg-sky-400 text-white capitalize hover:bg-sky-600 w-1/3'>update</button>
               )}
             </div>
+            {jobToEdit && <Link to={'/jobs'} className='btn bg-indigo-400 text-white capitalize hover:bg-indigo-600 w-1/3'>back</Link>}
           </form>
         </div>
       </div>
