@@ -12,7 +12,7 @@ import { Jobs } from './pages/Jobs'
 import 'react-toastify/dist/ReactToastify.css'
 import { ToastContainer } from 'react-toastify'
 import { AddJob } from './pages/AddJob'
-import { Stats } from './cmps/Stats'
+import { Stats } from './pages/Stats'
 
 function App() {
 
