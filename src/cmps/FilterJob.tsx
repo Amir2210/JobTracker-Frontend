@@ -115,7 +115,7 @@ export function FilterJob({ filterBy, onSetFilter, sortBy, onSetSort }: FilterPr
                   <option className='hidden' value={''}></option>
                   <option value={'position'}>a-z</option>
                   <option value={'-position'}>z-a</option>
-                  <option value={'-time'}>latest</option>
+                  <option value={'-time'}>newest</option>
                   <option value={'time'}>oldest</option>
                 </select>
               </div>
