@@ -4,6 +4,8 @@ import { User, UserModule } from '../types/user.types'
 import { Job } from '../types/job.types'
 import { MdOutlinePendingActions } from "react-icons/md"
 import { FaLocationArrow } from "react-icons/fa"
+import { FaBug } from "react-icons/fa"
+import { AiOutlineSchedule } from "react-icons/ai";
 import { FaSuitcase } from "react-icons/fa"
 import { FaCalendarAlt } from "react-icons/fa";
 import { formatDate } from '../utils/util'
@@ -57,6 +59,16 @@ export function Jobs() {
     }
   }
 
+  function statusImg(status: string): JSX.Element | undefined {
+    if (status === 'pending') {
+      return <MdOutlinePendingActions />
+    } else if (status === 'interview') {
+      return <AiOutlineSchedule />
+    } else {
+      return <FaBug />
+    }
+  }
+
   async function onDeleteJob(job_id: string) {
     try {
       deleteJob(job_id)
@@ -76,7 +88,7 @@ export function Jobs() {
           <div className='grid sm:grid-cols-2 gap-5 mt-4'>
             {!isLoading && userJobs?.map(job => <article key={job._id} className='sm:shadow-xl sm:mt-4 sm:py-4 py-2 px-2 rounded-lg bg-white'>
               <div className='flex gap-8 border-solid border-indigo-100 border-b py-3 px-3'>
-                <div className='text-4xl bg-sky-400 text-white font-mono font-bold size-14 flex justify-center items-center rounded-lg'><MdOutlinePendingActions /></div>
+                <div className='text-4xl bg-sky-400 text-white font-mono font-bold size-14 flex justify-center items-center rounded-lg'>{statusImg(job.status)}</div>
                 <div>
                   <h1 className='text-sky-950 text-xl capitalize mb-1'>{job.position}</h1>
                   <h2 className='text-slate-500 capitalize'>{job.company}</h2>
