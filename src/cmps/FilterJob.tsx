@@ -123,7 +123,7 @@ export function FilterJob({ filterBy, onSetFilter, sortBy, onSetSort }: FilterPr
                 <button type='submit' className='btn bg-sky-400 text-white capitalize hover:bg-sky-600'>search</button>
               </div>
               <div className='flex flex-col justify-end'>
-                <button type='button' onClick={handleReset} className='btn bg-sky-700 text-white capitalize hover:bg-sky-800'>reset</button>
+                <button type='button' onClick={handleReset} className='btn bg-sky-700 text-white capitalize hover:bg-sky-800'>clear filters</button>
               </div>
             </div>
           </form>
