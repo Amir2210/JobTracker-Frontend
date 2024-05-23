@@ -1,5 +1,12 @@
 import { NavLink } from "react-router-dom"
-const links = [
+
+type Link = {
+  id: number,
+  url: string,
+  txt: string
+}
+
+const links: Link[] = [
   {
     id: 1,
     url: '/jobs',
