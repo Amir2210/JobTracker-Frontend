@@ -26,17 +26,26 @@ export function Jobs() {
   const sortBy: SortBy = useSelector((storeState: UserModule) => storeState.userModule.sortBy)
   const isLoading: boolean = useSelector((storeState: UserModule) => storeState.userModule.isLoading)
   useEffect(() => {
+
     if (user) {
       loadJobs(user._id, filterBy, sortBy)
     }
     return () => {
-
     }
   }, [filterBy, sortBy])
 
   useEffect(() => {
+    const reloaded = localStorage.getItem('pageReloaded');
+
+    if (!reloaded) {
+      // Set the flag to indicate the page has been reloaded
+      localStorage.setItem('pageReloaded', 'true');
+      // Reload the page
+      window.location.reload();
+    }
     return () => {
       resetFilterAndSortBy()
+      localStorage.removeItem('pageReloaded');
     }
   }, [])
 

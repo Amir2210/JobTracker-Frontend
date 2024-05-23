@@ -7,27 +7,15 @@ const rootReducer = combineReducers({
   userModule: userReducer,
 })
 
-// const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose
-
-// export const store = createStore(rootReducer)
-
-// declare global {
-//   interface Window {
-//     gStore: any;
-//   }
-// }
-
-// window.gStore = store
-// store.subscribe(() => {
-//   console.log('Current state is:', store.getState())
-// })
 
 
-const composeEnhancers = (window as any).__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose
 
-const enhancer = composeEnhancers()
+// const composeEnhancers = (window as any).__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose
 
-export const store = createStore(rootReducer, enhancer);
+// const enhancer = composeEnhancers()
+
+// export const store = createStore(rootReducer, enhancer);
+export const store = createStore(rootReducer);
 (window as any).gStore = store
 store.subscribe(() => {
   console.log('Current state is:', store.getState())
