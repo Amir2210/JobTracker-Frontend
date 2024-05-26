@@ -74,19 +74,19 @@ export function AddJob() {
           <form onSubmit={onAddNewJob} className='grid sm:grid-cols-3 gap-5 mt-4'>
             <div>
               <label className='text-xl' htmlFor="position">position</label>
-              <input onChange={handleInputsChange} id='position' name='position' value={position} type="text" required className="input input-bordered w-full mt-3 border-sky-400 focus:border-sky-600 focus:outline-none" />
+              <input onChange={handleInputsChange} id='position' name='position' value={position} type="text" required className="input input-bordered w-full mt-3 border-sky-400 focus:border-sky-600 focus:outline-none bg-white" />
             </div>
             <div>
               <label className='text-xl' htmlFor="company">company</label>
-              <input onChange={handleInputsChange} id='company' name='company' value={company} type="text" required className="input input-bordered w-full mt-3 border-sky-400 focus:border-sky-600 focus:outline-none" />
+              <input onChange={handleInputsChange} id='company' name='company' value={company} type="text" required className="input input-bordered w-full mt-3 border-sky-400 focus:border-sky-600 focus:outline-none bg-white" />
             </div>
             <div>
               <label className='text-xl' htmlFor="jobLocation">job location</label>
-              <input onChange={handleInputsChange} id='jobLocation' name='jobLocation' value={jobLocation} type="text" required className="input input-bordered w-full mt-3 border-sky-400 focus:border-sky-600 focus:outline-none" />
+              <input onChange={handleInputsChange} id='jobLocation' name='jobLocation' value={jobLocation} type="text" required className="input input-bordered w-full mt-3 border-sky-400 focus:border-sky-600 focus:outline-none bg-white" />
             </div>
             <div>
               <label className='text-xl capitalize cursor-pointer mb-2' htmlFor="status">status</label>
-              <select onChange={handleInputsChange} id='status' name='status' value={status} className="font-medium text-lg select border-solid border-2 border-sky-300 focus:border-sky-600 focus:outline-none w-full max-w-xs mt-3">
+              <select onChange={handleInputsChange} id='status' name='status' value={status} className="font-medium text-lg select border-solid border-2 border-sky-300 focus:border-sky-600 focus:outline-none w-full max-w-xs mt-3 bg-white">
                 <option >pending</option>
                 <option>interview</option>
                 <option>declined</option>
@@ -94,7 +94,7 @@ export function AddJob() {
             </div>
             <div>
               <label className='text-xl capitalize cursor-pointer mb-2' htmlFor="jobType">job type</label>
-              <select onChange={handleInputsChange} id='jobType' name='jobType' value={jobType} className="font-medium text-lg select border-solid border-2 border-sky-300 focus:border-sky-600 focus:outline-none  w-full max-w-xs mt-3">
+              <select onChange={handleInputsChange} id='jobType' name='jobType' value={jobType} className="font-medium text-lg select border-solid border-2 border-sky-300 focus:border-sky-600 focus:outline-none  w-full max-w-xs mt-3 bg-white">
                 <option>full-time</option>
                 <option>part-time</option>
                 <option>remote</option>
@@ -104,12 +104,12 @@ export function AddJob() {
             <div className='flex items-end gap-5'>
               <button type='button' onClick={onClearInputs} className='btn bg-sky-700 text-white capitalize hover:bg-sky-800 w-1/3'>clear</button>
               {!jobToEdit ? (
-                <button type='submit' className='btn bg-sky-400 text-white capitalize hover:bg-sky-600 w-1/3'>add</button>
+                <button type='submit' className='btn bg-sky-400 text-white capitalize hover:bg-sky-600 w-1/3 border-none'>add</button>
               ) : (
-                <button type='submit' className='btn bg-sky-400 text-white capitalize hover:bg-sky-600 w-1/3'>update</button>
+                <button type='submit' className='btn bg-sky-400 text-white capitalize hover:bg-sky-600 w-1/3 border-none'>update</button>
               )}
             </div>
-            {jobToEdit && <Link to={'/jobs'} className='btn bg-indigo-400 text-white capitalize hover:bg-indigo-600 w-1/3'>back</Link>}
+            {jobToEdit && <Link to={'/jobs'} className='btn bg-indigo-400 text-white capitalize hover:bg-indigo-600 w-1/3 border-none'>back</Link>}
           </form>
         </div>
       </div>

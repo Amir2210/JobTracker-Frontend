@@ -12,7 +12,7 @@ export function HomeIndex() {
           <div>
             <h1 className='text-5xl sm:text-6xl font-bold tracking-wide capitalize mb-6'>job <span className='text-sky-400'>tracking</span> app</h1>
             <p className='sm:text-xl tracking-widest mb-3'>Job Tracker streamlines your job search by efficiently organizing a watchlist. Easily manage the jobs you've applied for.</p>
-            <Link to={'/login'} className='btn text-white text-lg bg-sky-400 capitalize hover:bg-sky-600'>login / register</Link>
+            <Link to={'/login'} className='btn text-white text-lg bg-sky-400 capitalize hover:bg-sky-600 border-none'>login / register</Link>
           </div>
           <div>
             <img className='size-48 sm:size-full' src="https://res.cloudinary.com/dxm0sqcfp/image/upload/v1715154175/job%20tracker/ocfxopyi3lshmxzmucwd.svg" alt="" />
