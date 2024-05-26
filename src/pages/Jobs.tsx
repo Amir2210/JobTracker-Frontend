@@ -119,12 +119,12 @@ export function Jobs() {
                   <p className='text-sky-950 text-lg capitalize'>{formatDate(job.time)}</p>
                 </div>
                 <div className='flex items-center gap-5'>
-                  <p className={`${statusClass(job.status)} btn  font-medium rounded-sm `}>{job.status}</p>
+                  <p className={`${statusClass(job.status)} btn  font-medium rounded-md`}>{job.status}</p>
                 </div>
               </div>
               <div className='flex gap-5 py-3 px-3'>
                 <div className='flex items-center '>
-                  <Link to={'/addJob'} state={{ job }} className='btn capitalize bg-lime-100 text-lime-600 shadow-lg shadow-lime-100/50 rounded-sm hover:bg-lime-200 border-none'>edit</Link>
+                  <Link to={'/addJob'} state={{ job }} className='btn capitalize bg-lime-100 text-lime-600 shadow-lg shadow-lime-100/50 rounded-md hover:bg-lime-200 border-none'>edit</Link>
                 </div>
                 <div className='flex items-center '>
                   <button onClick={() => onDeleteJob(job._id)} className='btn capitalize bg-red-100 text-red-600 shadow-lg shadow-red100/50 hover:bg-red-200 border-none'>delete</button>
