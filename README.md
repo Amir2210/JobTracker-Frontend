@@ -1,30 +1,38 @@
-# React + TypeScript + Vite
+Job Tracker 📋
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Job Tracker streamlines your job search by efficiently organizing a watchlist. Easily manage the jobs you've applied for.
 
-Currently, two official plugins are available:
+🌐 Live Website: You can visit the live version of ComfyStore at https://jobtracker-x1u9.onrender.com
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+📦 Tech Stack:
 
-## Expanding the ESLint configuration
+* Frontend: ReactJS (with TypeScript)
+* Routing: React Router
+* State Management: Redux
+* Backend: Node.js, Express.js
+* Database: MongoDB
+* Notifications: React Toastify
+* Styling: Tailwind CSS daisyUI
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+👩🏽‍🍳 Features:
 
-- Configure the top-level `parserOptions` property like this:
+* Job Watchlist: Track jobs you are interested in.
+* Search Filter and Sort Functionality: Search for specific Job.
+* Application Management: Keep track of jobs you have applied for.
+* User Authentication: Register, login, and manage your account.
+* Job Addition: Add new job listings to your watchlist.
+* Statistics: View statistics related to your job applications.
+* Responsive Design: Optimized for mobile and desktop.
 
-```js
-export default {
-  // other rules...
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-  },
-}
-```
+💭 Process:
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+I began by defining the core functionalities required for effective job tracking. The development process involved setting up a robust React frontend with Redux for state management. Integrating user authentication and job management features posed some challenges, but we successfully addressed them through thorough debugging and testing.
+
+Conclusions: This project reinforced the importance of a well-structured state management system and provided valuable insights into building user-centric applications.
+
+📚 Learnings:
+
+* Gained a deeper understanding of React Router for navigation.
+* Improved skills in managing global state with Redux.
+* Learned to implement and customize notifications with React Toastify.
+* Enhanced proficiency in TypeScript, improving code quality and maintainability.
