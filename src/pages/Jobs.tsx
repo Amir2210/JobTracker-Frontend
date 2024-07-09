@@ -8,6 +8,7 @@ import { FaBug } from "react-icons/fa"
 import { AiOutlineSchedule } from "react-icons/ai";
 import { FaSuitcase } from "react-icons/fa"
 import { FaCalendarAlt } from "react-icons/fa";
+import { ImProfile } from "react-icons/im";
 import { formatDate } from '../utils/util'
 import { deleteJob, loadJobs, resetFilterAndSortBy, setFilterBy, setSortBy } from '../store/actions/user.actions'
 import { toast } from 'react-toastify'
@@ -63,7 +64,10 @@ export function Jobs() {
       return 'bg-orange-200 text-orange-600 hover:bg-orange-200 border-none shadow-lg shadow-orange-200/50'
     } else if (status === 'interview') {
       return 'bg-blue-200 text-blue-600 hover:bg-blue-200 border-none shadow-lg shadow-blue-200/50'
-    } else {
+    } else if (status === 'HR Interview') {
+      return 'bg-purple-200 text-purple-600 hover:bg-purple-200 border-none shadow-lg shadow-purple-200/50'
+    }
+    else {
       return 'bg-red-200 text-red-600 hover:bg-red-200 border-none shadow-lg shadow-red-200/50'
     }
   }
@@ -73,7 +77,10 @@ export function Jobs() {
       return <MdOutlinePendingActions />
     } else if (status === 'interview') {
       return <AiOutlineSchedule />
-    } else {
+    } else if (status === 'HR Interview') {
+      return <ImProfile />
+    }
+    else {
       return <FaBug />
     }
   }

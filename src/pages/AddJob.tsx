@@ -92,6 +92,7 @@ export function AddJob() {
                 <option >pending</option>
                 <option>interview</option>
                 <option>declined</option>
+                <option>HR Interview</option>
               </select>
             </div>
             <div>
