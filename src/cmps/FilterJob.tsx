@@ -101,6 +101,7 @@ export function FilterJob({ filterBy, onSetFilter, sortBy, onSetSort }: FilterPr
                   <option className='capitalize'>interview</option>
                   <option className='capitalize'>declined</option>
                   <option className='capitalize'>pending</option>
+                  <option className='capitalize'>HR Interview</option>
                 </select>
               </div>
               <div className='flex flex-col'>
