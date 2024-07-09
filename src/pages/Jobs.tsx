@@ -118,8 +118,20 @@ export function Jobs() {
                   <FaCalendarAlt className='text-slate-400' />
                   <p className='text-sky-950 text-lg capitalize'>{formatDate(job.time)}</p>
                 </div>
+                <div tabIndex={0} className=" sm:hidden collapse collapse-arrow border-indigo-100 border">
+                  <div className="collapse-title text-xl">Description:</div>
+                  <div className="collapse-content">
+                    <p>{job.description}</p>
+                  </div>
+                </div>
                 <div className='flex items-center gap-5'>
                   <p className={`${statusClass(job.status)} btn  font-medium rounded-md`}>{job.status}</p>
+                </div>
+              </div>
+              <div tabIndex={0} className="hidden sm:grid collapse collapse-arrow border-indigo-100 border">
+                <div className="collapse-title text-xl">Description:</div>
+                <div className="collapse-content">
+                  <p>{job.description}</p>
                 </div>
               </div>
               <div className='flex gap-5 py-3 px-3'>

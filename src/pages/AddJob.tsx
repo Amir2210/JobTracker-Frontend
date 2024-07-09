@@ -15,7 +15,8 @@ function getEmptyNewJob(): Job {
     jobLocation: '',
     status: 'pending',
     jobType: 'full-time',
-    time: Date.now()
+    time: Date.now(),
+    description: ''
   }
 }
 
@@ -32,7 +33,7 @@ export function AddJob() {
     }
   }, [])
 
-  function handleInputsChange(ev: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) {
+  function handleInputsChange(ev: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement | HTMLSelectElement>) {
     const field = ev.target.name
     const value = ev.target.value
     setJob((job) => ({ ...job, [field]: value }))
@@ -46,6 +47,7 @@ export function AddJob() {
         toast.success('job has been updated')
         navigate('/jobs')
       } else {
+        console.log('job:', job)
         addJob(job)
         toast.success('a new job has been added')
         navigate('/jobs')
@@ -60,7 +62,7 @@ export function AddJob() {
     ev.preventDefault()
     setJob(getEmptyNewJob())
   }
-  const { position, jobType, status, jobLocation, company } = job
+  const { position, jobType, status, jobLocation, company, description } = job
   return (
     <section >
       <Navbar />
@@ -101,6 +103,10 @@ export function AddJob() {
                 <option>internship</option>
               </select>
             </div>
+            <div>
+              <label className='text-xl capitalize cursor-pointer mb-2' htmlFor="jobType">description</label>
+              <textarea onChange={handleInputsChange} name='description' value={description} className="input input-bordered w-full mt-3 border-sky-400 focus:border-sky-600 focus:outline-none bg-white pt-2"></textarea>
+            </div>
             <div className='flex items-end gap-5'>
               <button type='button' onClick={onClearInputs} className='btn bg-sky-700 text-white capitalize hover:bg-sky-800 w-1/3 border-none'>clear</button>
               {!jobToEdit ? (
@@ -112,7 +118,7 @@ export function AddJob() {
             {jobToEdit && <Link to={'/jobs'} className='btn bg-indigo-400 text-white capitalize hover:bg-indigo-600 w-1/3 border-none'>back</Link>}
           </form>
         </div>
-      </div>
-    </section>
+      </div >
+    </section >
   )
 }

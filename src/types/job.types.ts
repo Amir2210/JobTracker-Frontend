@@ -5,5 +5,6 @@ export type Job = {
   jobLocation: string,
   status: string,
   jobType: string,
-  time: number
+  time: number,
+  description: string
 }
