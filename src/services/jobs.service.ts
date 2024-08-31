@@ -10,6 +10,7 @@ function getDefaultFilterBy(): FilterBy {
     txt: '',
     status: '',
     jobType: '',
+    pageIdx: 0
   }
 }
 

@@ -6,6 +6,7 @@ export type User = {
   userName: string,
   _id: string
   jobs: Job[]
+  totalFilteredJobs: number
 }
 
 export type UserState = {

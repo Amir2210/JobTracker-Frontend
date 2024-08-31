@@ -18,11 +18,13 @@ import { FilterJob } from '../cmps/FilterJob'
 import { FilterBy, SortBy } from '../types/filter-sort'
 // LOADER
 import { FallingLines } from 'react-loader-spinner'
+import { Pagination } from '../cmps/Pagination'
 
 
 export function Jobs() {
   const userJobs: Job[] | undefined = useSelector((storeState: UserModule) => storeState.userModule.loggedInUser?.jobs)
   const user: User | null = useSelector((storeState: UserModule) => storeState.userModule.loggedInUser)
+  const totalJobs = user?.totalFilteredJobs
   const filterBy: FilterBy = useSelector((storeState: UserModule) => storeState.userModule.filterBy)
   const sortBy: SortBy = useSelector((storeState: UserModule) => storeState.userModule.sortBy)
   const isLoading: boolean = useSelector((storeState: UserModule) => storeState.userModule.isLoading)
@@ -100,7 +102,7 @@ export function Jobs() {
       <div className='bg-zinc-100 min-h-screen'>
         <div className='small-container sm:big-container sm:mt-4 sm:py-4 py-2  '>
           <FilterJob filterBy={filterBy} onSetFilter={onSetFilter} sortBy={sortBy} onSetSort={onSetSort} />
-          <h1 className='text-2xl capitalize font-medium'>{userJobs?.length} {userJobs?.length === 1 ? 'job' : 'jobs'} found</h1>
+          <h1 className='text-2xl capitalize font-medium'>{totalJobs} {totalJobs === 1 ? 'job' : 'jobs'} found</h1>
           <div className='grid sm:grid-cols-2 gap-5 mt-4'>
             {!isLoading && userJobs?.map(job => <article key={job._id} className='sm:shadow-xl sm:mt-4 sm:py-4 py-2 px-2 rounded-lg bg-white h-fit'>
               <div className='flex gap-8 border-solid border-indigo-100 border-b py-3 px-3'>
@@ -156,6 +158,7 @@ export function Jobs() {
               visible={true}
             />}
           </div>
+          <Pagination totalJobs={totalJobs} filterBy={filterBy} onSetFilter={onSetFilter} />
           {userJobs?.length ? <p className='capitalize my-4 text-2xl sm:text-4xl'>add more jobs <span className='link text-sky-400'><Link to={'/addJob'}>here</Link> </span></p> : null}
           {!userJobs?.length && !filterBy.txt && !filterBy.status && !filterBy.jobType && <div className='flex flex-col justify-center items-center mt-4'>
             <img className='size-48 sm:size-96' src="https://res.cloudinary.com/dxm0sqcfp/image/upload/v1715154175/job%20tracker/ocfxopyi3lshmxzmucwd.svg" alt="" />
