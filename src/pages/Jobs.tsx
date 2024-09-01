@@ -19,6 +19,7 @@ import { FilterBy, SortBy } from '../types/filter-sort'
 // LOADER
 import { FallingLines } from 'react-loader-spinner'
 import { Pagination } from '../cmps/Pagination'
+import AddJobButton from '../cmps/AddJobButton'
 
 
 export function Jobs() {
@@ -99,7 +100,7 @@ export function Jobs() {
   return (
     <section >
       <Navbar />
-      <div className='bg-zinc-100 min-h-screen'>
+      <div className='bg-zinc-100 min-h-screen relative'>
         <div className='small-container sm:big-container sm:mt-4 sm:py-4 py-2  '>
           <FilterJob filterBy={filterBy} onSetFilter={onSetFilter} sortBy={sortBy} onSetSort={onSetSort} />
           <h1 className='text-2xl capitalize font-medium'>{totalJobs} {totalJobs === 1 ? 'job' : 'jobs'} found</h1>
@@ -165,6 +166,7 @@ export function Jobs() {
             <p className='capitalize mt-4 text-2xl sm:text-4xl'>add your first job <span className='link text-sky-400'><Link to={'/addJob'}>here</Link> </span></p>
           </div>}
         </div>
+        <AddJobButton />
       </div>
     </section>
   )
