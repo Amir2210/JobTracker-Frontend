@@ -135,7 +135,7 @@ export function Jobs() {
                   </div>
                 </div>
                 <div className='flex items-center gap-5'>
-                  <p className={`${statusClass(job.status)} btn  font-medium rounded-md`}>{job.status}</p>
+                  <p className={`${statusClass(job.status)} btn  font-medium rounded-md cursor-auto`}>{job.status}</p>
                 </div>
               </div>
               <div tabIndex={0} className="hidden sm:grid collapse collapse-arrow border-indigo-100 border">
