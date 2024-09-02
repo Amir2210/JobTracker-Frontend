@@ -38,27 +38,26 @@ export function Jobs() {
     }
   }, [filterBy, sortBy])
 
-  useEffect(() => {
-    const reloaded = localStorage.getItem('pageReloaded');
+  // useEffect(() => {
+  //   const reloaded = localStorage.getItem('pageReloaded');
 
-    if (!reloaded) {
-      // Set the flag to indicate the page has been reloaded
-      localStorage.setItem('pageReloaded', 'true');
-      // Reload the page
-      window.location.reload();
-    }
-    return () => {
-      resetFilterAndSortBy()
-      localStorage.removeItem('pageReloaded');
-    }
-  }, [])
+  //   if (!reloaded) {
+  //     // Set the flag to indicate the page has been reloaded
+  //     localStorage.setItem('pageReloaded', 'true');
+  //     // Reload the page
+  //     window.location.reload();
+  //   }
+  //   return () => {
+  //     resetFilterAndSortBy()
+  //     localStorage.removeItem('pageReloaded');
+  //   }
+  // }, [])
 
   function onSetFilter(filterBy: FilterBy) {
     setFilterBy(filterBy)
   }
 
   function onSetSort(sortBy: SortBy) {
-    console.log(sortBy)
     setSortBy(sortBy)
   }
 
@@ -92,7 +91,7 @@ export function Jobs() {
     try {
       deleteJob(job_id)
       toast.success('Job deleted successfully')
-      // window.location.reload()
+      window.location.reload()
     } catch (error) {
       console.log(error)
       toast.error('Unfortunately, we could not delete a job')
