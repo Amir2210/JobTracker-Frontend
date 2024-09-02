@@ -72,12 +72,12 @@ export function AddJob() {
         <div className='small-container sm:big-container sm:shadow-xl sm:mt-4 sm:py-4 py-2 px-2 rounded-lg sm:bg-white'>
           {!jobToEdit ? (
             <div className='items-center'>
-              <Link to={'/jobs'} className='btn text-sky-400 bg-white text-xl'><IoIosArrowBack /></Link >
+              <Link to={'/jobs'} className='btn text-sky-400 bg-white text-xl border-indigo-100 border'><IoIosArrowBack /></Link >
               <h1 className='text-3xl capitalize font-medium text-center mx-auto'>Add job</h1>
             </div>
           ) : (
             <div className='items-center'>
-              <Link to={'/jobs'} className='btn text-sky-400 bg-white text-xl'><IoIosArrowBack /></Link>
+              <Link to={'/jobs'} className='btn text-sky-400 bg-white text-xl border-indigo-100 border'><IoIosArrowBack /></Link>
               <h1 className='text-3xl capitalize font-medium text-center mx-auto'>edit job</h1>
             </div>
           )}
