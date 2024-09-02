@@ -8,7 +8,7 @@ import { FaBug } from "react-icons/fa"
 import { DoughnutChart } from '../cmps/DoughnutChart'
 
 export function Stats() {
-  const userJobs: Job[] | undefined = useSelector((storeState: UserModule) => storeState.userModule.loggedInUser?.jobs)
+  const userJobs: Job[] | undefined = useSelector((storeState: UserModule) => storeState.userModule.loggedInUser?.allJobs)
   const pendingJobs = userJobs?.filter(job => job.status === 'pending')
   const interviewJobs = userJobs?.filter(job => job.status === 'interview')
   const declinedJobs = userJobs?.filter(job => job.status === 'declined')

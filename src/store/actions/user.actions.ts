@@ -65,6 +65,7 @@ export async function loadJobs(user_id: string, filterBy: FilterBy, sortBy: Sort
   store.dispatch({ type: SET_IS_LOADING, isLoading: true })
   try {
     const user = await userService.getJobsByUserId(user_id, filterBy, sortBy)
+    console.log('user:', user)
     store.dispatch({ type: SET_USER, user: user })
   } catch (error) {
     console.log(error)
