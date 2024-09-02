@@ -11,7 +11,7 @@ export const userService = {
     signup,
     getLoggedInUser,
     getUsers,
-    getById,
+    getJobsByUserId,
     addJob,
     deleteJob,
     updateJob
@@ -22,7 +22,7 @@ function getUsers() {
     return httpService.get(`user`)
 }
 
-async function getById(userId: string, filterBy: FilterBy, sortBy: SortBy) {
+async function getJobsByUserId(userId: string, filterBy: FilterBy, sortBy: SortBy) {
     const user = await httpService.get(`user/${userId}`, { params: { filterBy, sortBy } })
     return user
 }
