@@ -7,7 +7,7 @@ interface PaginationProps {
   onSetFilter: (filterBy: FilterBy) => void;
 }
 export function Pagination({ totalJobs, filterBy, onSetFilter }: PaginationProps) {
-  const [filterByToEdit, setFilterByToEdit] = useState({ ...filterBy })
+  const [, setFilterByToEdit] = useState({ ...filterBy })
   const pageSize = 10
   const numOfButtons = Math.ceil(totalJobs ? totalJobs / pageSize : 0)
 

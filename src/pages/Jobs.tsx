@@ -10,7 +10,7 @@ import { FaSuitcase } from "react-icons/fa"
 import { FaCalendarAlt } from "react-icons/fa";
 import { ImProfile } from "react-icons/im";
 import { formatDate } from '../utils/util'
-import { deleteJob, loadJobs, resetFilterAndSortBy, setFilterBy, setSortBy } from '../store/actions/user.actions'
+import { deleteJob, loadJobs, setFilterBy, setSortBy } from '../store/actions/user.actions'
 import { toast } from 'react-toastify'
 import { Link } from 'react-router-dom'
 import { useEffect } from 'react'
