@@ -2,6 +2,7 @@
 import { httpService } from './http.service.js'
 import { LoginCredentials, User, signUpCredentials } from '../types/user.types.js'
 import { FilterBy, SortBy } from '../types/filter-sort.js'
+import { Job } from '../types/job.types.js'
 const BASE_URL: string = 'auth/'
 const STORAGE_KEY_LOGGEDIN: string = 'loggedInUser'
 export const userService = {
@@ -11,7 +12,9 @@ export const userService = {
     getLoggedInUser,
     getUsers,
     getById,
-    update
+    addJob,
+    deleteJob,
+    updateJob
 }
 
 
@@ -46,9 +49,34 @@ function _setLoggedInUser(user: any) {
 }
 
 
-async function update(userToUpdate: User) {
-    const { _id, jobs, fullName, userName } = userToUpdate
-    const user = await httpService.put(`user/${_id}`, { _id, jobs, fullName, userName })
+// async function update(userToUpdate: User) {
+//     const { _id, jobs, fullName, userName } = userToUpdate
+//     const user = await httpService.put(`user/${_id}`, { _id, jobs, fullName, userName, })
+//     const loggedInUser = getLoggedInUser()
+//     if (loggedInUser && loggedInUser._id === user._id) saveLocalUser(user)
+//     return user
+// }
+
+
+async function addJob(userToUpdate: User, newJob: Job) {
+    const { _id, fullName, userName } = userToUpdate
+    const user = await httpService.put(`user/${_id}/addJob`, { _id, fullName, userName, newJob })
+    const loggedInUser = getLoggedInUser()
+    if (loggedInUser && loggedInUser._id === user._id) saveLocalUser(user)
+    return user
+}
+
+
+async function deleteJob(userToUpdate: User, jobId: string) {
+    const { _id, fullName, userName } = userToUpdate
+    const user = await httpService.put(`user/${_id}/deleteJob`, { _id, fullName, userName, jobId })
+    const loggedInUser = getLoggedInUser()
+    if (loggedInUser && loggedInUser._id === user._id) saveLocalUser(user)
+    return user
+}
+async function updateJob(userToUpdate: User, jobId: string) {
+    const { _id, fullName, userName, jobs } = userToUpdate
+    const user = await httpService.put(`user/${_id}/updateJob`, { _id, fullName, userName, jobs, jobId })
     const loggedInUser = getLoggedInUser()
     if (loggedInUser && loggedInUser._id === user._id) saveLocalUser(user)
     return user

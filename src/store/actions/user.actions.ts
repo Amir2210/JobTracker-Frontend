@@ -42,7 +42,7 @@ export function addJob(job: Job) {
     type: ADD_JOB,
     job
   })
-  _updateUser()
+  _addJob(job)
 }
 
 export function deleteJob(job_id: string) {
@@ -50,7 +50,7 @@ export function deleteJob(job_id: string) {
     type: DELETE_JOB,
     job_id
   })
-  _updateUser()
+  _deleteJob(job_id)
 }
 
 export function editJob(job: Job) {
@@ -58,7 +58,7 @@ export function editJob(job: Job) {
     type: UPDATE_JOB,
     job
   })
-  _updateUser()
+  _updateJob(job._id)
 }
 
 export async function loadJobs(user_id: string, filterBy: FilterBy, sortBy: SortBy) {
@@ -73,22 +73,42 @@ export async function loadJobs(user_id: string, filterBy: FilterBy, sortBy: Sort
   }
 }
 
-
-
-
-async function _updateUser() {
+async function _deleteJob(jobId: string) {
   try {
     const loggedInUser = store.getState().userModule.loggedInUser
     if (loggedInUser) {
-      await userService.update(loggedInUser)
-    } else {
-      console.log('No logged in user to update')
+      await userService.deleteJob(loggedInUser, jobId)
     }
   } catch (error) {
     console.log('error:', error)
     throw error
   }
 }
+
+async function _updateJob(jobId: string) {
+  try {
+    const loggedInUser = store.getState().userModule.loggedInUser
+    if (loggedInUser) {
+      await userService.updateJob(loggedInUser, jobId)
+    }
+  } catch (error) {
+    console.log('error:', error)
+    throw error
+  }
+}
+
+async function _addJob(newJob: Job,) {
+  try {
+    const loggedInUser = store.getState().userModule.loggedInUser
+    if (loggedInUser) {
+      await userService.addJob(loggedInUser, newJob)
+    }
+  } catch (error) {
+    console.log('error:', error)
+    throw error
+  }
+}
+
 
 export function setFilterBy(filterBy: FilterBy) {
   store.dispatch({ type: SET_FILTER_BY, filterBy })
