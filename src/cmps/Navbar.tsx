@@ -58,7 +58,7 @@ export function Navbar() {
               <summary className='bg-sky-400 text-white text-lg hover:bg-sky-600'>
                 <CgProfile className='text-2xl' />
               </summary>
-              <ul className="p-2 bg-base-100 rounded-t-none">
+              <ul className="p-2 bg-base-100 rounded-t-none ">
                 <li><button onClick={onLogout}>logout</button></li>
               </ul>
             </details>

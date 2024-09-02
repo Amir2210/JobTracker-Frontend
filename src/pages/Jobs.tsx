@@ -100,7 +100,7 @@ export function Jobs() {
   return (
     <section >
       <Navbar />
-      <div className='bg-zinc-100 min-h-screen relative'>
+      <div className='bg-zinc-100 min-h-screen'>
         <div className='small-container sm:big-container sm:mt-4 sm:py-4 py-2  '>
           <FilterJob filterBy={filterBy} onSetFilter={onSetFilter} sortBy={sortBy} onSetSort={onSetSort} />
           <h1 className='text-2xl capitalize font-medium'>{totalJobs} {totalJobs === 1 ? 'job' : 'jobs'} found</h1>
