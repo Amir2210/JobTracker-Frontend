@@ -24,7 +24,7 @@ export function Pagination({ totalJobs, filterBy, onSetFilter }: PaginationProps
     const buttons = []
     for (let i = 0; i < numOfButtons; i++) {
       buttons.push(
-        <button key={i} onClick={() => handlePageChange(i)} className={`btn shadow-lg text-lg  ml-4 ${filterBy.pageIdx === i && 'bg-sky-400 text-white'}`}>{i + 1}</button>
+        <button key={i} onClick={() => handlePageChange(i)} className={`btn shadow-lg text-lg  ml-4 ${filterBy.pageIdx === i && 'bg-sky-400 text-white border-indigo-100 border'}`}>{i + 1}</button>
       )
     }
     return buttons
