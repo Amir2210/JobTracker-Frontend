@@ -1,12 +1,10 @@
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { Navbar } from '../cmps/Navbar'
 import { Job } from '../types/job.types'
-import { addJob, editJob, loadJobs } from '../store/actions/user.actions'
+import { addJob, editJob } from '../store/actions/user.actions'
 import { toast } from 'react-toastify'
 import { v4 as uuidv4 } from 'uuid'
 import { Link, useLocation, useNavigate } from 'react-router-dom'
-import { useSelector } from 'react-redux'
-import { User, UserModule } from '../types/user.types'
 import { IoIosArrowBack } from "react-icons/io";
 
 function getEmptyNewJob(): Job {
@@ -27,13 +25,7 @@ export function AddJob() {
   const jobToEdit = location.state?.job as Job | undefined;
   const [job, setJob] = useState<Job>(jobToEdit || getEmptyNewJob())
   const navigate = useNavigate()
-  const user: User | null = useSelector((storeState: UserModule) => storeState.userModule.loggedInUser)
 
-  useEffect(() => {
-    if (user) {
-      loadJobs(user._id, { txt: '', status: '', jobType: '', pageIdx: 0 }, { subject: '' })
-    }
-  }, [])
 
   function handleInputsChange(ev: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement | HTMLSelectElement>) {
     const field = ev.target.name
