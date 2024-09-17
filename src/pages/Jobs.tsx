@@ -92,7 +92,7 @@ export function Jobs() {
     try {
       deleteJob(job_id)
       toast.success('Job deleted successfully')
-      // window.location.reload()
+      window.location.reload()
     } catch (error) {
       console.log(error)
       toast.error('Unfortunately, we could not delete a job')
