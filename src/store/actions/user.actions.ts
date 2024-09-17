@@ -74,6 +74,7 @@ export async function loadJobs(user_id: string, filterBy: FilterBy, sortBy: Sort
 }
 
 async function _deleteJob(jobId: string) {
+  store.dispatch({ type: SET_IS_LOADING, isLoading: true })
   try {
     const loggedInUser = store.getState().userModule.loggedInUser
     if (loggedInUser) {
@@ -82,10 +83,13 @@ async function _deleteJob(jobId: string) {
   } catch (error) {
     console.log('error:', error)
     throw error
+  } finally {
+    store.dispatch({ type: SET_IS_LOADING, isLoading: false })
   }
 }
 
 async function _updateJob(jobId: string) {
+  store.dispatch({ type: SET_IS_LOADING, isLoading: true })
   try {
     const loggedInUser = store.getState().userModule.loggedInUser
     if (loggedInUser) {
@@ -94,10 +98,13 @@ async function _updateJob(jobId: string) {
   } catch (error) {
     console.log('error:', error)
     throw error
+  } finally {
+    store.dispatch({ type: SET_IS_LOADING, isLoading: false })
   }
 }
 
 async function _addJob(newJob: Job,) {
+  store.dispatch({ type: SET_IS_LOADING, isLoading: true })
   try {
     const loggedInUser = store.getState().userModule.loggedInUser
     if (loggedInUser) {
@@ -106,6 +113,8 @@ async function _addJob(newJob: Job,) {
   } catch (error) {
     console.log('error:', error)
     throw error
+  } finally {
+    store.dispatch({ type: SET_IS_LOADING, isLoading: false })
   }
 }
 

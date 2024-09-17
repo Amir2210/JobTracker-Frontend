@@ -41,8 +41,8 @@ export function AddJob() {
         toast.success('job has been updated')
         navigate('/jobs')
       } else {
-        console.log('job:', job)
         addJob(job)
+        console.log('before toast')
         toast.success('a new job has been added')
         navigate('/jobs')
       }
