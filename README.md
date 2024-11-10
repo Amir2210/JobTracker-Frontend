@@ -2,7 +2,7 @@ Job Tracker 📋
 
 Job Tracker streamlines your job search by efficiently organizing a watchlist. Easily manage the jobs you've applied for.
 
-🌐 Live Website: You can visit the live version of ComfyStore at https://jobtracker-x1u9.onrender.com
+🌐 Live Website: You can visit the live version of JobTracker at https://jobtracker-x1u9.onrender.com
 
 📦 Tech Stack:
 
