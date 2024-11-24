@@ -64,14 +64,14 @@ export function Jobs() {
 
   function statusClass(status: string): string {
     if (status === 'pending') {
-      return 'bg-orange-200 text-orange-600 hover:bg-orange-200 border-none shadow-lg shadow-orange-200/50'
+      return 'bg-orange-200 text-orange-600 hover:bg-orange-200 border-none'
     } else if (status === 'interview') {
-      return 'bg-blue-200 text-blue-600 hover:bg-blue-200 border-none shadow-lg shadow-blue-200/50'
+      return 'bg-blue-200 text-blue-600 hover:bg-blue-200 border-none'
     } else if (status === 'HR Interview') {
-      return 'bg-purple-200 text-purple-600 hover:bg-purple-200 border-none shadow-lg shadow-purple-200/50'
+      return 'bg-purple-200 text-purple-600 hover:bg-purple-200 border-none'
     }
     else {
-      return 'bg-red-200 text-red-600 hover:bg-red-200 border-none shadow-lg shadow-red-200/50'
+      return 'bg-red-200 text-red-600 hover:bg-red-200 border-none'
     }
   }
 
@@ -101,33 +101,33 @@ export function Jobs() {
   return (
     <section >
       <Navbar />
-      <div className='bg-zinc-100 min-h-screen'>
+      <div className='bg-base-200 min-h-screen'>
         <div className='small-container sm:big-container sm:mt-4 sm:py-4 py-2  '>
           <FilterJob filterBy={filterBy} onSetFilter={onSetFilter} sortBy={sortBy} onSetSort={onSetSort} />
           <h1 className='text-2xl capitalize font-medium'>{totalJobs} {totalJobs === 1 ? 'job' : 'jobs'} found</h1>
           <div className='grid sm:grid-cols-2 gap-5 mt-4'>
-            {!isLoading && userJobs?.map(job => <article key={job._id} className='sm:shadow-xl sm:mt-4 sm:py-4 py-2 px-2 rounded-lg bg-white h-fit'>
+            {!isLoading && userJobs?.map(job => <article key={job._id} className='sm:shadow-xl sm:mt-4 sm:py-4 py-2 px-2 rounded-lg bg-base-100 h-fit'>
               <div className='flex gap-8 border-solid border-indigo-100 border-b py-3 px-3'>
                 <div className='text-4xl bg-sky-400 text-white font-mono font-bold size-14 flex justify-center items-center rounded-lg'>{statusImg(job.status)}</div>
                 <div>
-                  <h1 className='text-sky-950 text-xl capitalize mb-1'>{job.position}</h1>
-                  <h2 className='text-slate-500 capitalize'>{job.company}</h2>
+                  <h1 className=' text-xl capitalize mb-1'>{job.position}</h1>
+                  <h2 className=' capitalize'>{job.company}</h2>
                 </div>
               </div>
               <div className='grid sm:grid-cols-2 gap-6 sm:gap-8 py-3 px-3'>
                 <div className='flex items-center gap-5'>
                   <FaLocationArrow className='text-slate-400' />
-                  <p className='text-sky-950 text-lg capitalize'>{job.jobLocation}</p>
+                  <p className=' text-lg capitalize'>{job.jobLocation}</p>
                 </div>
                 <div className='flex items-center gap-5'>
                   <FaSuitcase className='text-slate-400' />
-                  <p className='text-sky-950 text-lg capitalize'>{job.jobType}</p>
+                  <p className=' text-lg capitalize'>{job.jobType}</p>
                 </div>
               </div>
               <div className='grid sm:grid-cols-2 gap-6 sm:gap-8 py-3 px-3'>
                 <div className='flex items-center gap-5'>
                   <FaCalendarAlt className='text-slate-400' />
-                  <p className='text-sky-950 text-lg capitalize'>{formatDate(job.time)}</p>
+                  <p className=' text-lg capitalize'>{formatDate(job.time)}</p>
                 </div>
                 <div tabIndex={0} className=" sm:hidden collapse collapse-arrow border-indigo-100 border">
                   <div className="collapse-title text-xl">Description:</div>
@@ -147,7 +147,7 @@ export function Jobs() {
               </div>
               <div className='flex gap-5 py-3 px-3'>
                 <div className='flex items-center '>
-                  <Link to={'/addJob'} state={{ job }} className='btn capitalize bg-lime-100 text-lime-600 shadow-lg shadow-lime-100/50 rounded-md hover:bg-lime-200 border-none'>edit</Link>
+                  <Link to={'/addJob'} state={{ job }} className='btn capitalize bg-lime-100 text-lime-600 rounded-md hover:bg-lime-200 border-none'>edit</Link>
                 </div>
                 <div className='flex items-center '>
                   <button onClick={() => onDeleteJob(job._id)} className='btn capitalize bg-red-100 text-red-600 shadow-lg shadow-red100/50 hover:bg-red-200 border-none'>delete</button>

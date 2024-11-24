@@ -7,6 +7,7 @@ import { Link, useNavigate } from 'react-router-dom'
 import { CgProfile } from "react-icons/cg";
 import { MdSunny } from "react-icons/md"
 import { FaMoon } from "react-icons/fa"
+import { useEffect, useState } from 'react'
 
 interface theme {
   light: string
@@ -18,10 +19,22 @@ const themes: theme = {
   dark: 'dark'
 }
 
+function getThemeFromLocal() {
+  return localStorage.getItem('theme') || themes.light
+}
+
 
 export function Navbar() {
+  const [theme, setTheme] = useState(getThemeFromLocal())
   const user = useSelector((storeState: UserModule) => storeState.userModule.loggedInUser)
   const navigate = useNavigate()
+
+  function handleTheme() {
+    const { dark, light } = themes
+    const newTheme = theme === light ? dark : light
+    setTheme(newTheme)
+  }
+
   async function onLogout() {
     try {
       await logout()
@@ -32,6 +45,11 @@ export function Navbar() {
       toast.error(`failed to logged out`)
     }
   }
+
+  useEffect(() => {
+    document.documentElement.setAttribute('data-theme', theme)
+    localStorage.setItem('theme', theme)
+  }, [theme])
 
   return (
     <nav className="navbar bg-base-100 sticky top-0 px-8 z-10 sm:static small-container sm:big-container">
@@ -45,10 +63,15 @@ export function Navbar() {
           </ul>
         </div>
       </div>
-      <div className="navbar-center">
+      <div className="navbar-center mx-2">
         <Link to={'/jobs'} className=" text-2xl sm:text-3xl font-mono font-bold">JobTracker</Link>
       </div>
-      <div className="navbar-end hidden sm:flex">
+      <div className="navbar-end hidden sm:flex gap-2">
+        <label className='swap swap-rotate'>
+          <input type="checkbox" onChange={handleTheme} />
+          <MdSunny className='swap-on h-6 w-6 ' />
+          <FaMoon className='swap-off h-6 w-6 ' />
+        </label>
         <ul className="menu menu-horizontal px-1">
           <li>
             <details>
@@ -63,7 +86,7 @@ export function Navbar() {
           </li>
         </ul>
       </div>
-      <div className="navbar-end flex sm:hidden">
+      <div className="navbar-end flex sm:hidden gap-2">
         <ul className="menu menu-horizontal px-1">
           <li>
             <details>
@@ -76,6 +99,11 @@ export function Navbar() {
             </details>
           </li>
         </ul>
+        <label className='swap swap-rotate'>
+          <input type="checkbox" onChange={handleTheme} />
+          <MdSunny className='swap-on h-6 w-6 ' />
+          <FaMoon className='swap-off h-6 w-6 ' />
+        </label>
       </div>
     </nav>
   )
