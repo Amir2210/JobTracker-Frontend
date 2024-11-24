@@ -106,7 +106,7 @@ export function Jobs() {
           <FilterJob filterBy={filterBy} onSetFilter={onSetFilter} sortBy={sortBy} onSetSort={onSetSort} />
           <h1 className='text-2xl capitalize font-medium'>{totalJobs} {totalJobs === 1 ? 'job' : 'jobs'} found</h1>
           <div className='grid sm:grid-cols-2 gap-5 mt-4'>
-            {!isLoading && userJobs?.map(job => <article key={job._id} className='sm:shadow-xl sm:mt-4 sm:py-4 py-2 px-2 rounded-lg bg-base-100 h-fit'>
+            {!isLoading && userJobs?.map(job => <article key={job._id} className='sm:mt-4 sm:py-4 py-2 px-2 rounded-lg bg-base-100 h-fit'>
               <div className='flex gap-8 border-solid border-indigo-100 border-b py-3 px-3'>
                 <div className='text-4xl bg-sky-400 text-white font-mono font-bold size-14 flex justify-center items-center rounded-lg'>{statusImg(job.status)}</div>
                 <div>
