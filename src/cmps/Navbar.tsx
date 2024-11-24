@@ -5,6 +5,8 @@ import { logout } from '../store/actions/user.actions'
 import { toast } from 'react-toastify'
 import { Link, useNavigate } from 'react-router-dom'
 import { CgProfile } from "react-icons/cg";
+import { MdSunny } from "react-icons/md"
+import { FaMoon } from "react-icons/fa"
 
 
 export function Navbar() {
