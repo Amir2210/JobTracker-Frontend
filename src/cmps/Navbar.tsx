@@ -8,6 +8,16 @@ import { CgProfile } from "react-icons/cg";
 import { MdSunny } from "react-icons/md"
 import { FaMoon } from "react-icons/fa"
 
+interface theme {
+  light: string
+  dark: string
+}
+
+const themes: theme = {
+  light: 'light',
+  dark: 'dark'
+}
+
 
 export function Navbar() {
   const user = useSelector((storeState: UserModule) => storeState.userModule.loggedInUser)
