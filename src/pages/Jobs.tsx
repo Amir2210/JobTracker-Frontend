@@ -29,9 +29,7 @@ export function Jobs() {
   const filterBy: FilterBy = useSelector((storeState: UserModule) => storeState.userModule.filterBy)
   const sortBy: SortBy = useSelector((storeState: UserModule) => storeState.userModule.sortBy)
   const isLoading: boolean = useSelector((storeState: UserModule) => storeState.userModule.isLoading)
-  console.log('isLoading:', isLoading)
   useEffect(() => {
-
     if (user) {
       loadJobs(user._id, filterBy, sortBy)
     }
@@ -92,7 +90,7 @@ export function Jobs() {
     try {
       deleteJob(job_id)
       toast.success('Job deleted successfully')
-      window.location.reload()
+      // window.location.reload()
     } catch (error) {
       console.log(error)
       toast.error('Unfortunately, we could not delete a job')
