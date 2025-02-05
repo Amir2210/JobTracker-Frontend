@@ -13,7 +13,7 @@ import { formatDate } from '../utils/util'
 import { deleteJob, loadJobs, setFilterBy, setSortBy } from '../store/actions/user.actions'
 import { toast } from 'react-toastify'
 import { Link } from 'react-router-dom'
-import { useEffect } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { FilterJob } from '../cmps/FilterJob'
 import { FilterBy, SortBy } from '../types/filter-sort'
 // LOADER
@@ -23,6 +23,8 @@ import AddJobButton from '../cmps/AddJobButton'
 
 
 export function Jobs() {
+  const [isLastJobVisible, setIsLastJobVisible] = useState(false);
+  const lastJobRef = useRef<HTMLDivElement | null>(null);
   const userJobs: Job[] | undefined = useSelector((storeState: UserModule) => storeState.userModule.loggedInUser?.jobs)
   const user: User | null = useSelector((storeState: UserModule) => storeState.userModule.loggedInUser)
   const totalJobs = user?.totalFilteredJobs
@@ -37,6 +39,24 @@ export function Jobs() {
     }
   }, [filterBy, sortBy])
 
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        setIsLastJobVisible(entry.isIntersecting);
+      },
+      { threshold: 1.0 }
+    );
+
+    if (lastJobRef.current) {
+      observer.observe(lastJobRef.current);
+    }
+
+    return () => {
+      if (lastJobRef.current) {
+        observer.unobserve(lastJobRef.current);
+      }
+    };
+  }, [userJobs]);
   // useEffect(() => {
   //   const reloaded = localStorage.getItem('pageReloaded');
 
@@ -104,7 +124,7 @@ export function Jobs() {
           <FilterJob filterBy={filterBy} onSetFilter={onSetFilter} sortBy={sortBy} onSetSort={onSetSort} />
           <h1 className='text-2xl capitalize font-medium'>{totalJobs} {totalJobs === 1 ? 'job' : 'jobs'} found</h1>
           <div className='grid sm:grid-cols-2 gap-5 mt-4'>
-            {!isLoading && userJobs?.map(job => <article key={job._id} className='sm:mt-4 sm:py-4 py-2 px-2 rounded-lg bg-base-100 h-fit'>
+            {!isLoading && userJobs?.map((job, index: number) => <article ref={index === userJobs.length - 1 ? lastJobRef : null} key={job._id} className='sm:mt-4 sm:py-4 py-2 px-2 rounded-lg bg-base-100 h-fit'>
               <div className='flex gap-8 border-solid border-indigo-100 border-b py-3 px-3'>
                 <div className='text-4xl bg-sky-400 text-white font-mono font-bold size-14 flex justify-center items-center rounded-lg'>{statusImg(job.status)}</div>
                 <div>
@@ -164,7 +184,7 @@ export function Jobs() {
             <p className='capitalize mt-4 text-2xl sm:text-4xl'>add your first job <span className='link text-sky-400'><Link to={'/addJob'}>here</Link> </span></p>
           </div>}
         </div>
-        <AddJobButton />
+        {!isLastJobVisible && <AddJobButton />}
       </div>
     </section>
   )
