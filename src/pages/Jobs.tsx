@@ -8,6 +8,7 @@ import { FaBug } from "react-icons/fa"
 import { AiOutlineSchedule } from "react-icons/ai";
 import { FaSuitcase } from "react-icons/fa"
 import { FaCalendarAlt } from "react-icons/fa";
+import { FaGhost } from "react-icons/fa6";
 import { ImProfile } from "react-icons/im";
 import { formatDate } from '../utils/util'
 import { deleteJob, loadJobs, setFilterBy, setSortBy } from '../store/actions/user.actions'
@@ -87,6 +88,8 @@ export function Jobs() {
       return 'bg-blue-200 text-blue-600 hover:bg-blue-200 border-none'
     } else if (status === 'HR Interview') {
       return 'bg-purple-200 text-purple-600 hover:bg-purple-200 border-none'
+    } else if (status === 'Ghosting') {
+      return 'bg-stone-200 text-stone-600 hover:bg-stone-200 border-none'
     }
     else {
       return 'bg-red-200 text-red-600 hover:bg-red-200 border-none'
@@ -100,9 +103,26 @@ export function Jobs() {
       return <AiOutlineSchedule />
     } else if (status === 'HR Interview') {
       return <ImProfile />
+    } else if (status === 'Ghosting') {
+      return <FaGhost />
     }
     else {
       return <FaBug />
+    }
+  }
+
+  function statusImgBgColor(status: string): string {
+    if (status === 'pending') {
+      return 'bg-orange-400'
+    } else if (status === 'interview') {
+      return 'bg-blue-400'
+    } else if (status === 'HR Interview') {
+      return 'bg-purple-400'
+    } else if (status === 'Ghosting') {
+      return 'bg-stone-400'
+    }
+    else {
+      return 'bg-red-400'
     }
   }
 
@@ -126,7 +146,7 @@ export function Jobs() {
           <div className='grid sm:grid-cols-2 gap-5 mt-4'>
             {!isLoading && userJobs?.map((job, index: number) => <article ref={index === userJobs.length - 1 ? lastJobRef : null} key={job._id} className='sm:mt-4 sm:py-4 py-2 px-2 rounded-lg bg-base-100 h-fit'>
               <div className='flex gap-8 border-solid border-indigo-100 border-b py-3 px-3'>
-                <div className='text-4xl bg-sky-400 text-white font-mono font-bold size-14 flex justify-center items-center rounded-lg'>{statusImg(job.status)}</div>
+                <div className={`text-4xl text-white font-mono font-bold size-14 flex justify-center items-center rounded-lg ${statusImgBgColor(job.status)}`}>{statusImg(job.status)}</div>
                 <div>
                   <h1 className=' text-xl capitalize mb-1'>{job.position}</h1>
                   <h2 className=' capitalize'>{job.company}</h2>
