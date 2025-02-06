@@ -6,6 +6,7 @@ import { MdOutlinePendingActions } from "react-icons/md"
 import { AiOutlineSchedule } from "react-icons/ai"
 import { FaBug } from "react-icons/fa"
 import { ImProfile } from "react-icons/im";
+import { FaGhost } from "react-icons/fa6";
 import { DoughnutChart } from '../cmps/DoughnutChart'
 
 export function Stats() {
@@ -14,6 +15,7 @@ export function Stats() {
   const interviewJobs = userJobs?.filter(job => job.status === 'interview')
   const declinedJobs = userJobs?.filter(job => job.status === 'declined')
   const hrInterviewJobs = userJobs?.filter(job => job.status === 'HR Interview')
+  const ghostingJobs = userJobs?.filter(job => job.status === 'Ghosting')
   return (
     <section>
       <Navbar />
@@ -58,6 +60,15 @@ export function Stats() {
               </div>
               <p className='mt-4 font-mono text-2xl text-sky-950'>HR Interviews</p>
             </div>
+            <div className='sm:shadow-xl sm:col-span-2 sm:mt-4 p-8 rounded-lg bg-white border-b-4 border-stone-600'>
+              <div className='flex items-center justify-between'>
+                <p className='text-5xl text-stone-600'>{ghostingJobs?.length}</p>
+                <div className='bg-stone-200 text-stone-600 p-2 rounded-md'>
+                  <FaGhost className='text-5xl' />
+                </div>
+              </div>
+              <p className='mt-4 font-mono text-2xl text-sky-950'>Ghosting jobs</p>
+            </div>
           </div>
           <div className='flex justify-center my-8 sm:h-72 chart-txt-color'>
             <DoughnutChart
@@ -65,6 +76,7 @@ export function Stats() {
               interviewJobs={interviewJobs?.length || 0}
               declinedJobs={declinedJobs?.length || 0}
               hrInterviewJobs={hrInterviewJobs?.length || 0}
+              ghostingJobs={ghostingJobs?.length || 0}
             />
           </div>
         </div>
