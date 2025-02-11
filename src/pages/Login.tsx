@@ -47,9 +47,13 @@ export function Login() {
       await login(credentials)
       navigate('/jobs')
       toast.success("You've logged in successfully")
-    } catch (err) {
-      console.error(err)
-      toast.error('Invalid username or password')
+    } catch (err: any) {
+      console.error('err!!!', err.response)
+      if (err.response.status === 401) {
+        toast.error('Invalid username or password')
+      } else {
+        toast.error(err.response.data)
+      }
     }
   }
 
