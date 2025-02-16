@@ -4,6 +4,7 @@ import { User, UserModule } from '../types/user.types'
 import { Job } from '../types/job.types'
 import { MdOutlinePendingActions } from "react-icons/md"
 import { FaLocationArrow } from "react-icons/fa"
+import { CiStar } from "react-icons/ci";
 import { FaBug } from "react-icons/fa"
 import { AiOutlineSchedule } from "react-icons/ai";
 import { FaSuitcase } from "react-icons/fa"
@@ -150,6 +151,9 @@ export function Jobs() {
                 <div>
                   <h1 className=' text-xl capitalize mb-1'>{job.position}</h1>
                   <h2 className=' capitalize'>{job.company}</h2>
+                </div>
+                <div className='flex ml-auto items-center'>
+                  <CiStar className='text-4xl' />
                 </div>
               </div>
               <div className='grid sm:grid-cols-2 gap-6 sm:gap-8 py-3 px-3'>
