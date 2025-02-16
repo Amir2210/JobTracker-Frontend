@@ -1,27 +1,18 @@
 import { useSelector } from 'react-redux'
-import { Navbar } from '../cmps/Navbar'
-import { User, UserModule } from '../types/user.types'
-import { Job } from '../types/job.types'
-import { MdOutlinePendingActions } from "react-icons/md"
-import { FaLocationArrow } from "react-icons/fa"
-import { CiStar } from "react-icons/ci";
-import { FaBug } from "react-icons/fa"
-import { AiOutlineSchedule } from "react-icons/ai";
-import { FaSuitcase } from "react-icons/fa"
-import { FaCalendarAlt } from "react-icons/fa";
-import { FaGhost } from "react-icons/fa6";
-import { ImProfile } from "react-icons/im";
-import { formatDate } from '../utils/util'
-import { deleteJob, loadJobs, setFilterBy, setSortBy } from '../store/actions/user.actions'
-import { toast } from 'react-toastify'
-import { Link } from 'react-router-dom'
 import { useEffect, useRef, useState } from 'react'
-import { FilterJob } from '../cmps/FilterJob'
-import { FilterBy, SortBy } from '../types/filter-sort'
-// LOADER
-import { FallingLines } from 'react-loader-spinner'
+import { Link } from 'react-router-dom'
+//components
 import { Pagination } from '../cmps/Pagination'
 import AddJobButton from '../cmps/AddJobButton'
+import { JobsList } from '../cmps/JobsList'
+import { Navbar } from '../cmps/Navbar'
+import { FilterJob } from '../cmps/FilterJob'
+//types
+import { User, UserModule } from '../types/user.types'
+import { FilterBy, SortBy } from '../types/filter-sort'
+import { Job } from '../types/job.types'
+//action
+import { loadJobs, setFilterBy, setSortBy } from '../store/actions/user.actions'
 
 
 export function Jobs() {
@@ -59,20 +50,7 @@ export function Jobs() {
       }
     };
   }, [userJobs]);
-  // useEffect(() => {
-  //   const reloaded = localStorage.getItem('pageReloaded');
 
-  //   if (!reloaded) {
-  //     // Set the flag to indicate the page has been reloaded
-  //     localStorage.setItem('pageReloaded', 'true');
-  //     // Reload the page
-  //     window.location.reload();
-  //   }
-  //   return () => {
-  //     resetFilterAndSortBy()
-  //     localStorage.removeItem('pageReloaded');
-  //   }
-  // }, [])
 
   function onSetFilter(filterBy: FilterBy) {
     setFilterBy(filterBy)
@@ -82,61 +60,6 @@ export function Jobs() {
     setSortBy(sortBy)
   }
 
-  function statusClass(status: string): string {
-    if (status === 'pending') {
-      return 'bg-orange-200 text-orange-600 hover:bg-orange-200 border-none'
-    } else if (status === 'interview') {
-      return 'bg-blue-200 text-blue-600 hover:bg-blue-200 border-none'
-    } else if (status === 'HR Interview') {
-      return 'bg-purple-200 text-purple-600 hover:bg-purple-200 border-none'
-    } else if (status === 'Ghosting') {
-      return 'bg-stone-200 text-stone-600 hover:bg-stone-200 border-none'
-    }
-    else {
-      return 'bg-red-200 text-red-600 hover:bg-red-200 border-none'
-    }
-  }
-
-  function statusImg(status: string): JSX.Element | undefined {
-    if (status === 'pending') {
-      return <MdOutlinePendingActions />
-    } else if (status === 'interview') {
-      return <AiOutlineSchedule />
-    } else if (status === 'HR Interview') {
-      return <ImProfile />
-    } else if (status === 'Ghosting') {
-      return <FaGhost />
-    }
-    else {
-      return <FaBug />
-    }
-  }
-
-  function statusImgBgColor(status: string): string {
-    if (status === 'pending') {
-      return 'bg-orange-400'
-    } else if (status === 'interview') {
-      return 'bg-blue-400'
-    } else if (status === 'HR Interview') {
-      return 'bg-purple-400'
-    } else if (status === 'Ghosting') {
-      return 'bg-stone-400'
-    }
-    else {
-      return 'bg-red-400'
-    }
-  }
-
-  async function onDeleteJob(job_id: string) {
-    try {
-      deleteJob(job_id)
-      toast.success('Job deleted successfully')
-      // window.location.reload()
-    } catch (error) {
-      console.log(error)
-      toast.error('Unfortunately, we could not delete a job')
-    }
-  }
   return (
     <section >
       <Navbar />
@@ -144,7 +67,9 @@ export function Jobs() {
         <div className='small-container sm:big-container sm:mt-4 sm:py-4 py-2  '>
           <FilterJob filterBy={filterBy} onSetFilter={onSetFilter} sortBy={sortBy} onSetSort={onSetSort} />
           <h1 className='text-2xl capitalize font-medium'>{totalJobs} {totalJobs === 1 ? 'job' : 'jobs'} found</h1>
-          <div className='grid sm:grid-cols-2 gap-5 mt-4'>
+          /////////
+          <JobsList isLoading={isLoading} userJobs={userJobs} lastJobRef={lastJobRef} />
+          {/* <div className='grid sm:grid-cols-2 gap-5 mt-4'>
             {!isLoading && userJobs?.map((job, index: number) => <article ref={index === userJobs.length - 1 ? lastJobRef : null} key={job._id} className='sm:mt-4 sm:py-4 py-2 px-2 rounded-lg bg-base-100 h-fit'>
               <div className='flex gap-8 border-solid border-indigo-100 border-b py-3 px-3'>
                 <div className={`text-4xl text-white font-mono font-bold size-14 flex justify-center items-center rounded-lg ${statusImgBgColor(job.status)}`}>{statusImg(job.status)}</div>
@@ -201,7 +126,8 @@ export function Jobs() {
               width="100"
               visible={true}
             />}
-          </div>
+          </div> */}
+          //////////
           <Pagination totalJobs={totalJobs} filterBy={filterBy} onSetFilter={onSetFilter} />
           {!userJobs?.length && !filterBy.txt && !filterBy.status && !filterBy.jobType && <div className='flex flex-col justify-center items-center mt-4'>
             <img className='size-48 sm:size-96' src="https://res.cloudinary.com/dxm0sqcfp/image/upload/v1715154175/job%20tracker/ocfxopyi3lshmxzmucwd.svg" alt="" />
