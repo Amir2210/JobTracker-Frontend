@@ -16,7 +16,8 @@ function getEmptyNewJob(): Job {
     status: 'pending',
     jobType: 'full-time',
     time: Date.now(),
-    description: ''
+    description: '',
+    isFavorite: false
   }
 }
 

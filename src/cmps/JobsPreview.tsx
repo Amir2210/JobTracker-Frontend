@@ -13,7 +13,7 @@ import { FaGhost } from "react-icons/fa6";
 import { ImProfile } from "react-icons/im";
 import { FaBug } from "react-icons/fa"
 //react
-import { RefObject } from 'react';
+import { RefObject, useState } from 'react';
 import { Link } from 'react-router-dom';
 //actions
 import { deleteJob } from '../store/actions/user.actions';
@@ -82,6 +82,7 @@ async function onDeleteJob(job_id: string) {
   }
 }
 export function JobsPreview({ job, index, userJobs, lastJobRef }: JobsPreviewProps) {
+  const [isFavorite, setIsFavorite] = useState()
   return (
     <article ref={index === (userJobs?.length ?? 0) - 1 ? lastJobRef : null} key={job._id} className='sm:mt-4 sm:py-4 py-2 px-2 rounded-lg bg-base-100 h-fit'>
       <div className='flex gap-8 border-solid border-indigo-100 border-b py-3 px-3'>

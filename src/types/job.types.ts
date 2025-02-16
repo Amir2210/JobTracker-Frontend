@@ -6,5 +6,6 @@ export type Job = {
   status: string,
   jobType: string,
   time: number,
-  description: string
+  description: string,
+  isFavorite: boolean
 }
