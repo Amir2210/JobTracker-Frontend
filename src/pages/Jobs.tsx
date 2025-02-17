@@ -16,9 +16,11 @@ import { loadJobs, setFilterBy, setSortBy } from '../store/actions/user.actions'
 
 
 export function Jobs() {
-  const [isLastJobVisible, setIsLastJobVisible] = useState(false);
-  const lastJobRef = useRef<HTMLDivElement | null>(null);
+  const [isLastJobVisible, setIsLastJobVisible] = useState(false)
+  const lastJobRef = useRef<HTMLDivElement | null>(null)
+  const [isFavoriteShow, setIsFavoriteShow] = useState(false)
   const userJobs: Job[] | undefined = useSelector((storeState: UserModule) => storeState.userModule.loggedInUser?.jobs)
+  const userFavoriteJobs: Job[] | undefined = useSelector((storeState: UserModule) => storeState.userModule.loggedInUser?.jobs.filter(job => job.isFavorite))
   const user: User | null = useSelector((storeState: UserModule) => storeState.userModule.loggedInUser)
   const totalJobs = user?.totalFilteredJobs
   const filterBy: FilterBy = useSelector((storeState: UserModule) => storeState.userModule.filterBy)
@@ -66,7 +68,10 @@ export function Jobs() {
       <div className='bg-base-200 min-h-screen'>
         <div className='small-container sm:big-container sm:mt-4 sm:py-4 py-2  '>
           <FilterJob filterBy={filterBy} onSetFilter={onSetFilter} sortBy={sortBy} onSetSort={onSetSort} />
-          <h1 className='text-2xl capitalize font-medium'>{totalJobs} {totalJobs === 1 ? 'job' : 'jobs'} found</h1>
+          <div className='flex justify-between items-center'>
+            <h1 className='text-2xl capitalize font-medium'>{totalJobs} {totalJobs === 1 ? 'job' : 'jobs'} found</h1>
+            <button onClick={() => setIsFavoriteShow(!isFavoriteShow)} className=' btn bg-sky-400 hover:bg-sky-600 text-white text-xl capitalize font-medium'>{isFavoriteShow ? 'show all jobs' : 'show favorite jobs'}</button>
+          </div>
           <JobsList isLoading={isLoading} userJobs={userJobs} lastJobRef={lastJobRef} />
           <Pagination totalJobs={totalJobs} filterBy={filterBy} onSetFilter={onSetFilter} />
           {!userJobs?.length && !filterBy.txt && !filterBy.status && !filterBy.jobType && <div className='flex flex-col justify-center items-center mt-4'>

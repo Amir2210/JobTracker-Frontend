@@ -1,4 +1,3 @@
-//types
 import { RefObject } from 'react'
 import { Job } from '../types/job.types'
 import { JobsPreview } from './JobsPreview'
@@ -13,6 +12,8 @@ interface jobListProps {
 
 
 export function JobsList({ isLoading, userJobs, lastJobRef }: jobListProps) {
+
+
 
   return (
     <div className='grid sm:grid-cols-2 gap-5 mt-4'>

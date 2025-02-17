@@ -3,6 +3,7 @@ import { Job } from '../types/job.types'
 //utils
 import { formatDate } from '../utils/util'
 //icons
+import { FaStar } from "react-icons/fa";
 import { FaSuitcase } from "react-icons/fa"
 import { FaCalendarAlt } from "react-icons/fa";
 import { FaLocationArrow } from "react-icons/fa"
@@ -13,10 +14,10 @@ import { FaGhost } from "react-icons/fa6";
 import { ImProfile } from "react-icons/im";
 import { FaBug } from "react-icons/fa"
 //react
-import { RefObject, useState } from 'react';
+import { RefObject, useCallback, useState } from 'react';
 import { Link } from 'react-router-dom';
 //actions
-import { deleteJob } from '../store/actions/user.actions';
+import { deleteJob, editJob } from '../store/actions/user.actions';
 import { toast } from 'react-toastify';
 //interface
 interface JobsPreviewProps {
@@ -81,8 +82,19 @@ async function onDeleteJob(job_id: string) {
     toast.error('Unfortunately, we could not delete a job')
   }
 }
-export function JobsPreview({ job, index, userJobs, lastJobRef }: JobsPreviewProps) {
-  const [isFavorite, setIsFavorite] = useState()
+
+export function JobsPreview({ job, index, userJobs, lastJobRef, }: JobsPreviewProps) {
+  const [isFavorite, setIsFavorite] = useState(job.isFavorite)
+
+  async function onChangeFavorite() {
+    setIsFavorite(!isFavorite)
+    try {
+      editJob({ ...job, isFavorite: !isFavorite })
+    } catch (error) {
+      console.log('error:', error)
+    }
+  }
+
   return (
     <article ref={index === (userJobs?.length ?? 0) - 1 ? lastJobRef : null} key={job._id} className='sm:mt-4 sm:py-4 py-2 px-2 rounded-lg bg-base-100 h-fit'>
       <div className='flex gap-8 border-solid border-indigo-100 border-b py-3 px-3'>
@@ -91,9 +103,9 @@ export function JobsPreview({ job, index, userJobs, lastJobRef }: JobsPreviewPro
           <h1 className=' text-xl capitalize mb-1'>{job.position}</h1>
           <h2 className=' capitalize'>{job.company}</h2>
         </div>
-        <div className='flex ml-auto items-center'>
-          <CiStar className='text-4xl' />
-        </div>
+        <button onClick={() => onChangeFavorite()} className='flex ml-auto items-center'>
+          {job.isFavorite ? <FaStar className="text-4xl" /> : <CiStar className="text-4xl" />}
+        </button>
       </div>
       <div className='grid sm:grid-cols-2 gap-6 sm:gap-8 py-3 px-3'>
         <div className='flex items-center gap-5'>
