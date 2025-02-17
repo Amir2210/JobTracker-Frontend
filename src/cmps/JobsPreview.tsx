@@ -14,7 +14,7 @@ import { FaGhost } from "react-icons/fa6";
 import { ImProfile } from "react-icons/im";
 import { FaBug } from "react-icons/fa"
 //react
-import { RefObject, useCallback, useState } from 'react';
+import { RefObject, useState } from 'react';
 import { Link } from 'react-router-dom';
 //actions
 import { deleteJob, editJob } from '../store/actions/user.actions';

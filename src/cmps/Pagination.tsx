@@ -3,14 +3,16 @@ import { FilterBy } from '../types/filter-sort';
 
 interface PaginationProps {
   totalJobs: number | undefined;
+  totalFavoriteJobs: number | undefined
+  isFavoriteShow: boolean
   filterBy: FilterBy;
   onSetFilter: (filterBy: FilterBy) => void;
 }
 
-export function Pagination({ totalJobs, filterBy, onSetFilter }: PaginationProps) {
+export function Pagination({ totalJobs, filterBy, onSetFilter, isFavoriteShow, totalFavoriteJobs }: PaginationProps) {
   const pageSize = 10
-  const numOfPages = Math.ceil(totalJobs ? totalJobs / pageSize : 0);
-  const [currentPage, setCurrentPage] = useState(filterBy.pageIdx || 0);
+  const numOfPages = !isFavoriteShow ? Math.ceil(totalJobs ? totalJobs / pageSize : 0) : Math.ceil(totalFavoriteJobs ? totalFavoriteJobs / pageSize : 0)
+  const [currentPage, setCurrentPage] = useState(filterBy.pageIdx || 0)
   const pagesToShow = 3 // Number of visible pages at a time
 
   function handlePageChange(page: number) {
