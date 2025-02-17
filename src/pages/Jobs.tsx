@@ -69,10 +69,10 @@ export function Jobs() {
         <div className='small-container sm:big-container sm:mt-4 sm:py-4 py-2  '>
           <FilterJob filterBy={filterBy} onSetFilter={onSetFilter} sortBy={sortBy} onSetSort={onSetSort} />
           <div className='flex justify-between items-center'>
-            <h1 className='text-2xl capitalize font-medium'>{totalJobs} {totalJobs === 1 ? 'job' : 'jobs'} found</h1>
+            {isFavoriteShow ? <h1 className='text-2xl capitalize font-medium'>{userFavoriteJobs?.length} favorite {userFavoriteJobs?.length === 1 ? 'job' : 'jobs'} found</h1> : <h1 className='text-2xl capitalize font-medium'>{totalJobs} {totalJobs === 1 ? 'job' : 'jobs'} found</h1>}
             <button onClick={() => setIsFavoriteShow(!isFavoriteShow)} className=' btn bg-sky-400 hover:bg-sky-600 text-white text-xl capitalize font-medium'>{isFavoriteShow ? 'show all jobs' : 'show favorite jobs'}</button>
           </div>
-          <JobsList isLoading={isLoading} userJobs={userJobs} lastJobRef={lastJobRef} />
+          <JobsList isLoading={isLoading} userJobs={userJobs} lastJobRef={lastJobRef} userFavoriteJobs={userFavoriteJobs} isFavoriteShow={isFavoriteShow} />
           <Pagination totalJobs={totalJobs} filterBy={filterBy} onSetFilter={onSetFilter} />
           {!userJobs?.length && !filterBy.txt && !filterBy.status && !filterBy.jobType && <div className='flex flex-col justify-center items-center mt-4'>
             <img className='size-48 sm:size-96' src="https://res.cloudinary.com/dxm0sqcfp/image/upload/v1715154175/job%20tracker/ocfxopyi3lshmxzmucwd.svg" alt="" />
