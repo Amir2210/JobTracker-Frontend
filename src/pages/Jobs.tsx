@@ -23,6 +23,8 @@ export function Jobs() {
   const userFavoriteJobs: Job[] | undefined = useSelector((storeState: UserModule) => storeState.userModule.loggedInUser?.jobs?.filter(job => job.isFavorite))
   const totalFavoriteJobs: number | undefined = userFavoriteJobs?.length
   const user: User | null = useSelector((storeState: UserModule) => storeState.userModule.loggedInUser)
+  const isDemoUser = user?.fullName === 'demo user'
+  console.log('isDemoUser:', isDemoUser)
   const totalJobs = user?.totalFilteredJobs
   const filterBy: FilterBy = useSelector((storeState: UserModule) => storeState.userModule.filterBy)
   const sortBy: SortBy = useSelector((storeState: UserModule) => storeState.userModule.sortBy)
@@ -73,7 +75,7 @@ export function Jobs() {
             {isFavoriteShow ? <h1 className='text-2xl capitalize font-medium'>{userFavoriteJobs?.length} favorite {userFavoriteJobs?.length === 1 ? 'job' : 'jobs'} found</h1> : <h1 className='text-2xl capitalize font-medium'>{totalJobs} {totalJobs === 1 ? 'job' : 'jobs'} found</h1>}
             <button onClick={() => setIsFavoriteShow(!isFavoriteShow)} className=' btn bg-sky-400 hover:bg-sky-600 text-white text-lg sm:text-xl capitalize font-medium'>{isFavoriteShow ? 'show all jobs' : 'show favorite jobs'}</button>
           </div>
-          <JobsList isLoading={isLoading} userJobs={userJobs} lastJobRef={lastJobRef} userFavoriteJobs={userFavoriteJobs} isFavoriteShow={isFavoriteShow} />
+          <JobsList isDemoUser={isDemoUser} isLoading={isLoading} userJobs={userJobs} lastJobRef={lastJobRef} userFavoriteJobs={userFavoriteJobs} isFavoriteShow={isFavoriteShow} />
           <Pagination isFavoriteShow={isFavoriteShow} totalFavoriteJobs={totalFavoriteJobs} totalJobs={totalJobs} filterBy={filterBy} onSetFilter={onSetFilter} />
           {!userJobs?.length && !filterBy.txt && !filterBy.status && !filterBy.jobType && <div className='flex flex-col justify-center items-center mt-4'>
             <img className='size-48 sm:size-96' src="https://res.cloudinary.com/dxm0sqcfp/image/upload/v1715154175/job%20tracker/ocfxopyi3lshmxzmucwd.svg" alt="" />

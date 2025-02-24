@@ -27,6 +27,7 @@ interface JobsPreviewProps {
   userFavoriteJobs?: Job[] | undefined
   lastJobRef?: RefObject<HTMLDivElement>
   isFavoriteShow: boolean
+  isDemoUser: boolean
 }
 
 function statusClass(status: string): string {
@@ -85,7 +86,7 @@ async function onDeleteJob(job_id: string) {
   }
 }
 
-export function JobsPreview({ job, index, userJobs, lastJobRef, userFavoriteJobs, isFavoriteShow }: JobsPreviewProps) {
+export function JobsPreview({ job, index, userJobs, lastJobRef, userFavoriteJobs, isFavoriteShow, isDemoUser }: JobsPreviewProps) {
   const [isFavorite, setIsFavorite] = useState(job.isFavorite)
 
   async function onChangeFavorite() {
@@ -145,7 +146,7 @@ export function JobsPreview({ job, index, userJobs, lastJobRef, userFavoriteJobs
           <Link to={'/addJob'} state={{ job }} className='btn capitalize bg-lime-100 text-lime-600 rounded-md hover:bg-lime-200 border-none'>edit</Link>
         </div>
         <div className='flex items-center '>
-          <button onClick={() => onDeleteJob(job._id)} className='btn capitalize bg-red-100 text-red-600 shadow-lg shadow-red100/50 hover:bg-red-200 border-none'>delete</button>
+          {!isDemoUser && <button onClick={() => onDeleteJob(job._id)} className='btn capitalize bg-red-100 text-red-600 shadow-lg shadow-red100/50 hover:bg-red-200 border-none'>delete</button>}
         </div>
       </div>
     </article>
