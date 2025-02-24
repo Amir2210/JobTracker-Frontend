@@ -5,7 +5,7 @@ interface PaginationProps {
   totalJobs: number | undefined;
   totalFavoriteJobs: number | undefined
   isFavoriteShow: boolean
-  filterBy: FilterBy;
+  filterBy: FilterBy
   onSetFilter: (filterBy: FilterBy) => void;
 }
 

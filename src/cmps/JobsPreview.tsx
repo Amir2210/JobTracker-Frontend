@@ -23,8 +23,10 @@ import { toast } from 'react-toastify';
 interface JobsPreviewProps {
   job: Job
   index: number
-  userJobs: Job[] | undefined
+  userJobs?: Job[] | undefined
+  userFavoriteJobs?: Job[] | undefined
   lastJobRef?: RefObject<HTMLDivElement>
+  isFavoriteShow: boolean
 }
 
 function statusClass(status: string): string {
@@ -83,7 +85,7 @@ async function onDeleteJob(job_id: string) {
   }
 }
 
-export function JobsPreview({ job, index, userJobs, lastJobRef, }: JobsPreviewProps) {
+export function JobsPreview({ job, index, userJobs, lastJobRef, userFavoriteJobs, isFavoriteShow }: JobsPreviewProps) {
   const [isFavorite, setIsFavorite] = useState(job.isFavorite)
 
   async function onChangeFavorite() {
@@ -96,7 +98,7 @@ export function JobsPreview({ job, index, userJobs, lastJobRef, }: JobsPreviewPr
   }
 
   return (
-    <article ref={index === (userJobs?.length ?? 0) - 1 ? lastJobRef : null} key={job._id} className='sm:mt-4 sm:py-4 py-2 px-2 rounded-lg bg-base-100 h-fit'>
+    <article ref={index === (!isFavoriteShow ? userJobs?.length ?? 0 : userFavoriteJobs?.length ?? 0) - 1 ? lastJobRef : null} key={job._id} className='sm:mt-4 sm:py-4 py-2 px-2 rounded-lg bg-base-100 h-fit'>
       <div className='flex gap-8 border-solid border-indigo-100 border-b py-3 px-3'>
         <div className={`text-4xl text-white font-mono font-bold size-14 flex justify-center items-center rounded-lg ${statusImgBgColor(job.status)}`}>{statusImg(job.status)}</div>
         <div>

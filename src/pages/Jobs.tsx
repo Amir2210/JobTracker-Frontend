@@ -20,7 +20,7 @@ export function Jobs() {
   const lastJobRef = useRef<HTMLDivElement | null>(null)
   const [isFavoriteShow, setIsFavoriteShow] = useState(false)
   const userJobs: Job[] | undefined = useSelector((storeState: UserModule) => storeState.userModule.loggedInUser?.jobs)
-  const userFavoriteJobs: Job[] | undefined = useSelector((storeState: UserModule) => storeState.userModule.loggedInUser?.jobs.filter(job => job.isFavorite))
+  const userFavoriteJobs: Job[] | undefined = useSelector((storeState: UserModule) => storeState.userModule.loggedInUser?.jobs?.filter(job => job.isFavorite))
   const totalFavoriteJobs: number | undefined = userFavoriteJobs?.length
   const user: User | null = useSelector((storeState: UserModule) => storeState.userModule.loggedInUser)
   const totalJobs = user?.totalFilteredJobs
@@ -71,7 +71,7 @@ export function Jobs() {
           <FilterJob filterBy={filterBy} onSetFilter={onSetFilter} sortBy={sortBy} onSetSort={onSetSort} />
           <div className='flex justify-between items-center'>
             {isFavoriteShow ? <h1 className='text-2xl capitalize font-medium'>{userFavoriteJobs?.length} favorite {userFavoriteJobs?.length === 1 ? 'job' : 'jobs'} found</h1> : <h1 className='text-2xl capitalize font-medium'>{totalJobs} {totalJobs === 1 ? 'job' : 'jobs'} found</h1>}
-            <button onClick={() => setIsFavoriteShow(!isFavoriteShow)} className=' btn bg-sky-400 hover:bg-sky-600 text-white text-xl capitalize font-medium'>{isFavoriteShow ? 'show all jobs' : 'show favorite jobs'}</button>
+            <button onClick={() => setIsFavoriteShow(!isFavoriteShow)} className=' btn bg-sky-400 hover:bg-sky-600 text-white text-lg sm:text-xl capitalize font-medium'>{isFavoriteShow ? 'show all jobs' : 'show favorite jobs'}</button>
           </div>
           <JobsList isLoading={isLoading} userJobs={userJobs} lastJobRef={lastJobRef} userFavoriteJobs={userFavoriteJobs} isFavoriteShow={isFavoriteShow} />
           <Pagination isFavoriteShow={isFavoriteShow} totalFavoriteJobs={totalFavoriteJobs} totalJobs={totalJobs} filterBy={filterBy} onSetFilter={onSetFilter} />

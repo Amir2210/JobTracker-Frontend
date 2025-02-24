@@ -10,6 +10,7 @@ export const SET_IS_LOADING: string = 'SET_IS_LOADING'
 // job
 export const UPDATE_JOB: string = 'UPDATE_JOB'
 export const ADD_JOB: string = 'ADD_JOB'
+export const ADD_JOB_TO_FAVORITE: string = 'ADD_JOB_TO_FAVORITE'
 export const DELETE_JOB: string = 'DELETE_JOB'
 export const SET_FILTER_BY: string = 'SET_FILTER_BY'
 export const SET_SORT_BY: string = 'SET_SORT_BY'
@@ -29,6 +30,7 @@ type AddJobAction = {
   type: typeof ADD_JOB
   job: Job
 }
+
 
 type EditJobAction = {
   type: typeof UPDATE_JOB
