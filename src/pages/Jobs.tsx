@@ -24,7 +24,6 @@ export function Jobs() {
   const totalFavoriteJobs: number | undefined = userFavoriteJobs?.length
   const user: User | null = useSelector((storeState: UserModule) => storeState.userModule.loggedInUser)
   const isDemoUser = user?.fullName === 'demo user'
-  console.log('isDemoUser:', isDemoUser)
   const totalJobs = user?.totalFilteredJobs
   const filterBy: FilterBy = useSelector((storeState: UserModule) => storeState.userModule.filterBy)
   const sortBy: SortBy = useSelector((storeState: UserModule) => storeState.userModule.sortBy)

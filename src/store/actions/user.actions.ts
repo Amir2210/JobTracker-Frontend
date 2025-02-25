@@ -6,6 +6,7 @@ import { Job } from '../../types/job.types.ts'
 import { FilterBy, SortBy } from '../../types/filter-sort.ts'
 
 export async function login(credentials: LoginCredentials) {
+  console.log('credentials:', credentials)
   try {
     const user = await userService.login(credentials)
     store.dispatch({ type: SET_USER, user })

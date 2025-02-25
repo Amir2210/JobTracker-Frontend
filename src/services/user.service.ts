@@ -27,8 +27,8 @@ async function getJobsByUserId(userId: string, filterBy: FilterBy, sortBy: SortB
     return user
 }
 
-async function login({ userName, password }: LoginCredentials): Promise<any> {
-    const user = await httpService.post(BASE_URL + 'login', { userName, password })
+async function login({ userName, password, recaptchaToken }: LoginCredentials): Promise<any> {
+    const user = await httpService.post(BASE_URL + 'login', { userName, password, recaptchaToken })
     if (user) return _setLoggedInUser(user)
 }
 

@@ -3,17 +3,20 @@ import { Link, useNavigate } from 'react-router-dom'
 import { login } from '../store/actions/user.actions'
 import { toast } from 'react-toastify'
 import { LoginCredentials } from '../types/user.types'
-
+import { useGoogleReCaptcha } from 'react-google-recaptcha-v3'
 function getEmptyCredentials(): LoginCredentials {
   return {
     userName: '',
     password: '',
+    recaptchaToken: ''
   }
 }
 
 export function Login() {
   const [credentials, setCredentials] = useState(getEmptyCredentials())
   const [errors, setErrors] = useState({ userName: '', password: '' })
+  // const [captchaToken, setCaptchaToken] = useState<string | null>(null)
+  const { executeRecaptcha } = useGoogleReCaptcha()
   const navigate = useNavigate()
 
   function handleCredentialsChange(ev: React.ChangeEvent<HTMLInputElement>) {
@@ -37,6 +40,10 @@ export function Login() {
   async function onLogin(ev: React.MouseEvent<HTMLButtonElement, MouseEvent>) {
     ev.preventDefault()
 
+    if (!executeRecaptcha) {
+      toast.error("reCAPTCHA is not ready. Please try again.")
+      return
+    }
     // Prevent submission if there are errors
     if (errors.userName || errors.password || !credentials.userName || !credentials.password) {
       toast.error("Please correct the errors before submitting.")
@@ -44,7 +51,9 @@ export function Login() {
     }
 
     try {
-      await login(credentials)
+      const token = await executeRecaptcha("login") // ✅ Generate reCAPTCHA token
+      // setCaptchaToken(token)
+      await login({ ...credentials, recaptchaToken: token })
       navigate('/jobs')
       toast.success("You've logged in successfully")
     } catch (err: any) {
@@ -60,7 +69,8 @@ export function Login() {
   async function handleDemoLogin() {
     const demoUser: LoginCredentials = {
       userName: 'demoUser',
-      password: '123'
+      password: '123',
+      recaptchaToken: ''
     }
     try {
       await login(demoUser)

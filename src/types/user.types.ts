@@ -19,7 +19,8 @@ export type UserState = {
 
 export type LoginCredentials = {
   userName: string,
-  password: string
+  password: string,
+  recaptchaToken: string
 }
 export type signUpCredentials = {
   userName: string,
