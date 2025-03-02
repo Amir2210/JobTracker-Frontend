@@ -6,11 +6,17 @@ import { Job } from '../../types/job.types.ts'
 import { FilterBy, SortBy } from '../../types/filter-sort.ts'
 
 export async function login(credentials: LoginCredentials) {
-  console.log('credentials:', credentials)
   try {
-    const user = await userService.login(credentials)
-    store.dispatch({ type: SET_USER, user })
-    return user
+    const { recaptchaToken } = credentials
+    if (recaptchaToken) {
+      const user = await userService.login(credentials)
+      store.dispatch({ type: SET_USER, user })
+      return user
+    } else {
+      const user = await userService.demoLogin(credentials)
+      store.dispatch({ type: SET_USER, user })
+      return user
+    }
   } catch (err) {
     console.log('user actions -> Cannot login', err)
     throw err

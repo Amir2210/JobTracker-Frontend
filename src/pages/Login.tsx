@@ -66,7 +66,8 @@ export function Login() {
     }
   }
 
-  async function handleDemoLogin() {
+  async function handleDemoLogin(ev: React.MouseEvent<HTMLButtonElement, MouseEvent>) {
+    ev.preventDefault()
     const demoUser: LoginCredentials = {
       userName: 'demoUser',
       password: '123',

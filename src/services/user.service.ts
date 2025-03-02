@@ -14,7 +14,8 @@ export const userService = {
     getJobsByUserId,
     addJob,
     deleteJob,
-    updateJob
+    updateJob,
+    demoLogin
 }
 
 
@@ -31,6 +32,12 @@ async function login({ userName, password, recaptchaToken }: LoginCredentials): 
     const user = await httpService.post(BASE_URL + 'login', { userName, password, recaptchaToken })
     if (user) return _setLoggedInUser(user)
 }
+
+async function demoLogin({ userName, password, recaptchaToken }: LoginCredentials): Promise<any> {
+    const demoUser = await httpService.post(BASE_URL + 'demoLogin', { userName, password, recaptchaToken })
+    if (demoUser) return _setLoggedInUser(demoUser)
+}
+
 
 async function signup({ userName, password, fullName }: signUpCredentials): Promise<any> {
     const user = { userName, password, fullName, jobs: [] }
