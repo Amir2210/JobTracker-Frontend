@@ -15,10 +15,8 @@ function getEmptyCredentials(): LoginCredentials {
 export function Login() {
   const [credentials, setCredentials] = useState(getEmptyCredentials())
   const [errors, setErrors] = useState({ userName: '', password: '' })
-  // const [captchaToken, setCaptchaToken] = useState<string | null>(null)
   const { executeRecaptcha } = useGoogleReCaptcha()
   const navigate = useNavigate()
-
   function handleCredentialsChange(ev: React.ChangeEvent<HTMLInputElement>) {
     const { name, value } = ev.target
     let errorMessage = ''
@@ -52,7 +50,6 @@ export function Login() {
 
     try {
       const token = await executeRecaptcha("login") // ✅ Generate reCAPTCHA token
-      // setCaptchaToken(token)
       await login({ ...credentials, recaptchaToken: token })
       navigate('/jobs')
       toast.success("You've logged in successfully")

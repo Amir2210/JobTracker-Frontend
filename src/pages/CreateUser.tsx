@@ -2,11 +2,13 @@ import { Link, useNavigate } from 'react-router-dom'
 import { useState } from 'react'
 import { signup, login } from '../store/actions/user.actions'
 import { toast } from 'react-toastify'
+import { useGoogleReCaptcha } from 'react-google-recaptcha-v3'
 
 type EmptyCredentials = {
   fullName: string,
   userName: string,
   password: string,
+  recaptchaToken: string
 }
 
 function getEmptyCredentials(): EmptyCredentials {
@@ -14,6 +16,7 @@ function getEmptyCredentials(): EmptyCredentials {
     fullName: '',
     userName: '',
     password: '',
+    recaptchaToken: ''
   }
 }
 
@@ -21,6 +24,7 @@ export function CreateUser() {
   const [credentials, setCredentials] = useState(getEmptyCredentials())
   const [errors, setErrors] = useState({ userName: '', password: '', fullName: '' })
   const navigate = useNavigate()
+  const { executeRecaptcha } = useGoogleReCaptcha()
 
   function handleCredentialsChange(ev: React.ChangeEvent<HTMLInputElement>) {
     const { name, value } = ev.target
@@ -50,12 +54,18 @@ export function CreateUser() {
       toast.error("Please correct the errors before submitting.")
       return
     }
+    if (!executeRecaptcha) {
+      toast.error("reCAPTCHA is not ready. Please try again.")
+      return
+    }
+
     try {
+      const recaptchaToken = await executeRecaptcha("signup")
       const formData = new FormData(ev.target as HTMLFormElement)
       const fullName = formData.get('fullName') as string
       const userName = formData.get('userName') as string
       const password = formData.get('password') as string
-      const newUser: EmptyCredentials = { fullName, userName, password }
+      const newUser: EmptyCredentials = { fullName, userName, password, recaptchaToken }
       await signup(newUser)
       await login(newUser)
       navigate('/jobs')
