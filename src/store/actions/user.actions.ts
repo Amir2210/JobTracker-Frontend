@@ -44,12 +44,12 @@ export async function logout() {
   }
 }
 
-export function addJob(job: Job) {
+export function addJob(job: Job, recaptchaToken: string) {
   store.dispatch({
     type: ADD_JOB,
     job
   })
-  _addJob(job)
+  return _addJob(job, recaptchaToken)
 }
 
 export function deleteJob(job_id: string) {
@@ -110,12 +110,12 @@ async function _updateJob(jobId: string) {
   }
 }
 
-async function _addJob(newJob: Job,) {
+async function _addJob(newJob: Job, recaptchaToken: string) {
   store.dispatch({ type: SET_IS_LOADING, isLoading: true })
   try {
     const loggedInUser = store.getState().userModule.loggedInUser
     if (loggedInUser) {
-      await userService.addJob(loggedInUser, newJob)
+      await userService.addJob(loggedInUser, newJob, recaptchaToken)
     }
   } catch (error) {
     console.log('error:', error)

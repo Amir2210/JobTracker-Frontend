@@ -34,7 +34,7 @@ export function Jobs() {
     }
     return () => {
     }
-  }, [filterBy, sortBy])
+  }, [filterBy, sortBy,])
 
   useEffect(() => {
     const observer = new IntersectionObserver(

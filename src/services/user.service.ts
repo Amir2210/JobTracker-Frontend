@@ -65,9 +65,9 @@ function _setLoggedInUser(user: any) {
 // }
 
 
-async function addJob(userToUpdate: User, newJob: Job) {
+async function addJob(userToUpdate: User, newJob: Job, recaptchaToken: string) {
     const { _id, fullName, userName } = userToUpdate
-    const user = await httpService.put(`user/${_id}/addJob`, { _id, fullName, userName, newJob })
+    const user = await httpService.put(`user/${_id}/addJob`, { _id, fullName, userName, newJob, recaptchaToken })
     const loggedInUser = getLoggedInUser()
     if (loggedInUser && loggedInUser._id === user._id) saveLocalUser(user)
     return user

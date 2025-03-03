@@ -5,7 +5,10 @@ import { addJob, editJob } from '../store/actions/user.actions'
 import { toast } from 'react-toastify'
 import { v4 as uuidv4 } from 'uuid'
 import { Link, useLocation, useNavigate } from 'react-router-dom'
-import { IoIosArrowBack } from "react-icons/io";
+import { IoIosArrowBack } from "react-icons/io"
+import { useGoogleReCaptcha } from 'react-google-recaptcha-v3'
+//action
+
 
 function getEmptyNewJob(): Job {
   return {
@@ -26,6 +29,7 @@ export function AddJob() {
   const jobToEdit = location.state?.job as Job | undefined;
   const [job, setJob] = useState<Job>(jobToEdit || getEmptyNewJob())
   const navigate = useNavigate()
+  const { executeRecaptcha } = useGoogleReCaptcha()
 
 
   function handleInputsChange(ev: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement | HTMLSelectElement>) {
@@ -36,14 +40,18 @@ export function AddJob() {
 
   async function onAddNewJob(ev: React.FormEvent) {
     ev.preventDefault()
+    if (!executeRecaptcha) {
+      toast.error("reCAPTCHA is not ready. Please try again.")
+      return
+    }
     try {
+      const token = await executeRecaptcha("addJob") // ✅ Generate reCAPTCHA token
       if (jobToEdit) {
         editJob(job)
         toast.success('job has been updated')
         navigate('/jobs')
       } else {
-        addJob(job)
-        console.log('before toast')
+        await addJob(job, token)
         toast.success('a new job has been added')
         navigate('/jobs')
       }
