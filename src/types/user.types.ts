@@ -6,8 +6,8 @@ export type User = {
   userName: string,
   _id: string
   jobs: Job[]
-  allJobs: Job[]
-  totalFilteredJobs: number
+  allJobs?: Job[]
+  totalFilteredJobs?: number
 }
 
 export type UserState = {
@@ -31,4 +31,5 @@ export type signUpCredentials = {
 export type UserModule = {
   userModule: UserState
 }
+
 
