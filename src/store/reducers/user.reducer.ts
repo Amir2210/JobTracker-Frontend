@@ -89,7 +89,7 @@ export function userReducer(state: UserState = initialState, action: UserAction)
       if ('job_id' in action && state.loggedInUser) {
         const userJobs: Job[] = [...state.loggedInUser.jobs]
         const newUserJobs: Job[] = userJobs.filter(job => job._id !== action.job_id)
-        return { ...state, loggedInUser: { ...state.loggedInUser, jobs: newUserJobs, totalFilteredJobs: state.loggedInUser.totalFilteredJobs - 1 } }
+        return { ...state, loggedInUser: { ...state.loggedInUser, jobs: newUserJobs, totalFilteredJobs: state.loggedInUser.totalFilteredJobs ? state.loggedInUser.totalFilteredJobs - 1 : undefined } }
       }
       break
     case UPDATE_JOB:

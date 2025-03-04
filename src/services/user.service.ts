@@ -45,7 +45,7 @@ async function demoLogin({ userName, password, recaptchaToken }: LoginCredential
 }
 
 
-async function signup({ userName, password, fullName }: signUpCredentials): Promise<User | null> {
+async function signup({ userName, password, fullName }: signUpCredentials): Promise<User> {
     const user = { userName, password, fullName, jobs: [] }
     const savedUser = await httpService.post(BASE_URL + 'signup', user)
     if (!savedUser) {
