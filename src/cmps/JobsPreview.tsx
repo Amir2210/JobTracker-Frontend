@@ -98,8 +98,11 @@ export function JobsPreview({ job, index, userJobs, lastJobRef, userFavoriteJobs
     }
   }
 
+  const jobsList = !isFavoriteShow ? userJobs : userFavoriteJobs;
+  const isLastJob = index === (jobsList?.length ?? 0) - 1;
+
   return (
-    <article ref={index === (!isFavoriteShow ? userJobs?.length ?? 0 : userFavoriteJobs?.length ?? 0) - 1 ? lastJobRef : null} key={job._id} className='sm:mt-4 sm:py-4 py-2 px-2 rounded-lg bg-base-100 h-fit'>
+    <article ref={isLastJob && (userJobs && userJobs.length > 3) ? lastJobRef : null} key={job._id} className='sm:mt-4 sm:py-4 py-2 px-2 rounded-lg bg-base-100 h-fit'>
       <div className='flex gap-8 border-solid border-indigo-100 border-b py-3 px-3'>
         <div className={`text-4xl text-white font-mono font-bold size-14 flex justify-center items-center rounded-lg ${statusImgBgColor(job.status)}`}>{statusImg(job.status)}</div>
         <div>
