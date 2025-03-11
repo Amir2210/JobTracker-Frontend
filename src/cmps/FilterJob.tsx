@@ -82,7 +82,7 @@ export function FilterJob({ filterBy, onSetFilter, sortBy, onSetSort }: FilterPr
   return (
     <section className='md:my-6 w-full sm:shadow-xl my-4 sm:py-4 py-2 px-2 rounded-lg bg-base-100'>
       <div className="collapse">
-        <input type="checkbox" ref={filterModalRef} onChange={() => setIsFilterModalOpen(!isFilterModalOpen)} />
+        <input type="checkbox" ref={filterModalRef} onChange={() => setIsFilterModalOpen(!isFilterModalOpen)} aria-expanded={isFilterModalOpen} aria-controls="filter-form" />
         <div className="collapse-title text-xl font-medium flex items-center justify-between capitalize">
           filter jobs
           {isFilterModalOpen ? <IoIosArrowDropupCircle className='text-xl text-sky-400' /> : <IoIosArrowDropdownCircle className='text-xl text-sky-400' />}
@@ -92,11 +92,11 @@ export function FilterJob({ filterBy, onSetFilter, sortBy, onSetSort }: FilterPr
             <div className='grid sm:grid-cols-3 gap-5'>
               <div className='flex flex-col'>
                 <label className='capitalize cursor-pointer mb-2 text-lg' htmlFor="txt">search job</label>
-                <input onChange={handleChange} id='txt' name='txt' type="text" value={filterByToEdit.txt} className="input border-neutral-content focus:border-sky-600 focus:outline-none w-full max-w-xs bg-white text-gray-700" />
+                <input onChange={handleChange} id='txt' name='txt' type="text" value={filterByToEdit.txt} className="input border-neutral-content focus:border-sky-600 focus:outline-none w-full max-w-xs bg-white text-gray-700" aria-label="Search for a job" />
               </div>
               <div className='flex flex-col'>
                 <label className='capitalize cursor-pointer mb-2 text-lg' htmlFor="status">status</label>
-                <select onChange={handleChange} id='status' name='status' value={filterByToEdit.status} className="select border-neutral-content focus:border-sky-600 focus:outline-none w-full max-w-xs bg-white text-gray-700">
+                <select onChange={handleChange} id='status' name='status' value={filterByToEdit.status} className="select border-neutral-content focus:border-sky-600 focus:outline-none w-full max-w-xs bg-white text-gray-700 " aria-label="Filter jobs by status">
                   <option value={''}>all</option>
                   <option className='capitalize'>interview</option>
                   <option className='capitalize'>declined</option>
@@ -107,7 +107,7 @@ export function FilterJob({ filterBy, onSetFilter, sortBy, onSetSort }: FilterPr
               </div>
               <div className='flex flex-col'>
                 <label className='capitalize cursor-pointer mb-2 text-lg' htmlFor="jobType">type</label>
-                <select onChange={handleChange} id='jobType' name='jobType' value={filterByToEdit.jobType} className="select border-neutral-content focus:border-sky-600 focus:outline-none w-full max-w-xs bg-white text-gray-700">
+                <select onChange={handleChange} id='jobType' name='jobType' value={filterByToEdit.jobType} className="select border-neutral-content focus:border-sky-600 focus:outline-none w-full max-w-xs bg-white text-gray-700" aria-label="Filter jobs by type">
                   <option value={''}>all</option>
                   <option className='capitalize'>full-time</option>
                   <option className='capitalize'>part-time</option>
@@ -117,7 +117,7 @@ export function FilterJob({ filterBy, onSetFilter, sortBy, onSetSort }: FilterPr
               </div>
               <div className='flex flex-col'>
                 <label className='capitalize cursor-pointer mb-2 text-lg' htmlFor="sortBy">sort by</label>
-                <select onChange={handleSortChange} id='sortBy' name='subject' value={sortByToEdit.subject} className="select border-neutral-content focus:border-sky-600 focus:outline-none w-full max-w-xs bg-white text-gray-700">
+                <select onChange={handleSortChange} id='sortBy' name='subject' value={sortByToEdit.subject} className="select border-neutral-content focus:border-sky-600 focus:outline-none w-full max-w-xs bg-white text-gray-700" aria-label="Sort jobs by">
                   <option className='hidden' value={''}></option>
                   <option value={'position'}>a-z</option>
                   <option value={'-position'}>z-a</option>
@@ -126,10 +126,10 @@ export function FilterJob({ filterBy, onSetFilter, sortBy, onSetSort }: FilterPr
                 </select>
               </div>
               <div className='flex flex-col justify-end'>
-                <button type='submit' className='btn bg-sky-400 text-white capitalize hover:bg-sky-600 border-none'>search</button>
+                <button aria-label="Submit job search filters" type='submit' className='btn bg-sky-400 text-white capitalize hover:bg-sky-600 border-none'>search</button>
               </div>
               <div className='flex flex-col justify-end'>
-                <button type='button' onClick={handleReset} className='btn bg-sky-700 text-white capitalize hover:bg-sky-800 border-none'>clear filters</button>
+                <button aria-label="Clear job search filters" type='button' onClick={handleReset} className='btn bg-sky-700 text-white capitalize hover:bg-sky-800 border-none'>clear filters</button>
               </div>
             </div>
           </form>
