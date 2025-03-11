@@ -68,7 +68,7 @@ export function Navbar() {
       </div>
       <div className="navbar-end hidden sm:flex gap-2">
         <label className='swap swap-rotate'>
-          <input type="checkbox" onChange={handleTheme} />
+          <input type="checkbox" onChange={handleTheme} aria-label="Toggle light/dark theme" />
           <MdSunny className='swap-on h-6 w-6 ' />
           <FaMoon className='swap-off h-6 w-6 ' />
         </label>
@@ -100,7 +100,7 @@ export function Navbar() {
           </li>
         </ul>
         <label className='swap swap-rotate'>
-          <input type="checkbox" onChange={handleTheme} />
+          <input type="checkbox" onChange={handleTheme} aria-label="Toggle light/dark theme" />
           <MdSunny className='swap-on h-6 w-6 ' />
           <FaMoon className='swap-off h-6 w-6 ' />
         </label>
