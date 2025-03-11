@@ -24,7 +24,7 @@ export function HomeIndex() {
               <Link to={'/login'} className='btn text-white text-lg bg-sky-400 capitalize hover:bg-sky-600 border-none'>login / register</Link>
             </div>
             <div>
-              <img className='size-48 sm:size-full' src="https://res.cloudinary.com/dxm0sqcfp/image/upload/v1715154175/job%20tracker/ocfxopyi3lshmxzmucwd.svg" alt="" />
+              <img className='size-48 sm:size-full' src="https://res.cloudinary.com/dxm0sqcfp/image/upload/v1715154175/job%20tracker/ocfxopyi3lshmxzmucwd.svg" alt="Job Tracking App" />
             </div>
           </div>
         </div>
