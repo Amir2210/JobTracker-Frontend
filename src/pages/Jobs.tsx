@@ -56,15 +56,6 @@ export function Jobs() {
     };
   }, [userJobs]);
 
-  useEffect(() => {
-    const link = document.createElement("link");
-    link.rel = "preload";
-    link.as = "image";
-    link.href =
-      "https://res.cloudinary.com/dxm0sqcfp/image/upload/v1715154175/job%20tracker/ocfxopyi3lshmxzmucwd.svg";
-    document.head.appendChild(link);
-  }, []);
-
 
   function onSetFilter(filterBy: FilterBy) {
     setFilterBy(filterBy)
@@ -92,12 +83,7 @@ export function Jobs() {
             <JobsList isDemoUser={isDemoUser} isLoading={isLoading} userJobs={userJobs} lastJobRef={lastJobRef} userFavoriteJobs={userFavoriteJobs} isFavoriteShow={isFavoriteShow} />
             <Pagination isFavoriteShow={isFavoriteShow} totalFavoriteJobs={totalFavoriteJobs} totalJobs={totalJobs} filterBy={filterBy} onSetFilter={onSetFilter} />
             {!userJobs?.length && !filterBy.txt && !filterBy.status && !filterBy.jobType && <div className='flex flex-col justify-center items-center mt-4'>
-              <img
-                className="size-48 sm:size-96"
-                src="https://res.cloudinary.com/dxm0sqcfp/image/upload/v1715154175/job%20tracker/ocfxopyi3lshmxzmucwd.svg"
-                alt="Empty job list illustration"
-                loading="lazy"
-              />
+              <img className='size-48 sm:size-96' src="https://res.cloudinary.com/dxm0sqcfp/image/upload/v1715154175/job%20tracker/ocfxopyi3lshmxzmucwd.svg" alt="" />
               <p className='capitalize mt-4 text-2xl sm:text-4xl'>add your first job <span className='link text-sky-600'><Link to={'/addJob'} aria-label="Add a new job to your job tracker">here</Link> </span></p>
             </div>}
           </div>
