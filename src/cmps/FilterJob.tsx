@@ -160,11 +160,12 @@ export function FilterJob({ filterBy, onSetFilter, sortBy, onSetSort }: FilterPr
                 <select
                   onChange={handleSortChange}
                   id='sortBy'
-                  name='sortBy'
+                  name='subject'
                   value={sortByToEdit.subject}
                   className="select border-neutral-content focus:border-sky-600 focus:outline-none w-full max-w-xs bg-white text-gray-700"
                   aria-labelledby="sortBy"
                 >
+                  <option className='hidden' value={''}></option>
                   <option value={'position'}>A-Z</option>
                   <option value={'-position'}>Z-A</option>
                   <option value={'-time'}>Newest</option>
