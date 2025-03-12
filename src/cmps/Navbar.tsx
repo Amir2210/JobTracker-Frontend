@@ -75,7 +75,7 @@ export function Navbar() {
         <ul className="menu menu-horizontal px-1">
           <li>
             <details>
-              <summary className='bg-sky-400 text-white text-lg hover:bg-sky-600'>
+              <summary className='bg-sky-600 text-white text-lg hover:bg-sky-700 capitalize'>
                 <CgProfile className='text-2xl' />
                 {user?.fullName}
               </summary>
@@ -90,7 +90,7 @@ export function Navbar() {
         <ul className="menu menu-horizontal px-1">
           <li>
             <details>
-              <summary className='bg-sky-400 text-white text-lg hover:bg-sky-600'>
+              <summary className='bg-sky-600 text-white text-lg hover:bg-sky-700'>
                 <CgProfile className='text-2xl' />
               </summary>
               <ul className="p-2 bg-base-100 rounded-t-none ">

@@ -80,7 +80,7 @@ export function AddJob() {
         <div className='bg-base-200 min-h-screen flex flex-col w-full'>
           <div className='small-container sm:big-container sm:shadow-xl sm:mt-4 sm:py-4 py-2 px-2 rounded-lg sm:bg-base-100'>
             <div className='items-center'>
-              <Link to={'/jobs'} className='btn text-sky-400 bg-white text-xl border-indigo-100 border'><IoIosArrowBack /></Link>
+              <Link to={'/jobs'} className='btn text-sky-600 bg-white text-xl border-indigo-100 border'><IoIosArrowBack /></Link>
               <h1 className='text-3xl capitalize font-medium text-center mx-auto'>{!jobToEdit ? 'Add job' : 'edit job'}</h1>
             </div>
             <form onSubmit={onAddNewJob} className='grid sm:grid-cols-3 gap-5 mt-4'>

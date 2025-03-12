@@ -80,12 +80,12 @@ export function FilterJob({ filterBy, onSetFilter, sortBy, onSetSort }: FilterPr
   }
 
   return (
-    <section className='md:my-6 w-full sm:shadow-xl my-4 sm:py-4 py-2 px-2 rounded-lg bg-base-100'>
+    <section className='md:my-6 w-full sm:shadow-xl my-4 sm:py-4 py-2 px-2 rounded-lg bg-base-100' aria-label='Filter and Sort Jobs Form'>
       <div className="collapse">
         <input type="checkbox" ref={filterModalRef} onChange={() => setIsFilterModalOpen(!isFilterModalOpen)} aria-expanded={isFilterModalOpen} aria-controls="filter-form" />
         <div className="collapse-title text-xl font-medium flex items-center justify-between capitalize">
           filter jobs
-          {isFilterModalOpen ? <IoIosArrowDropupCircle className='text-xl text-sky-400' /> : <IoIosArrowDropdownCircle className='text-xl text-sky-400' />}
+          {isFilterModalOpen ? <IoIosArrowDropupCircle className='text-xl text-sky-600' /> : <IoIosArrowDropdownCircle className='text-xl text-sky-600' />}
         </div>
         <div className="collapse-content">
           <form className='flex flex-col' onSubmit={handleSubmit}>
