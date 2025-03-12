@@ -78,7 +78,7 @@ export function Jobs() {
             <FilterJob filterBy={filterBy} onSetFilter={onSetFilter} sortBy={sortBy} onSetSort={onSetSort} />
             <div className='flex justify-between items-center'>
               {isFavoriteShow ? <h1 className='text-2xl capitalize font-medium'>{userFavoriteJobs?.length} favorite {userFavoriteJobs?.length === 1 ? 'job' : 'jobs'} found</h1> : <h1 className='text-2xl capitalize font-medium'>{totalJobs} {totalJobs === 1 ? 'job' : 'jobs'} found</h1>}
-              <button onClick={() => setIsFavoriteShow(!isFavoriteShow)} className=' btn bg-sky-600 hover:bg-sky-700 text-white text-lg sm:text-xl capitalize font-medium'>{isFavoriteShow ? 'show all jobs' : 'show favorite jobs'}</button>
+              <button onClick={() => setIsFavoriteShow(!isFavoriteShow)} className=' btn bg-sky-700 hover:bg-sky-800 text-white text-lg sm:text-xl capitalize font-medium'>{isFavoriteShow ? 'show all jobs' : 'show favorite jobs'}</button>
             </div>
             <JobsList isDemoUser={isDemoUser} isLoading={isLoading} userJobs={userJobs} lastJobRef={lastJobRef} userFavoriteJobs={userFavoriteJobs} isFavoriteShow={isFavoriteShow} />
             <Pagination isFavoriteShow={isFavoriteShow} totalFavoriteJobs={totalFavoriteJobs} totalJobs={totalJobs} filterBy={filterBy} onSetFilter={onSetFilter} />
