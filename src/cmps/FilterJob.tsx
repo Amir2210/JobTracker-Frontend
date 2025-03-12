@@ -80,62 +80,127 @@ export function FilterJob({ filterBy, onSetFilter, sortBy, onSetSort }: FilterPr
   }
 
   return (
-    <section className='md:my-6 w-full sm:shadow-xl my-4 sm:py-4 py-2 px-2 rounded-lg bg-base-100' aria-label='Filter and Sort Jobs Form'>
+    <section className='md:my-6 w-full sm:shadow-xl my-4 sm:py-4 py-2 px-2 rounded-lg bg-base-100' aria-labelledby="filter-sort-heading">
+      <h2 id="filter-sort-heading" className="sr-only">Filter and Sort Jobs</h2> {/* Screen Reader Only Header */}
+
       <div className="collapse">
-        <input type="checkbox" ref={filterModalRef} onChange={() => setIsFilterModalOpen(!isFilterModalOpen)} aria-expanded={isFilterModalOpen} aria-controls="filter-form" />
+        <input
+          type="checkbox"
+          ref={filterModalRef}
+          onChange={() => setIsFilterModalOpen(!isFilterModalOpen)}
+          aria-expanded={isFilterModalOpen}
+          aria-controls="filter-form"
+        />
         <div className="collapse-title text-xl font-medium flex items-center justify-between capitalize">
-          filter jobs
+          <label htmlFor="filter-form">Filter jobs</label>
           {isFilterModalOpen ? <IoIosArrowDropupCircle className='text-xl text-sky-600' /> : <IoIosArrowDropdownCircle className='text-xl text-sky-600' />}
         </div>
-        <div className="collapse-content">
+
+        <div className="collapse-content" id="filter-form">
           <form className='flex flex-col' onSubmit={handleSubmit}>
             <div className='grid sm:grid-cols-3 gap-5'>
+
+              {/* Search Input */}
               <div className='flex flex-col'>
-                <label className='capitalize cursor-pointer mb-2 text-lg' htmlFor="txt">search job</label>
-                <input onChange={handleChange} id='txt' name='txt' type="text" value={filterByToEdit.txt} className="input border-neutral-content focus:border-sky-600 focus:outline-none w-full max-w-xs bg-white text-gray-700" aria-label="Search for a job" />
+                <label className='capitalize cursor-pointer mb-2 text-lg' htmlFor="txt">Search job</label>
+                <input
+                  onChange={handleChange}
+                  id='txt'
+                  name='txt'
+                  type="text"
+                  value={filterByToEdit.txt}
+                  className="input border-neutral-content focus:border-sky-600 focus:outline-none w-full max-w-xs bg-white text-gray-700"
+                  aria-describedby="search-description"
+                />
+                <span id="search-description" className="sr-only">Enter a keyword to search for a job</span>
               </div>
+
+              {/* Status Select */}
               <div className='flex flex-col'>
-                <label className='capitalize cursor-pointer mb-2 text-lg' htmlFor="status">status</label>
-                <select onChange={handleChange} id='status' name='status' value={filterByToEdit.status} className="select border-neutral-content focus:border-sky-600 focus:outline-none w-full max-w-xs bg-white text-gray-700 " aria-label="Filter jobs by status">
-                  <option value={''}>all</option>
-                  <option className='capitalize'>interview</option>
-                  <option className='capitalize'>declined</option>
-                  <option className='capitalize'>pending</option>
-                  <option className='capitalize'>HR Interview</option>
-                  <option className='capitalize'>Ghosting</option>
+                <label className='capitalize cursor-pointer mb-2 text-lg' htmlFor="status">Status</label>
+                <select
+                  onChange={handleChange}
+                  id='status'
+                  name='status'
+                  value={filterByToEdit.status}
+                  className="select border-neutral-content focus:border-sky-600 focus:outline-none w-full max-w-xs bg-white text-gray-700"
+                  aria-labelledby="status"
+                >
+                  <option value={''}>All</option>
+                  <option value={'interview'}>Interview</option>
+                  <option value={'declined'}>Declined</option>
+                  <option value={'pending'}>Pending</option>
+                  <option value={'HR Interview'}>HR Interview</option>
+                  <option value={'Ghosting'}>Ghosting</option>
                 </select>
               </div>
+
+              {/* Job Type Select */}
               <div className='flex flex-col'>
-                <label className='capitalize cursor-pointer mb-2 text-lg' htmlFor="jobType">type</label>
-                <select onChange={handleChange} id='jobType' name='jobType' value={filterByToEdit.jobType} className="select border-neutral-content focus:border-sky-600 focus:outline-none w-full max-w-xs bg-white text-gray-700" aria-label="Filter jobs by type">
-                  <option value={''}>all</option>
-                  <option className='capitalize'>full-time</option>
-                  <option className='capitalize'>part-time</option>
-                  <option className='capitalize'>remote</option>
-                  <option className='capitalize'>internship</option>
+                <label className='capitalize cursor-pointer mb-2 text-lg' htmlFor="jobType">Type</label>
+                <select
+                  onChange={handleChange}
+                  id='jobType'
+                  name='jobType'
+                  value={filterByToEdit.jobType}
+                  className="select border-neutral-content focus:border-sky-600 focus:outline-none w-full max-w-xs bg-white text-gray-700"
+                  aria-labelledby="jobType"
+                >
+                  <option value={''}>All</option>
+                  <option value={'full-time'}>Full-Time</option>
+                  <option value={'part-time'}>Part-Time</option>
+                  <option value={'remote'}>Remote</option>
+                  <option value={'internship'}>Internship</option>
                 </select>
               </div>
+
+              {/* Sort Select */}
               <div className='flex flex-col'>
-                <label className='capitalize cursor-pointer mb-2 text-lg' htmlFor="sortBy">sort by</label>
-                <select onChange={handleSortChange} id='sortBy' name='subject' value={sortByToEdit.subject} className="select border-neutral-content focus:border-sky-600 focus:outline-none w-full max-w-xs bg-white text-gray-700" aria-label="Sort jobs by">
-                  <option className='hidden' value={''}></option>
-                  <option value={'position'}>a-z</option>
-                  <option value={'-position'}>z-a</option>
-                  <option value={'-time'}>newest</option>
-                  <option value={'time'}>oldest</option>
+                <label className='capitalize cursor-pointer mb-2 text-lg' htmlFor="sortBy">Sort By</label>
+                <select
+                  onChange={handleSortChange}
+                  id='sortBy'
+                  name='sortBy'
+                  value={sortByToEdit.subject}
+                  className="select border-neutral-content focus:border-sky-600 focus:outline-none w-full max-w-xs bg-white text-gray-700"
+                  aria-labelledby="sortBy"
+                >
+                  <option value={'position'}>A-Z</option>
+                  <option value={'-position'}>Z-A</option>
+                  <option value={'-time'}>Newest</option>
+                  <option value={'time'}>Oldest</option>
                 </select>
               </div>
+
+              {/* Submit Button */}
               <div className='flex flex-col justify-end'>
-                <button aria-label="Submit job search filters" type='submit' className='btn bg-sky-400 text-white capitalize hover:bg-sky-600 border-none'>search</button>
+                <button
+                  type='submit'
+                  className='btn bg-sky-600 text-white capitalize hover:bg-sky-700 border-none'
+                  aria-label="Apply filters to search jobs"
+                >
+                  Search
+                </button>
               </div>
+
+              {/* Reset Button */}
               <div className='flex flex-col justify-end'>
-                <button aria-label="Clear job search filters" type='button' onClick={handleReset} className='btn bg-sky-700 text-white capitalize hover:bg-sky-800 border-none'>clear filters</button>
+                <button
+                  type='button'
+                  onClick={handleReset}
+                  className='btn bg-sky-700 text-white capitalize hover:bg-sky-800 border-none'
+                  aria-label="Clear all filters"
+                >
+                  Clear Filters
+                </button>
               </div>
+
             </div>
           </form>
         </div>
       </div>
     </section>
+
   )
 }
 
