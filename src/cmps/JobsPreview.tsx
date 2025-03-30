@@ -14,6 +14,7 @@ import { FaGhost } from "react-icons/fa6";
 import { ImProfile } from "react-icons/im";
 import { FaBug } from "react-icons/fa"
 import { MdContactPhone } from "react-icons/md"
+import { FaReact } from "react-icons/fa"
 //react
 import { RefObject, useState } from 'react';
 import { Link } from 'react-router-dom';
@@ -42,6 +43,8 @@ function statusClass(status: string): string {
     return 'bg-stone-200 text-stone-600 hover:bg-stone-200 border-none'
   } else if (status === 'phone call') {
     return 'bg-pink-200 text-pink-600 hover:bg-pink-200 border-none'
+  } else if (status === 'code assignment') {
+    return 'bg-emerald-200 text-emerald-600 hover:bg-emerald-200 border-none'
   }
   else {
     return 'bg-red-200 text-red-600 hover:bg-red-200 border-none'
@@ -59,6 +62,9 @@ function statusImg(status: string): JSX.Element | undefined {
     return <FaGhost />
   } else if (status === 'phone call')
     return <MdContactPhone />
+  else if (status === 'code assignment') {
+    return <FaReact />
+  }
   else {
     return <FaBug />
   }
@@ -75,6 +81,8 @@ function statusImgBgColor(status: string): string {
     return 'bg-stone-400'
   } else if (status === 'phone call') {
     return 'bg-pink-400'
+  } else if (status === 'code assignment') {
+    return 'bg-emerald-400'
   }
   else {
     return 'bg-red-400'

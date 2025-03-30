@@ -104,6 +104,7 @@ export function AddJob() {
                   <option>declined</option>
                   <option>HR Interview</option>
                   <option>phone call</option>
+                  <option>code assignment</option>
                   <option>Ghosting</option>
                 </select>
               </div>
