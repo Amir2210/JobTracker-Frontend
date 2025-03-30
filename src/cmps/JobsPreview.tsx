@@ -13,6 +13,7 @@ import { AiOutlineSchedule } from "react-icons/ai";
 import { FaGhost } from "react-icons/fa6";
 import { ImProfile } from "react-icons/im";
 import { FaBug } from "react-icons/fa"
+import { MdContactPhone } from "react-icons/md"
 //react
 import { RefObject, useState } from 'react';
 import { Link } from 'react-router-dom';
@@ -39,6 +40,8 @@ function statusClass(status: string): string {
     return 'bg-purple-200 text-purple-600 hover:bg-purple-200 border-none'
   } else if (status === 'Ghosting') {
     return 'bg-stone-200 text-stone-600 hover:bg-stone-200 border-none'
+  } else if (status === 'phone call') {
+    return 'bg-pink-200 text-pink-600 hover:bg-pink-200 border-none'
   }
   else {
     return 'bg-red-200 text-red-600 hover:bg-red-200 border-none'
@@ -54,7 +57,8 @@ function statusImg(status: string): JSX.Element | undefined {
     return <ImProfile />
   } else if (status === 'Ghosting') {
     return <FaGhost />
-  }
+  } else if (status === 'phone call')
+    return <MdContactPhone />
   else {
     return <FaBug />
   }
@@ -69,6 +73,8 @@ function statusImgBgColor(status: string): string {
     return 'bg-purple-400'
   } else if (status === 'Ghosting') {
     return 'bg-stone-400'
+  } else if (status === 'phone call') {
+    return 'bg-pink-400'
   }
   else {
     return 'bg-red-400'
@@ -135,7 +141,7 @@ export function JobsPreview({ job, index, userJobs, lastJobRef, userFavoriteJobs
           </div>
         </div>
         <div className='flex items-center gap-5'>
-          <p className={`${statusClass(job.status)} btn  font-medium rounded-md cursor-auto`}>{job.status}</p>
+          <p className={`${statusClass(job.status)} btn  font-medium rounded-md cursor-auto capitalize`}>{job.status}</p>
         </div>
       </div>
       <div tabIndex={0} className="hidden sm:grid collapse collapse-arrow border-indigo-100 border">

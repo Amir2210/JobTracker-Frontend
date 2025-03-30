@@ -98,11 +98,12 @@ export function AddJob() {
               </div>
               <div>
                 <label className='text-xl capitalize cursor-pointer mb-2' htmlFor="status">status</label>
-                <select onChange={handleInputsChange} id='status' name='status' value={status} className="font-medium text-lg select border-solid border-2 border-neutral-content focus:border-sky-600 focus:outline-none w-full max-w-xs mt-3 bg-white text-gray-700">
+                <select onChange={handleInputsChange} id='status' name='status' value={status} className="capitalize font-medium text-lg select border-solid border-2 border-neutral-content focus:border-sky-600 focus:outline-none w-full max-w-xs mt-3 bg-white text-gray-700">
                   <option>pending</option>
                   <option>interview</option>
                   <option>declined</option>
                   <option>HR Interview</option>
+                  <option>phone call</option>
                   <option>Ghosting</option>
                 </select>
               </div>
