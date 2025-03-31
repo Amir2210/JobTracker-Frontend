@@ -103,16 +103,7 @@ async function onDeleteJob(job_id: string) {
 export function JobsPreview({ job, index, userJobs, lastJobRef, userFavoriteJobs, isFavoriteShow, isDemoUser }: JobsPreviewProps) {
   const [isFavorite, setIsFavorite] = useState(job.isFavorite)
 
-  async function onChangeFavorite() {
-    setIsFavorite(!isFavorite)
-    try {
-      editJob({ ...job, isFavorite: !isFavorite })
-    } catch (error) {
-      console.log('error:', error)
-    }
-  }
-
-  async function realOnChangeFavorite(job: Job) {
+  async function onChangeFavorite(job: Job) {
     if (!job.isFavorite) {
       try {
         addJobToFavorite({ ...job, isFavorite: true })
@@ -146,7 +137,7 @@ export function JobsPreview({ job, index, userJobs, lastJobRef, userFavoriteJobs
         {/* <button onClick={() => onChangeFavorite()} className='flex ml-auto items-center'>
           {job.isFavorite ? <FaStar className="text-4xl" /> : <CiStar className="text-4xl" />}
         </button> */}
-        <button onClick={() => realOnChangeFavorite(job)} className='flex ml-auto items-center'>
+        <button onClick={() => onChangeFavorite(job)} className='flex ml-auto items-center'>
           {job.isFavorite ? <FaStar className="text-4xl" /> : <CiStar className="text-4xl" />}
         </button>
       </div>
