@@ -1,6 +1,6 @@
 import { store } from "../store.ts"
 import { userService } from "../../services/user.service.ts"
-import { SET_USER, ADD_JOB, DELETE_JOB, UPDATE_JOB, SET_FILTER_BY, SET_IS_LOADING, RESET_FILTER_AND_SORT_BY, SET_SORT_BY } from '../reducers/user.reducer.ts'
+import { SET_USER, ADD_JOB, DELETE_JOB, UPDATE_JOB, SET_FILTER_BY, SET_IS_LOADING, RESET_FILTER_AND_SORT_BY, SET_SORT_BY, ADD_JOB_TO_FAVORITE, REMOVE_JOB_FROM_FAVORITE } from '../reducers/user.reducer.ts'
 import { LoginCredentials, signUpCredentials, User } from '../../types/user.types.ts'
 import { Job } from '../../types/job.types.ts'
 import { FilterBy, SortBy } from '../../types/filter-sort.ts'
@@ -59,6 +59,28 @@ export function deleteJob(job_id: string) {
   })
   _deleteJob(job_id)
 }
+export function removeJobFromFavorite(job_id: string) {
+  store.dispatch({
+    type: REMOVE_JOB_FROM_FAVORITE,
+    job_id
+  })
+  _removeJobFromFavorite(job_id)
+}
+
+async function _removeJobFromFavorite(jobId: string) {
+  store.dispatch({ type: SET_IS_LOADING, isLoading: true })
+  try {
+    const loggedInUser = store.getState().userModule.loggedInUser
+    if (loggedInUser) {
+      await userService.removeJobFromFavorite(loggedInUser, jobId)
+    }
+  } catch (error) {
+    console.log('error:', error)
+    throw error
+  } finally {
+    store.dispatch({ type: SET_IS_LOADING, isLoading: false })
+  }
+}
 
 export function editJob(job: Job) {
   store.dispatch({
@@ -75,6 +97,26 @@ export async function loadJobs(user_id: string, filterBy: FilterBy, sortBy: Sort
     store.dispatch({ type: SET_USER, user: user })
   } catch (error) {
     console.log(error)
+  } finally {
+    store.dispatch({ type: SET_IS_LOADING, isLoading: false })
+  }
+}
+
+export async function addJobToFavorite(job: Job) {
+  store.dispatch({ type: ADD_JOB_TO_FAVORITE, job })
+  return _addJobToFavorite(job)
+}
+
+async function _addJobToFavorite(newJob: Job,) {
+  store.dispatch({ type: SET_IS_LOADING, isLoading: true })
+  try {
+    const loggedInUser = store.getState().userModule.loggedInUser
+    if (loggedInUser) {
+      await userService.addJobToFavorite(loggedInUser, newJob,)
+    }
+  } catch (error) {
+    console.log('error:', error)
+    throw error
   } finally {
     store.dispatch({ type: SET_IS_LOADING, isLoading: false })
   }

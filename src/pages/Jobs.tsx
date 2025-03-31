@@ -21,11 +21,14 @@ export function Jobs() {
   const lastJobRef = useRef<HTMLDivElement | null>(null)
   const [isFavoriteShow, setIsFavoriteShow] = useState(false)
   const userJobs: Job[] | undefined = useSelector((storeState: UserModule) => storeState.userModule.loggedInUser?.jobs)
-  const userFavoriteJobs: Job[] | undefined = useSelector((storeState: UserModule) => storeState.userModule.loggedInUser?.jobs?.filter(job => job.isFavorite))
+  // const userFavoriteJobs: Job[] | undefined = useSelector((storeState: UserModule) => storeState.userModule.loggedInUser?.jobs?.filter(job => job.isFavorite))
+  const userFavoriteJobs: Job[] | undefined = useSelector((storeState: UserModule) => storeState.userModule.loggedInUser?.favoriteJobs)
+  // console.log('userFavoriteJobs:', userFavoriteJobs)
   const totalFavoriteJobs: number | undefined = userFavoriteJobs?.length
   const user: User | null = useSelector((storeState: UserModule) => storeState.userModule.loggedInUser)
   const isDemoUser = user?.fullName === 'demo user'
   const totalJobs = user?.totalFilteredJobs
+  console.log('totalJobs:', totalJobs)
   const filterBy: FilterBy = useSelector((storeState: UserModule) => storeState.userModule.filterBy)
   const sortBy: SortBy = useSelector((storeState: UserModule) => storeState.userModule.sortBy)
   const isLoading: boolean = useSelector((storeState: UserModule) => storeState.userModule.isLoading)

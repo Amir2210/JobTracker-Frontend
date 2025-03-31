@@ -11,6 +11,7 @@ export const SET_IS_LOADING: string = 'SET_IS_LOADING'
 export const UPDATE_JOB: string = 'UPDATE_JOB'
 export const ADD_JOB: string = 'ADD_JOB'
 export const ADD_JOB_TO_FAVORITE: string = 'ADD_JOB_TO_FAVORITE'
+export const REMOVE_JOB_FROM_FAVORITE: string = 'REMOVE_JOB_FROM_FAVORITE'
 export const DELETE_JOB: string = 'DELETE_JOB'
 export const SET_FILTER_BY: string = 'SET_FILTER_BY'
 export const SET_SORT_BY: string = 'SET_SORT_BY'
@@ -37,6 +38,15 @@ type EditJobAction = {
   job: Job
 }
 
+type AddJobToFavorite = {
+  type: typeof ADD_JOB_TO_FAVORITE
+  job: Job
+}
+type RemoveJobFromFavorite = {
+  type: typeof REMOVE_JOB_FROM_FAVORITE
+  job_id: String
+}
+
 type DeleteJobAction = {
   type: typeof DELETE_JOB
   job_id: String
@@ -57,7 +67,7 @@ type ResetFilterAndSort = {
 }
 
 
-type UserAction = SetUserAction | SetIsLoadingAction | AddJobAction | DeleteJobAction | EditJobAction | FilterJobAction | ResetFilterAndSort | SortJobAction
+type UserAction = SetUserAction | SetIsLoadingAction | AddJobAction | DeleteJobAction | EditJobAction | FilterJobAction | ResetFilterAndSort | SortJobAction | AddJobToFavorite | RemoveJobFromFavorite
 
 const initialState: UserState = {
   loggedInUser: userService.getLoggedInUser(),
@@ -68,6 +78,7 @@ const initialState: UserState = {
 
 export function userReducer(state: UserState = initialState, action: UserAction): UserState {
   let userJobs
+  let userFavoriteJobs
   switch (action.type) {
     case SET_USER:
       if ('user' in action) {
@@ -85,11 +96,24 @@ export function userReducer(state: UserState = initialState, action: UserAction)
         return { ...state, loggedInUser: { ...state.loggedInUser, jobs: userJobs } }
       }
       break
+    case ADD_JOB_TO_FAVORITE:
+      if ('job' in action && state.loggedInUser) {
+        userFavoriteJobs = [action.job, ...state.loggedInUser.favoriteJobs]
+        return { ...state, loggedInUser: { ...state.loggedInUser, favoriteJobs: userFavoriteJobs } }
+      }
+      break
     case DELETE_JOB:
       if ('job_id' in action && state.loggedInUser) {
         const userJobs: Job[] = [...state.loggedInUser.jobs]
         const newUserJobs: Job[] = userJobs.filter(job => job._id !== action.job_id)
         return { ...state, loggedInUser: { ...state.loggedInUser, jobs: newUserJobs, totalFilteredJobs: state.loggedInUser.totalFilteredJobs ? state.loggedInUser.totalFilteredJobs - 1 : undefined } }
+      }
+      break
+    case REMOVE_JOB_FROM_FAVORITE:
+      if ('job_id' in action && state.loggedInUser) {
+        const userFavoriteJobs: Job[] = [...state.loggedInUser.favoriteJobs]
+        const newUserFacvoriteJobs: Job[] = userFavoriteJobs.filter(job => job._id !== action.job_id)
+        return { ...state, loggedInUser: { ...state.loggedInUser, favoriteJobs: newUserFacvoriteJobs, totalFilteredJobs: state.loggedInUser.totalFilteredJobs ? state.loggedInUser.totalFilteredJobs - 1 : undefined } }
       }
       break
     case UPDATE_JOB:

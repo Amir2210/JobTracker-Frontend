@@ -15,7 +15,9 @@ export const userService = {
     addJob,
     deleteJob,
     updateJob,
-    demoLogin
+    demoLogin,
+    addJobToFavorite,
+    removeJobFromFavorite
 }
 
 
@@ -46,7 +48,7 @@ async function demoLogin({ userName, password, recaptchaToken }: LoginCredential
 
 
 async function signup({ userName, password, fullName }: signUpCredentials): Promise<User> {
-    const user = { userName, password, fullName, jobs: [] }
+    const user = { userName, password, fullName, jobs: [], favoriteJobs: [] }
     const savedUser = await httpService.post(BASE_URL + 'signup', user)
     if (!savedUser) {
         throw new Error('signup failed: Invalid credentials or reCAPTCHA verification failed.')
@@ -71,6 +73,13 @@ async function addJob(userToUpdate: User, newJob: Job, recaptchaToken: string): 
     if (loggedInUser && loggedInUser._id === user._id) saveLocalUser(user)
     return user
 }
+async function addJobToFavorite(userToUpdate: User, newJob: Job,): Promise<User> {
+    const { _id, fullName, userName } = userToUpdate
+    const user = await httpService.put(`user/${_id}/addJobToFavorite`, { _id, fullName, userName, newJob })
+    const loggedInUser = getLoggedInUser()
+    if (loggedInUser && loggedInUser._id === user._id) saveLocalUser(user)
+    return user
+}
 
 
 async function deleteJob(userToUpdate: User, jobId: string): Promise<User> {
@@ -80,6 +89,14 @@ async function deleteJob(userToUpdate: User, jobId: string): Promise<User> {
     if (loggedInUser && loggedInUser._id === user._id) saveLocalUser(user)
     return user
 }
+async function removeJobFromFavorite(userToUpdate: User, jobId: string): Promise<User> {
+    const { _id, fullName, userName } = userToUpdate
+    const user = await httpService.put(`user/${_id}/removeJobFromFavorite`, { _id, fullName, userName, jobId })
+    const loggedInUser = getLoggedInUser()
+    if (loggedInUser && loggedInUser._id === user._id) saveLocalUser(user)
+    return user
+}
+
 async function updateJob(userToUpdate: User, jobId: string): Promise<User> {
     const { _id, fullName, userName, jobs } = userToUpdate
     const user = await httpService.put(`user/${_id}/updateJob`, { _id, fullName, userName, jobs, jobId })
@@ -97,7 +114,7 @@ function getLoggedInUser(): User | null {
 }
 
 function saveLocalUser(user: User) {
-    user = { _id: user._id, fullName: user.fullName, userName: user.userName, jobs: user.jobs, totalFilteredJobs: user.totalFilteredJobs, allJobs: user.allJobs }
+    user = { _id: user._id, fullName: user.fullName, userName: user.userName, jobs: user.jobs, totalFilteredJobs: user.totalFilteredJobs, allJobs: user.allJobs, favoriteJobs: user.favoriteJobs }
     sessionStorage.setItem(STORAGE_KEY_LOGGEDIN, JSON.stringify(user))
     return user
 }

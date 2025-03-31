@@ -8,6 +8,7 @@ export type User = {
   jobs: Job[]
   allJobs?: Job[]
   totalFilteredJobs?: number
+  favoriteJobs: Job[]
 }
 
 export type UserState = {

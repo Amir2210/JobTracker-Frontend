@@ -19,7 +19,7 @@ import { FaReact } from "react-icons/fa"
 import { RefObject, useState } from 'react';
 import { Link } from 'react-router-dom';
 //actions
-import { deleteJob, editJob } from '../store/actions/user.actions';
+import { addJobToFavorite, deleteJob, editJob, removeJobFromFavorite } from '../store/actions/user.actions';
 import { toast } from 'react-toastify';
 //interface
 interface JobsPreviewProps {
@@ -112,6 +112,26 @@ export function JobsPreview({ job, index, userJobs, lastJobRef, userFavoriteJobs
     }
   }
 
+  async function realOnChangeFavorite(job: Job) {
+    if (!job.isFavorite) {
+      try {
+        addJobToFavorite({ ...job, isFavorite: true })
+        editJob({ ...job, isFavorite: !isFavorite })
+        setIsFavorite(!isFavorite)
+      } catch (error) {
+        console.log('error:', error)
+      }
+    } else {
+      try {
+        removeJobFromFavorite(job._id)
+        editJob({ ...job, isFavorite: !isFavorite })
+        setIsFavorite(!isFavorite)
+      } catch (error) {
+        console.log('error:', error)
+      }
+    }
+  }
+
   const jobsList = !isFavoriteShow ? userJobs : userFavoriteJobs;
   const isLastJob = index === (jobsList?.length ?? 0) - 1;
 
@@ -123,7 +143,10 @@ export function JobsPreview({ job, index, userJobs, lastJobRef, userFavoriteJobs
           <h1 className=' text-xl capitalize mb-1'>{job.position}</h1>
           <h2 className=' capitalize'>{job.company}</h2>
         </div>
-        <button onClick={() => onChangeFavorite()} className='flex ml-auto items-center'>
+        {/* <button onClick={() => onChangeFavorite()} className='flex ml-auto items-center'>
+          {job.isFavorite ? <FaStar className="text-4xl" /> : <CiStar className="text-4xl" />}
+        </button> */}
+        <button onClick={() => realOnChangeFavorite(job)} className='flex ml-auto items-center'>
           {job.isFavorite ? <FaStar className="text-4xl" /> : <CiStar className="text-4xl" />}
         </button>
       </div>
@@ -159,12 +182,19 @@ export function JobsPreview({ job, index, userJobs, lastJobRef, userFavoriteJobs
         </div>
       </div>
       <div className='flex gap-5 py-3 px-3'>
-        <div className='flex items-center '>
-          <Link to={'/addJob'} state={{ job }} className='btn capitalize bg-lime-100 text-lime-600 rounded-md hover:bg-lime-200 border-none'>edit</Link>
-        </div>
-        <div className='flex items-center '>
-          {!isDemoUser && <button onClick={() => onDeleteJob(job._id)} className='btn capitalize bg-red-100 text-red-600 shadow-lg shadow-red100/50 hover:bg-red-200 border-none'>delete</button>}
-        </div>
+        {!isFavoriteShow
+          ? <div className='flex items-center '>
+            <Link to={'/addJob'} state={{ job }} className='btn capitalize bg-lime-100 text-lime-600 rounded-md hover:bg-lime-200 border-none'>edit</Link>
+          </div>
+          : null}
+
+        {!isFavoriteShow
+          ?
+          <div className='flex items-center '>
+            {!isDemoUser && <button onClick={() => onDeleteJob(job._id)} className='btn capitalize bg-red-100 text-red-600 shadow-lg shadow-red100/50 hover:bg-red-200 border-none'>delete</button>}
+          </div>
+          : null
+        }
       </div>
     </article>
   )
