@@ -182,12 +182,9 @@ export function JobsPreview({ job, index, userJobs, lastJobRef, userFavoriteJobs
         </div>
       </div>
       <div className='flex gap-5 py-3 px-3'>
-        {!isFavoriteShow
-          ? <div className='flex items-center '>
-            <Link to={'/addJob'} state={{ job }} className='btn capitalize bg-lime-100 text-lime-600 rounded-md hover:bg-lime-200 border-none'>edit</Link>
-          </div>
-          : null}
-
+        <div className='flex items-center '>
+          <Link to={'/addJob'} state={{ job }} className='btn capitalize bg-lime-100 text-lime-600 rounded-md hover:bg-lime-200 border-none'>edit</Link>
+        </div>
         {!isFavoriteShow
           ?
           <div className='flex items-center '>
