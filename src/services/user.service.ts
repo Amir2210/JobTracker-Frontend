@@ -16,8 +16,6 @@ export const userService = {
     deleteJob,
     updateJob,
     demoLogin,
-    addJobToFavorite,
-    removeJobFromFavorite
 }
 
 
@@ -73,25 +71,10 @@ async function addJob(userToUpdate: User, newJob: Job, recaptchaToken: string): 
     if (loggedInUser && loggedInUser._id === user._id) saveLocalUser(user)
     return user
 }
-async function addJobToFavorite(userToUpdate: User, newJob: Job,): Promise<User> {
-    const { _id, fullName, userName } = userToUpdate
-    const user = await httpService.put(`user/${_id}/addJobToFavorite`, { _id, fullName, userName, newJob })
-    const loggedInUser = getLoggedInUser()
-    if (loggedInUser && loggedInUser._id === user._id) saveLocalUser(user)
-    return user
-}
-
 
 async function deleteJob(userToUpdate: User, jobId: string): Promise<User> {
     const { _id, fullName, userName } = userToUpdate
     const user = await httpService.put(`user/${_id}/deleteJob`, { _id, fullName, userName, jobId })
-    const loggedInUser = getLoggedInUser()
-    if (loggedInUser && loggedInUser._id === user._id) saveLocalUser(user)
-    return user
-}
-async function removeJobFromFavorite(userToUpdate: User, jobId: string): Promise<User> {
-    const { _id, fullName, userName } = userToUpdate
-    const user = await httpService.put(`user/${_id}/removeJobFromFavorite`, { _id, fullName, userName, jobId })
     const loggedInUser = getLoggedInUser()
     if (loggedInUser && loggedInUser._id === user._id) saveLocalUser(user)
     return user
