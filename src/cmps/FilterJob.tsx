@@ -67,7 +67,7 @@ export function FilterJob({ filterBy, onSetFilter, sortBy, onSetSort }: FilterPr
   }
 
   function handleReset() {
-    const resetFilter: FilterBy = { txt: '', status: '', jobType: '', pageIdx: 0 }
+    const resetFilter: FilterBy = { txt: '', status: '', jobType: '', pageIdx: 0, isFavoriteShow: false }
     const resetSort: SortBy = { subject: '' }
     setFilterByToEdit(resetFilter)
     onSetFilter(resetFilter)
@@ -131,6 +131,8 @@ export function FilterJob({ filterBy, onSetFilter, sortBy, onSetSort }: FilterPr
                   <option value={'declined'}>Declined</option>
                   <option value={'pending'}>Pending</option>
                   <option value={'HR Interview'}>HR Interview</option>
+                  <option value={'phone call'}>phone call</option>
+                  <option value={'code assignment'}>code assignment</option>
                   <option value={'Ghosting'}>Ghosting</option>
                 </select>
               </div>
@@ -171,6 +173,15 @@ export function FilterJob({ filterBy, onSetFilter, sortBy, onSetSort }: FilterPr
                   <option value={'-time'}>Newest</option>
                   <option value={'time'}>Oldest</option>
                 </select>
+              </div>
+
+              <div className='flex items-center justify-start'>
+                <fieldset className="fieldset p-4 bg-base-100 border border-sky-600 rounded-box w-48">
+                  <legend className="fieldset-legend capitalize text-lg">{filterByToEdit.isFavoriteShow ? 'show favorite' : 'show all jobs'}</legend>
+                  <label className="fieldset-label">
+                    <input type="checkbox" className="toggle" onChange={handleChange} id='isFavoriteShow' name='isFavoriteShow' />
+                  </label>
+                </fieldset>
               </div>
 
               {/* Submit Button */}

@@ -19,16 +19,14 @@ import { FaReact } from "react-icons/fa"
 import { RefObject, useState } from 'react';
 import { Link } from 'react-router-dom';
 //actions
-import { addJobToFavorite, deleteJob, editJob, removeJobFromFavorite } from '../store/actions/user.actions';
+import { deleteJob, editJob } from '../store/actions/user.actions';
 import { toast } from 'react-toastify';
 //interface
 interface JobsPreviewProps {
   job: Job
   index: number
   userJobs?: Job[] | undefined
-  userFavoriteJobs?: Job[] | undefined
   lastJobRef?: RefObject<HTMLDivElement>
-  isFavoriteShow: boolean
   isDemoUser: boolean
 }
 
@@ -100,30 +98,19 @@ async function onDeleteJob(job_id: string) {
   }
 }
 
-export function JobsPreview({ job, index, userJobs, lastJobRef, userFavoriteJobs, isFavoriteShow, isDemoUser }: JobsPreviewProps) {
+export function JobsPreview({ job, index, userJobs, lastJobRef, isDemoUser }: JobsPreviewProps) {
   const [isFavorite, setIsFavorite] = useState(job.isFavorite)
 
   async function onChangeFavorite(job: Job) {
-    if (!job.isFavorite) {
-      try {
-        addJobToFavorite({ ...job, isFavorite: true })
-        editJob({ ...job, isFavorite: !isFavorite })
-        setIsFavorite(!isFavorite)
-      } catch (error) {
-        console.log('error:', error)
-      }
-    } else {
-      try {
-        removeJobFromFavorite(job._id)
-        editJob({ ...job, isFavorite: !isFavorite })
-        setIsFavorite(!isFavorite)
-      } catch (error) {
-        console.log('error:', error)
-      }
+    try {
+      editJob({ ...job, isFavorite: !isFavorite })
+      setIsFavorite(!isFavorite)
+    } catch (error) {
+      console.log('error:', error)
     }
   }
 
-  const jobsList = !isFavoriteShow ? userJobs : userFavoriteJobs;
+  const jobsList = userJobs
   const isLastJob = index === (jobsList?.length ?? 0) - 1;
 
   return (
@@ -134,9 +121,6 @@ export function JobsPreview({ job, index, userJobs, lastJobRef, userFavoriteJobs
           <h1 className=' text-xl capitalize mb-1'>{job.position}</h1>
           <h2 className=' capitalize'>{job.company}</h2>
         </div>
-        {/* <button onClick={() => onChangeFavorite()} className='flex ml-auto items-center'>
-          {job.isFavorite ? <FaStar className="text-4xl" /> : <CiStar className="text-4xl" />}
-        </button> */}
         <button onClick={() => onChangeFavorite(job)} className='flex ml-auto items-center'>
           {job.isFavorite ? <FaStar className="text-4xl" /> : <CiStar className="text-4xl" />}
         </button>
@@ -176,13 +160,9 @@ export function JobsPreview({ job, index, userJobs, lastJobRef, userFavoriteJobs
         <div className='flex items-center '>
           <Link to={'/addJob'} state={{ job }} className='btn capitalize bg-lime-100 text-lime-600 rounded-md hover:bg-lime-200 border-none'>edit</Link>
         </div>
-        {!isFavoriteShow
-          ?
-          <div className='flex items-center '>
-            {!isDemoUser && <button onClick={() => onDeleteJob(job._id)} className='btn capitalize bg-red-100 text-red-600 shadow-lg shadow-red100/50 hover:bg-red-200 border-none'>delete</button>}
-          </div>
-          : null
-        }
+        <div className='flex items-center '>
+          {!isDemoUser && <button onClick={() => onDeleteJob(job._id)} className='btn capitalize bg-red-100 text-red-600 shadow-lg shadow-red100/50 hover:bg-red-200 border-none'>delete</button>}
+        </div>
       </div>
     </article>
   )

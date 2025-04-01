@@ -19,10 +19,7 @@ import { loadJobs, setFilterBy, setSortBy } from '../store/actions/user.actions'
 export function Jobs() {
   const [isLastJobVisible, setIsLastJobVisible] = useState(false)
   const lastJobRef = useRef<HTMLDivElement | null>(null)
-  const [isFavoriteShow, setIsFavoriteShow] = useState(false)
   const userJobs: Job[] | undefined = useSelector((storeState: UserModule) => storeState.userModule.loggedInUser?.jobs)
-  const userFavoriteJobs: Job[] | undefined = useSelector((storeState: UserModule) => storeState.userModule.loggedInUser?.favoriteJobs)
-  const totalFavoriteJobs: number | undefined = userFavoriteJobs?.length
   const user: User | null = useSelector((storeState: UserModule) => storeState.userModule.loggedInUser)
   const isDemoUser = user?.fullName === 'demo user'
   const totalJobs = user?.totalFilteredJobs
@@ -77,11 +74,10 @@ export function Jobs() {
           <div className='small-container sm:big-container sm:mt-4 sm:py-4 py-2  '>
             <FilterJob filterBy={filterBy} onSetFilter={onSetFilter} sortBy={sortBy} onSetSort={onSetSort} />
             <div className='flex justify-between items-center'>
-              {isFavoriteShow ? <h1 className='text-2xl capitalize font-medium'>{userFavoriteJobs?.length} favorite {userFavoriteJobs?.length === 1 ? 'job' : 'jobs'} found</h1> : <h1 className='text-2xl capitalize font-medium'>{totalJobs} {totalJobs === 1 ? 'job' : 'jobs'} found</h1>}
-              <button onClick={() => setIsFavoriteShow(!isFavoriteShow)} className=' btn bg-sky-700 hover:bg-sky-800 text-white text-lg sm:text-xl capitalize font-medium'>{isFavoriteShow ? 'show all jobs' : 'show favorite jobs'}</button>
+              <h1 className='text-2xl capitalize font-medium'>{totalJobs} {totalJobs === 1 ? 'job' : 'jobs'} found</h1>
             </div>
-            <JobsList isDemoUser={isDemoUser} isLoading={isLoading} userJobs={userJobs} lastJobRef={lastJobRef} userFavoriteJobs={userFavoriteJobs} isFavoriteShow={isFavoriteShow} />
-            <Pagination isFavoriteShow={isFavoriteShow} totalFavoriteJobs={totalFavoriteJobs} totalJobs={totalJobs} filterBy={filterBy} onSetFilter={onSetFilter} />
+            <JobsList isDemoUser={isDemoUser} isLoading={isLoading} userJobs={userJobs} lastJobRef={lastJobRef} />
+            <Pagination totalJobs={totalJobs} filterBy={filterBy} onSetFilter={onSetFilter} />
             {!userJobs?.length && !filterBy.txt && !filterBy.status && !filterBy.jobType && <div className='flex flex-col justify-center items-center mt-4'>
               <img className='size-48 sm:size-96' src="https://res.cloudinary.com/dxm0sqcfp/image/upload/f_auto,q_auto/v1715154175/job%20tracker/ocfxopyi3lshmxzmucwd.svg" alt="Empty job list illustration" />
               <p className='capitalize mt-4 text-2xl sm:text-4xl'>add your first job <span className='link text-sky-600'><Link to={'/addJob'} aria-label="Add a new job to your job tracker">here</Link> </span></p>
