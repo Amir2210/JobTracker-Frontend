@@ -65,7 +65,7 @@ export function editJob(job: Job) {
     type: UPDATE_JOB,
     job
   })
-  _updateJob(job._id)
+  return _updateJob(job._id)
 }
 
 export async function loadJobs(user_id: string, filterBy: FilterBy, sortBy: SortBy) {
