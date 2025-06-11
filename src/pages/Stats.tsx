@@ -8,6 +8,7 @@ import { FaBug } from "react-icons/fa"
 import { ImProfile } from "react-icons/im";
 import { FaGhost } from "react-icons/fa6";
 import { DoughnutChart } from '../cmps/DoughnutChart'
+import { MdContactPhone } from "react-icons/md"
 import { Helmet } from "react-helmet-async"
 export function Stats() {
   const userJobs: Job[] | undefined = useSelector((storeState: UserModule) => storeState.userModule.loggedInUser?.allJobs)
@@ -16,6 +17,7 @@ export function Stats() {
   const declinedJobs = userJobs?.filter(job => job.status === 'declined')
   const hrInterviewJobs = userJobs?.filter(job => job.status === 'HR Interview')
   const ghostingJobs = userJobs?.filter(job => job.status === 'Ghosting')
+  const phoneCallJobs = userJobs?.filter(job => job.status === 'phone call')
   return (
     <>
       <Helmet>
@@ -65,7 +67,16 @@ export function Stats() {
                 </div>
                 <p className='mt-4 font-mono text-2xl text-sky-950'>HR Interviews</p>
               </div>
-              <div className='sm:shadow-xl sm:col-span-2 sm:mt-4 p-8 rounded-lg bg-white border-b-4 border-stone-600'>
+              <div className='sm:shadow-xl  sm:mt-4 p-8 rounded-lg bg-white border-b-4 border-pink-600'>
+                <div className='flex items-center justify-between'>
+                  <p className='text-5xl text-pink-600'>{phoneCallJobs?.length}</p>
+                  <div className='bg-pink-200 text-pink-600 p-2 rounded-md'>
+                    <MdContactPhone className='text-5xl' />
+                  </div>
+                </div>
+                <p className='mt-4 font-mono text-2xl text-sky-950'>Phone calls</p>
+              </div>
+              <div className='sm:shadow-xl  sm:mt-4 p-8 rounded-lg bg-white border-b-4 border-stone-600'>
                 <div className='flex items-center justify-between'>
                   <p className='text-5xl text-stone-600'>{ghostingJobs?.length}</p>
                   <div className='bg-stone-200 text-stone-600 p-2 rounded-md'>
@@ -82,6 +93,7 @@ export function Stats() {
                 declinedJobs={declinedJobs?.length || 0}
                 hrInterviewJobs={hrInterviewJobs?.length || 0}
                 ghostingJobs={ghostingJobs?.length || 0}
+                phoneCallJobs={phoneCallJobs?.length || 0}
               />
             </div>
           </div>

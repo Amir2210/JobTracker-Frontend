@@ -9,28 +9,31 @@ type DoughnutChartProps = {
   declinedJobs: number;
   hrInterviewJobs: number;
   ghostingJobs: number
+  phoneCallJobs: number
 };
 
-export function DoughnutChart({ pendingJobs, interviewJobs, declinedJobs, hrInterviewJobs, ghostingJobs }: DoughnutChartProps) {
+export function DoughnutChart({ pendingJobs, interviewJobs, declinedJobs, hrInterviewJobs, ghostingJobs, phoneCallJobs }: DoughnutChartProps) {
   const data = {
-    labels: ['Pending jobs', 'Interviews Scheduled', 'Jobs Declined', 'HR Interviews', 'Ghosting'],
+    labels: ['Pending Jobs', 'Interviews Scheduled', 'Jobs Declined', 'HR Interviews', 'Ghosting', 'Phone Call'],
     datasets: [
       {
         label: '# of Jobs',
-        data: [pendingJobs, interviewJobs, declinedJobs, hrInterviewJobs, ghostingJobs],
+        data: [pendingJobs, interviewJobs, declinedJobs, hrInterviewJobs, ghostingJobs, phoneCallJobs],
         backgroundColor: [
           '#fed7aa',
           '#bfdbfe',
           '#fecaca',
-          '#E3A5C7',
-          '#D9DFC6'
+          '#c084fc',
+          '#D9DFC6',
+          '#f9a8d4 '
         ],
         borderColor: [
           '#d97706',
           '#2563eb',
           '#dc2626',
-          '#BF2EF0',
-          '#727D73'
+          '#9333ea',
+          '#727D73',
+          '#ec4899',
         ],
         borderWidth: 1,
       },
