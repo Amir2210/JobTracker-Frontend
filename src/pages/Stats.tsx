@@ -9,6 +9,7 @@ import { ImProfile } from "react-icons/im";
 import { FaGhost } from "react-icons/fa6";
 import { DoughnutChart } from '../cmps/DoughnutChart'
 import { MdContactPhone } from "react-icons/md"
+import { FaReact } from "react-icons/fa"
 import { Helmet } from "react-helmet-async"
 export function Stats() {
   const userJobs: Job[] | undefined = useSelector((storeState: UserModule) => storeState.userModule.loggedInUser?.allJobs)
@@ -81,7 +82,7 @@ export function Stats() {
                 <div className='flex items-center justify-between'>
                   <p className='text-5xl text-emerald-600'>{codeAssignmentJobs?.length}</p>
                   <div className='bg-emerald-200 text-emerald-600 p-2 rounded-md'>
-                    <MdContactPhone className='text-5xl' />
+                    <FaReact className='text-5xl' />
                   </div>
                 </div>
                 <p className='mt-4 font-mono text-2xl text-sky-950'>code assignment</p>
