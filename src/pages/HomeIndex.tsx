@@ -2,6 +2,7 @@ import { Link } from "react-router-dom"
 import { Helmet } from "react-helmet-async"
 import { HomeShowcase } from "../cmps/HomeShowcase"
 import { HowItWorks } from "../cmps/HowItWorks"
+import { Reveal } from "../cmps/Reveal"
 import { statusClass, statusImg, statusImgBgColor } from "../utils/status.util"
 
 const HERO_JOBS = [
@@ -37,21 +38,21 @@ export function HomeIndex() {
         <section className='small-container sm:big-container'>
           <div className='grid lg:grid-cols-2 gap-10 items-center mt-6 sm:mt-12 pb-16 text-slate-950'>
             <div>
-              <h1 className='text-4xl sm:text-6xl font-bold tracking-wide capitalize mb-6'>
+              <h1 className='text-4xl sm:text-6xl font-bold tracking-wide capitalize mb-6 animate-fade-up'>
                 Track your <span className='text-sky-400'>job search</span> the smart way
               </h1>
-              <p className='sm:text-xl tracking-wide mb-8 text-slate-600'>
+              <p className='sm:text-xl tracking-wide mb-8 text-slate-600 animate-fade-up' style={{ animationDelay: '100ms' }}>
                 JobTracker keeps every application in one place. Log jobs, follow each one through every stage,
                 and visualize your progress with analytics and a calendar - so nothing slips through the cracks.
               </p>
-              <div className='flex flex-wrap gap-4'>
+              <div className='flex flex-wrap gap-4 animate-fade-up' style={{ animationDelay: '200ms' }}>
                 <Link to={'/login'} className='btn text-white text-lg bg-sky-400 capitalize hover:bg-sky-600 border-none'>get started</Link>
                 <Link to={'/createUser'} className='btn text-lg bg-white border-2 border-sky-400 text-sky-400 capitalize hover:bg-sky-400 hover:text-white hover:border-white'>create account</Link>
               </div>
             </div>
 
             {/* Mini dashboard preview */}
-            <div className='rounded-2xl bg-white shadow-2xl border border-indigo-100 p-5'>
+            <div className='rounded-2xl bg-white shadow-2xl border border-indigo-100 p-5 animate-fade-in animate-float'>
               <div className='flex gap-2 mb-4'>
                 <span className='size-3 rounded-full bg-red-300' />
                 <span className='size-3 rounded-full bg-amber-300' />
@@ -59,7 +60,7 @@ export function HomeIndex() {
               </div>
               <div className='flex flex-col gap-3'>
                 {HERO_JOBS.map((job) => (
-                  <div key={job.position} className='flex items-center gap-3 rounded-lg border border-indigo-50 p-3'>
+                  <div key={job.position} className='flex items-center gap-3 rounded-lg border border-indigo-50 p-3 transition-transform hover:-translate-y-0.5'>
                     <div className={`text-lg text-white size-10 flex justify-center items-center rounded-lg ${statusImgBgColor(job.status)}`}>
                       {statusImg(job.status)}
                     </div>
@@ -80,11 +81,11 @@ export function HomeIndex() {
 
         {/* Closing CTA */}
         <section className='bg-sky-400 py-16'>
-          <div className='small-container sm:big-container text-center text-white'>
+          <Reveal className='small-container sm:big-container text-center text-white'>
             <h2 className='text-3xl sm:text-4xl font-bold capitalize mb-4'>Ready to organize your job search?</h2>
             <p className='text-lg mb-8 opacity-90'>Start tracking your applications in minutes.</p>
             <Link to={'/login'} className='btn text-lg bg-white text-sky-500 capitalize hover:bg-zinc-100 border-none'>get started for free</Link>
-          </div>
+          </Reveal>
         </section>
       </main>
     </>

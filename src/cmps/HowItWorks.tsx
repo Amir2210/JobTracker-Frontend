@@ -1,4 +1,5 @@
 import { FaPlus, FaRoute, FaChartPie } from 'react-icons/fa'
+import { Reveal } from './Reveal'
 
 type Step = {
   num: number
@@ -46,13 +47,15 @@ export function HowItWorks() {
         </div>
 
         <div className='grid md:grid-cols-3 gap-6'>
-          {STEPS.map((step) => (
-            <div key={step.num} className={`relative bg-white rounded-xl shadow-lg p-8 border-b-4 ${step.accent}`}>
-              <span className='absolute top-4 right-5 text-5xl font-bold text-slate-100'>{step.num}</span>
-              <div className={`inline-flex p-3 rounded-lg ${step.iconBg}`}>{step.icon}</div>
-              <h3 className='mt-4 text-xl font-medium'>{step.title}</h3>
-              <p className='mt-2 text-slate-500'>{step.text}</p>
-            </div>
+          {STEPS.map((step, index) => (
+            <Reveal key={step.num} delay={index * 120}>
+              <div className={`relative bg-white rounded-xl shadow-lg p-8 border-b-4 ${step.accent} transition-transform hover:-translate-y-1 h-full`}>
+                <span className='absolute top-4 right-5 text-5xl font-bold text-slate-100'>{step.num}</span>
+                <div className={`inline-flex p-3 rounded-lg ${step.iconBg}`}>{step.icon}</div>
+                <h3 className='mt-4 text-xl font-medium'>{step.title}</h3>
+                <p className='mt-2 text-slate-500'>{step.text}</p>
+              </div>
+            </Reveal>
           ))}
         </div>
       </div>

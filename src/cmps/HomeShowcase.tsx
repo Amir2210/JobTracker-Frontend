@@ -1,4 +1,5 @@
 import { statusClass, statusImg, statusImgBgColor } from '../utils/status.util'
+import { Reveal } from './Reveal'
 import { FaStar, FaBriefcase, FaReply } from 'react-icons/fa'
 import { FaSuitcase, FaLocationArrow } from 'react-icons/fa'
 
@@ -25,7 +26,8 @@ export function HomeShowcase() {
 
         <div className='grid lg:grid-cols-3 gap-6'>
           {/* Mini job card */}
-          <div className='rounded-xl border border-indigo-100 shadow-lg p-5 bg-white'>
+          <Reveal>
+          <div className='rounded-xl border border-indigo-100 shadow-lg p-5 bg-white transition-transform hover:-translate-y-1'>
             <div className='flex gap-4 items-center border-b border-indigo-100 pb-3'>
               <div className={`text-2xl text-white size-12 flex justify-center items-center rounded-lg ${statusImgBgColor('interview')}`}>
                 {statusImg('interview')}
@@ -44,8 +46,10 @@ export function HomeShowcase() {
             </div>
             <span className={`${statusClass('interview')} btn btn-sm mt-4 font-medium rounded-md cursor-auto capitalize`}>interview</span>
           </div>
+          </Reveal>
 
           {/* KPI cards */}
+          <Reveal delay={100}>
           <div className='grid grid-cols-2 gap-4 content-start'>
             <div className='rounded-xl bg-white border-b-4 border-sky-500 shadow-lg p-5'>
               <div className='flex items-center justify-between'>
@@ -68,9 +72,11 @@ export function HomeShowcase() {
               </div>
             </div>
           </div>
+          </Reveal>
 
           {/* Mini calendar */}
-          <div className='rounded-xl border border-indigo-100 shadow-lg p-5 bg-white'>
+          <Reveal delay={200}>
+          <div className='rounded-xl border border-indigo-100 shadow-lg p-5 bg-white transition-transform hover:-translate-y-1'>
             <div className='flex items-center justify-between mb-3'>
               <h3 className='font-medium'>This month</h3>
               <span className='text-sm text-slate-400'>Activity</span>
@@ -94,6 +100,7 @@ export function HomeShowcase() {
               })}
             </div>
           </div>
+          </Reveal>
         </div>
       </div>
     </section>
