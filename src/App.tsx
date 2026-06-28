@@ -8,6 +8,7 @@ import { CreateUser } from './pages/CreateUser'
 import { Jobs } from './pages/Jobs'
 import { AddJob } from './pages/AddJob'
 import { Stats } from './pages/Stats'
+import { CalendarPage } from './pages/CalendarPage'
 
 // Store
 import { store } from './store/store'
@@ -32,6 +33,7 @@ function App() {
             <Route path='/jobs' element={<Jobs />} />
             <Route path='/addJob' element={<AddJob />} />
             <Route path='/stats' element={<Stats />} />
+            <Route path='/calendar' element={<CalendarPage />} />
           </Routes>
         </Router>
       </Provider>

@@ -22,6 +22,11 @@ const links: Link[] = [
     url: '/stats',
     txt: 'stats'
   },
+  {
+    id: 4,
+    url: '/calendar',
+    txt: 'calendar'
+  },
 
 ]
 
