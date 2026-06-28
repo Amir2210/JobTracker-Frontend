@@ -14,6 +14,7 @@ import { RefObject, useState } from 'react';
 import { Link } from 'react-router-dom';
 //components
 import { JobDetails } from './JobDetails';
+import { ConfirmDialog } from './ConfirmDialog';
 //actions
 import { deleteJob, editJob } from '../store/actions/user.actions';
 import { toast } from 'react-toastify';
@@ -40,6 +41,7 @@ async function onDeleteJob(job_id: string) {
 export function JobsPreview({ job, index, userJobs, lastJobRef, isDemoUser }: JobsPreviewProps) {
   const [isFavorite, setIsFavorite] = useState(job.isFavorite)
   const [isDetailsOpen, setIsDetailsOpen] = useState(false)
+  const [isConfirmOpen, setIsConfirmOpen] = useState(false)
 
   async function onChangeFavorite(job: Job) {
     try {
@@ -104,10 +106,18 @@ export function JobsPreview({ job, index, userJobs, lastJobRef, isDemoUser }: Jo
           <Link to={'/addJob'} state={{ job }} className='btn capitalize bg-lime-100 text-lime-600 rounded-md hover:bg-lime-200 border-none'>edit</Link>
         </div>
         <div className='flex items-center '>
-          {!isDemoUser && <button onClick={() => onDeleteJob(job._id)} className='btn capitalize bg-red-100 text-red-600 shadow-lg shadow-red100/50 hover:bg-red-200 border-none'>delete</button>}
+          {!isDemoUser && <button onClick={() => setIsConfirmOpen(true)} className='btn capitalize bg-red-100 text-red-600 shadow-lg shadow-red100/50 hover:bg-red-200 border-none'>delete</button>}
         </div>
       </div>
       <JobDetails job={job} isOpen={isDetailsOpen} onClose={() => setIsDetailsOpen(false)} isDemoUser={isDemoUser} />
+      <ConfirmDialog
+        isOpen={isConfirmOpen}
+        title='Delete application'
+        message={`Delete the "${job.position}" application? This cannot be undone.`}
+        confirmText='Delete'
+        onConfirm={() => { onDeleteJob(job._id); setIsConfirmOpen(false) }}
+        onClose={() => setIsConfirmOpen(false)}
+      />
     </article>
   )
 }
