@@ -1,3 +1,8 @@
+export type StatusEvent = {
+  status: string,
+  time: number
+}
+
 export type Job = {
   _id: string,
   position: string,
@@ -7,5 +12,6 @@ export type Job = {
   jobType: string,
   time: number,
   description: string,
-  isFavorite: boolean
+  isFavorite: boolean,
+  statusHistory?: StatusEvent[]
 }

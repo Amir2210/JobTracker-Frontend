@@ -2,22 +2,18 @@
 import { Job } from '../types/job.types'
 //utils
 import { formatDate } from '../utils/util'
+import { statusClass, statusImg, statusImgBgColor } from '../utils/status.util'
 //icons
 import { FaStar } from "react-icons/fa";
 import { FaSuitcase } from "react-icons/fa"
 import { FaCalendarAlt } from "react-icons/fa";
 import { FaLocationArrow } from "react-icons/fa"
 import { CiStar } from "react-icons/ci";
-import { MdOutlinePendingActions } from "react-icons/md"
-import { AiOutlineSchedule } from "react-icons/ai";
-import { FaGhost } from "react-icons/fa6";
-import { ImProfile } from "react-icons/im";
-import { FaBug } from "react-icons/fa"
-import { MdContactPhone } from "react-icons/md"
-import { FaReact } from "react-icons/fa"
 //react
 import { RefObject, useState } from 'react';
 import { Link } from 'react-router-dom';
+//components
+import { JobDetails } from './JobDetails';
 //actions
 import { deleteJob, editJob } from '../store/actions/user.actions';
 import { toast } from 'react-toastify';
@@ -28,63 +24,6 @@ interface JobsPreviewProps {
   userJobs?: Job[] | undefined
   lastJobRef?: RefObject<HTMLDivElement>
   isDemoUser: boolean
-}
-
-function statusClass(status: string): string {
-  if (status === 'pending') {
-    return 'bg-orange-200 text-orange-600 hover:bg-orange-200 border-none'
-  } else if (status === 'interview') {
-    return 'bg-blue-200 text-blue-600 hover:bg-blue-200 border-none'
-  } else if (status === 'HR Interview') {
-    return 'bg-purple-200 text-purple-600 hover:bg-purple-200 border-none'
-  } else if (status === 'Ghosting') {
-    return 'bg-stone-200 text-stone-600 hover:bg-stone-200 border-none'
-  } else if (status === 'phone call') {
-    return 'bg-pink-200 text-pink-600 hover:bg-pink-200 border-none'
-  } else if (status === 'code assignment') {
-    return 'bg-emerald-200 text-emerald-600 hover:bg-emerald-200 border-none'
-  }
-  else {
-    return 'bg-red-200 text-red-600 hover:bg-red-200 border-none'
-  }
-}
-
-function statusImg(status: string): JSX.Element | undefined {
-  if (status === 'pending') {
-    return <MdOutlinePendingActions />
-  } else if (status === 'interview') {
-    return <AiOutlineSchedule />
-  } else if (status === 'HR Interview') {
-    return <ImProfile />
-  } else if (status === 'Ghosting') {
-    return <FaGhost />
-  } else if (status === 'phone call')
-    return <MdContactPhone />
-  else if (status === 'code assignment') {
-    return <FaReact />
-  }
-  else {
-    return <FaBug />
-  }
-}
-
-function statusImgBgColor(status: string): string {
-  if (status === 'pending') {
-    return 'bg-orange-400'
-  } else if (status === 'interview') {
-    return 'bg-blue-400'
-  } else if (status === 'HR Interview') {
-    return 'bg-purple-400'
-  } else if (status === 'Ghosting') {
-    return 'bg-stone-400'
-  } else if (status === 'phone call') {
-    return 'bg-pink-400'
-  } else if (status === 'code assignment') {
-    return 'bg-emerald-400'
-  }
-  else {
-    return 'bg-red-400'
-  }
 }
 
 async function onDeleteJob(job_id: string) {
@@ -100,6 +39,7 @@ async function onDeleteJob(job_id: string) {
 
 export function JobsPreview({ job, index, userJobs, lastJobRef, isDemoUser }: JobsPreviewProps) {
   const [isFavorite, setIsFavorite] = useState(job.isFavorite)
+  const [isDetailsOpen, setIsDetailsOpen] = useState(false)
 
   async function onChangeFavorite(job: Job) {
     try {
@@ -117,10 +57,10 @@ export function JobsPreview({ job, index, userJobs, lastJobRef, isDemoUser }: Jo
     <article ref={isLastJob && (userJobs && userJobs.length > 3) ? lastJobRef : null} key={job._id} className='sm:mt-4 sm:py-4 py-2 px-2 rounded-lg bg-base-100 h-fit'>
       <div className='flex gap-8 border-solid border-indigo-100 border-b py-3 px-3'>
         <div className={`text-4xl text-white font-mono font-bold size-14 flex justify-center items-center rounded-lg ${statusImgBgColor(job.status)}`}>{statusImg(job.status)}</div>
-        <div>
-          <h1 className=' text-xl capitalize mb-1'>{job.position}</h1>
+        <button onClick={() => setIsDetailsOpen(true)} className='text-left' aria-label={`View details for ${job.position}`}>
+          <h1 className=' text-xl capitalize mb-1 hover:text-sky-600'>{job.position}</h1>
           <h2 className=' capitalize'>{job.company}</h2>
-        </div>
+        </button>
         <button onClick={() => onChangeFavorite(job)} className='flex ml-auto items-center'>
           {job.isFavorite ? <FaStar className="text-4xl" /> : <CiStar className="text-4xl" />}
         </button>
@@ -158,12 +98,16 @@ export function JobsPreview({ job, index, userJobs, lastJobRef, isDemoUser }: Jo
       </div>
       <div className='flex gap-5 py-3 px-3'>
         <div className='flex items-center '>
+          <button onClick={() => setIsDetailsOpen(true)} className='btn capitalize bg-sky-100 text-sky-600 rounded-md hover:bg-sky-200 border-none'>details</button>
+        </div>
+        <div className='flex items-center '>
           <Link to={'/addJob'} state={{ job }} className='btn capitalize bg-lime-100 text-lime-600 rounded-md hover:bg-lime-200 border-none'>edit</Link>
         </div>
         <div className='flex items-center '>
           {!isDemoUser && <button onClick={() => onDeleteJob(job._id)} className='btn capitalize bg-red-100 text-red-600 shadow-lg shadow-red100/50 hover:bg-red-200 border-none'>delete</button>}
         </div>
       </div>
+      <JobDetails job={job} isOpen={isDetailsOpen} onClose={() => setIsDetailsOpen(false)} isDemoUser={isDemoUser} />
     </article>
   )
 }

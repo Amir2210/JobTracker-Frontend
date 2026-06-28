@@ -45,11 +45,14 @@ export async function logout() {
 }
 
 export function addJob(job: Job, recaptchaToken: string) {
+  const jobToSave: Job = job.statusHistory?.length
+    ? job
+    : { ...job, statusHistory: [{ status: job.status, time: job.time }] }
   store.dispatch({
     type: ADD_JOB,
-    job
+    job: jobToSave
   })
-  return _addJob(job, recaptchaToken)
+  return _addJob(jobToSave, recaptchaToken)
 }
 
 export function deleteJob(job_id: string) {
@@ -61,11 +64,17 @@ export function deleteJob(job_id: string) {
 }
 
 export function editJob(job: Job) {
+  const stored = store.getState().userModule.loggedInUser?.jobs.find(j => j._id === job._id)
+  let jobToSave = job
+  if (stored && stored.status !== job.status) {
+    const history = job.statusHistory?.length ? job.statusHistory : [{ status: stored.status, time: stored.time }]
+    jobToSave = { ...job, statusHistory: [...history, { status: job.status, time: Date.now() }] }
+  }
   store.dispatch({
     type: UPDATE_JOB,
-    job
+    job: jobToSave
   })
-  return _updateJob(job._id)
+  return _updateJob(jobToSave._id)
 }
 
 export async function loadJobs(user_id: string, filterBy: FilterBy, sortBy: SortBy) {
