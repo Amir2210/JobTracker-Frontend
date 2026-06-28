@@ -43,5 +43,26 @@ export function DoughnutChart({ pendingJobs, interviewJobs, declinedJobs, hrInte
     ],
   };
 
-  return <Doughnut data={data} />;
+  const options = {
+    responsive: true,
+    maintainAspectRatio: false,
+    plugins: {
+      legend: {
+        position: 'bottom' as const,
+        labels: { boxWidth: 14, padding: 14 },
+      },
+      tooltip: {
+        callbacks: {
+          label: (ctx: { label?: string; parsed: number; dataset: { data: number[] } }) => {
+            const total = ctx.dataset.data.reduce((sum, val) => sum + val, 0)
+            const value = ctx.parsed ?? 0
+            const pct = total > 0 ? Math.round((value / total) * 100) : 0
+            return ` ${ctx.label}: ${value} (${pct}%)`
+          },
+        },
+      },
+    },
+  };
+
+  return <Doughnut data={data} options={options} />;
 }

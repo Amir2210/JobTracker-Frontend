@@ -1,6 +1,9 @@
+import { useEffect } from 'react'
 import { useSelector } from 'react-redux'
+import { Link } from 'react-router-dom'
 import { Navbar } from '../cmps/Navbar'
-import { UserModule } from '../types/user.types'
+import { User, UserModule } from '../types/user.types'
+import { FilterBy, SortBy } from '../types/filter-sort'
 import { Job } from '../types/job.types'
 import { MdOutlinePendingActions } from "react-icons/md"
 import { AiOutlineSchedule } from "react-icons/ai"
@@ -8,11 +11,25 @@ import { FaBug } from "react-icons/fa"
 import { ImProfile } from "react-icons/im";
 import { FaGhost } from "react-icons/fa6";
 import { DoughnutChart } from '../cmps/DoughnutChart'
+import { KpiCards } from '../cmps/KpiCards'
+import { ApplicationsOverTimeChart } from '../cmps/ApplicationsOverTimeChart'
+import { loadJobs } from '../store/actions/user.actions'
 import { MdContactPhone } from "react-icons/md"
 import { FaReact } from "react-icons/fa"
 import { Helmet } from "react-helmet-async"
 export function Stats() {
+  const user: User | null = useSelector((storeState: UserModule) => storeState.userModule.loggedInUser)
+  const filterBy: FilterBy = useSelector((storeState: UserModule) => storeState.userModule.filterBy)
+  const sortBy: SortBy = useSelector((storeState: UserModule) => storeState.userModule.sortBy)
   const userJobs: Job[] | undefined = useSelector((storeState: UserModule) => storeState.userModule.loggedInUser?.allJobs)
+
+  useEffect(() => {
+    if (user) {
+      loadJobs(user._id, filterBy, sortBy)
+    }
+  }, [])
+
+  const allJobs: Job[] = userJobs ?? []
   const pendingJobs = userJobs?.filter(job => job.status === 'pending')
   const interviewJobs = userJobs?.filter(job => job.status === 'interview')
   const declinedJobs = userJobs?.filter(job => job.status === 'declined')
@@ -30,7 +47,18 @@ export function Stats() {
         <Navbar />
         <div className='bg-base-200 min-h-screen'>
           <div className='small-container sm:big-container sm:mt-4 sm:py-4 py-2 '>
-            <div className='grid grid-cols-1 sm:grid-cols-2 gap-5'>
+            {!allJobs.length ? (
+              <div className='flex flex-col justify-center items-center mt-10 text-center'>
+                <FaBug className='text-6xl text-sky-400 mb-4' />
+                <p className='capitalize text-2xl sm:text-3xl'>no data yet</p>
+                <p className='mt-2 text-lg'>
+                  <Link to={'/addJob'} className='link text-sky-600'>Add your first job</Link> to see your analytics.
+                </p>
+              </div>
+            ) : (
+              <>
+                <KpiCards jobs={allJobs} />
+                <div className='grid grid-cols-1 sm:grid-cols-2 gap-5'>
               <div className='sm:shadow-xl sm:mt-4 p-8 rounded-lg bg-white border-b-4 border-orange-400'>
                 <div className='flex items-center justify-between'>
                   <p className='text-5xl text-orange-600'>{pendingJobs?.length}</p>
@@ -97,17 +125,28 @@ export function Stats() {
                 <p className='mt-4 font-mono text-2xl text-sky-950'>Ghosting jobs</p>
               </div>
             </div>
-            <div className='flex justify-center my-8 sm:h-72 chart-txt-color'>
-              <DoughnutChart
-                pendingJobs={pendingJobs?.length || 0}
-                interviewJobs={interviewJobs?.length || 0}
-                declinedJobs={declinedJobs?.length || 0}
-                hrInterviewJobs={hrInterviewJobs?.length || 0}
-                ghostingJobs={ghostingJobs?.length || 0}
-                phoneCallJobs={phoneCallJobs?.length || 0}
-                codeAssignmentJobs={codeAssignmentJobs?.length || 0}
-              />
-            </div>
+                <div className='sm:shadow-xl sm:mt-8 mt-4 p-6 rounded-lg bg-white'>
+                  <h2 className='font-mono text-2xl text-sky-950 mb-4'>Applications over time</h2>
+                  <div className='h-72'>
+                    <ApplicationsOverTimeChart jobs={allJobs} />
+                  </div>
+                </div>
+                <div className='sm:shadow-xl sm:mt-8 mt-4 p-6 rounded-lg bg-white'>
+                  <h2 className='font-mono text-2xl text-sky-950 mb-4'>Status breakdown</h2>
+                  <div className='flex justify-center h-72 chart-txt-color'>
+                    <DoughnutChart
+                      pendingJobs={pendingJobs?.length || 0}
+                      interviewJobs={interviewJobs?.length || 0}
+                      declinedJobs={declinedJobs?.length || 0}
+                      hrInterviewJobs={hrInterviewJobs?.length || 0}
+                      ghostingJobs={ghostingJobs?.length || 0}
+                      phoneCallJobs={phoneCallJobs?.length || 0}
+                      codeAssignmentJobs={codeAssignmentJobs?.length || 0}
+                    />
+                  </div>
+                </div>
+              </>
+            )}
           </div>
         </div>
       </section>
