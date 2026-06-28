@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { FaChevronLeft, FaChevronRight } from 'react-icons/fa';
 import { FilterBy } from '../types/filter-sort';
 
 interface PaginationProps {
@@ -6,6 +7,10 @@ interface PaginationProps {
   filterBy: FilterBy
   onSetFilter: (filterBy: FilterBy) => void;
 }
+
+const baseBtn = 'min-w-10 h-10 px-3 rounded-lg text-sm font-medium border transition flex items-center justify-center'
+const idleBtn = `${baseBtn} bg-base-100 border-base-300 text-base-content hover:bg-base-200`
+const activeBtn = `${baseBtn} bg-sky-500 border-sky-500 text-white shadow-sm`
 
 export function Pagination({ totalJobs, filterBy, onSetFilter, }: PaginationProps) {
   const pageSize = 10
@@ -34,7 +39,7 @@ export function Pagination({ totalJobs, filterBy, onSetFilter, }: PaginationProp
         <button
           key={i}
           onClick={() => handlePageChange(i)}
-          className={`btn shadow-lg text-lg ml-2 ${filterBy.pageIdx === i ? 'bg-sky-400 text-white border-base-300 border' : 'bg-zinc-100 border-indigo-100 border'}`}
+          className={filterBy.pageIdx === i ? activeBtn : idleBtn}
         >
           {i + 1}
         </button>
@@ -49,14 +54,14 @@ export function Pagination({ totalJobs, filterBy, onSetFilter, }: PaginationProp
     // First page button
     if (startPage > 0) {
       buttons.push(
-        <button key={0} onClick={() => handlePageChange(0)} className="btn shadow-lg text-lg ml-2 bg-zinc-100 border-indigo-100 border">
+        <button key={0} onClick={() => handlePageChange(0)} className={idleBtn}>
           1
         </button>
       );
 
       // "..." for previous pages
       buttons.push(
-        <button key="prev-ellipsis" onClick={handlePrevPages} className="btn shadow-lg text-lg ml-2 bg-gray-200 border-none">
+        <button key="prev-ellipsis" onClick={handlePrevPages} className={`${idleBtn} text-base-content/50`}>
           ...
         </button>
       );
@@ -68,7 +73,7 @@ export function Pagination({ totalJobs, filterBy, onSetFilter, }: PaginationProp
         <button
           key={i}
           onClick={() => handlePageChange(i)}
-          className={`btn shadow-lg text-lg ml-2 ${filterBy.pageIdx === i ? 'bg-sky-400 text-white border-base-300 border' : 'bg-zinc-100 border-indigo-100 border'}`}
+          className={filterBy.pageIdx === i ? activeBtn : idleBtn}
         >
           {i + 1}
         </button>
@@ -78,14 +83,14 @@ export function Pagination({ totalJobs, filterBy, onSetFilter, }: PaginationProp
     // "..." for next pages
     if (endPage < numOfPages - 1) {
       buttons.push(
-        <button key="next-ellipsis" onClick={handleNextPages} className="btn shadow-lg text-lg ml-2 bg-gray-200 border-none">
+        <button key="next-ellipsis" onClick={handleNextPages} className={`${idleBtn} text-base-content/50`}>
           ...
         </button>
       );
 
       // Last page button
       buttons.push(
-        <button key={numOfPages - 1} onClick={() => handlePageChange(numOfPages - 1)} className="btn shadow-lg text-lg ml-2 bg-zinc-100 border-indigo-100 border">
+        <button key={numOfPages - 1} onClick={() => handlePageChange(numOfPages - 1)} className={idleBtn}>
           {numOfPages}
         </button>
       );
@@ -94,5 +99,29 @@ export function Pagination({ totalJobs, filterBy, onSetFilter, }: PaginationProp
     return buttons;
   }
 
-  return <div className="my-6 grid grid-cols-7 gap-2">{renderPaginationButtons()}</div>;
+  if (numOfPages <= 1) return null
+
+  const activePage = filterBy.pageIdx || 0
+
+  return (
+    <div className="my-6 flex flex-wrap justify-center items-center gap-2">
+      <button
+        onClick={() => handlePageChange(Math.max(activePage - 1, 0))}
+        disabled={activePage === 0}
+        className={`${idleBtn} disabled:opacity-40 disabled:cursor-not-allowed`}
+        aria-label='Previous page'
+      >
+        <FaChevronLeft className='text-xs' />
+      </button>
+      {renderPaginationButtons()}
+      <button
+        onClick={() => handlePageChange(Math.min(activePage + 1, numOfPages - 1))}
+        disabled={activePage >= numOfPages - 1}
+        className={`${idleBtn} disabled:opacity-40 disabled:cursor-not-allowed`}
+        aria-label='Next page'
+      >
+        <FaChevronRight className='text-xs' />
+      </button>
+    </div>
+  );
 }

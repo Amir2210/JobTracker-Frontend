@@ -1,4 +1,5 @@
 import { useEffect } from 'react'
+import { createPortal } from 'react-dom'
 import { Job } from '../types/job.types'
 import { editJob } from '../store/actions/user.actions'
 import { formatDate } from '../utils/util'
@@ -33,7 +34,7 @@ export function JobDetails({ job, isOpen, onClose, isDemoUser }: JobDetailsProps
     editJob({ ...job, isFavorite: !job.isFavorite })
   }
 
-  return (
+  return createPortal(
     <div className={`fixed inset-0 z-[200] ${isOpen ? '' : 'pointer-events-none'}`} aria-hidden={!isOpen}>
       <div
         className={`absolute inset-0 bg-black/40 transition-opacity duration-300 ${isOpen ? 'opacity-100' : 'opacity-0'}`}
@@ -112,6 +113,7 @@ export function JobDetails({ job, isOpen, onClose, isDemoUser }: JobDetailsProps
           </div>
         </div>
       </aside>
-    </div>
+    </div>,
+    document.body
   )
 }

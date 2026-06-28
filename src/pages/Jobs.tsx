@@ -2,10 +2,11 @@ import { useSelector } from 'react-redux'
 import { useEffect, useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { Helmet } from "react-helmet-async"
+import { FaThLarge, FaThList } from 'react-icons/fa'
 //components
 import { Pagination } from '../cmps/Pagination'
 import AddJobButton from '../cmps/AddJobButton'
-import { JobsList } from '../cmps/JobsList'
+import { JobsList, JobView } from '../cmps/JobsList'
 import { Navbar } from '../cmps/Navbar'
 import { FilterJob } from '../cmps/FilterJob'
 //types
@@ -16,8 +17,13 @@ import { Job } from '../types/job.types'
 import { loadJobs, setFilterBy, setSortBy } from '../store/actions/user.actions'
 
 
+function getStoredView(): JobView {
+  return (localStorage.getItem('jobsView') as JobView) || 'grid'
+}
+
 export function Jobs() {
   const [isLastJobVisible, setIsLastJobVisible] = useState(false)
+  const [view, setView] = useState<JobView>(getStoredView())
   const lastJobRef = useRef<HTMLDivElement | null>(null)
   const userJobs: Job[] | undefined = useSelector((storeState: UserModule) => storeState.userModule.loggedInUser?.jobs)
   const user: User | null = useSelector((storeState: UserModule) => storeState.userModule.loggedInUser)
@@ -62,6 +68,11 @@ export function Jobs() {
     setSortBy(sortBy)
   }
 
+  function onSetView(nextView: JobView) {
+    setView(nextView)
+    localStorage.setItem('jobsView', nextView)
+  }
+
   return (
     <>
       <Helmet>
@@ -73,10 +84,28 @@ export function Jobs() {
         <div className='bg-base-200 min-h-screen'>
           <div className='small-container sm:big-container sm:mt-4 sm:py-4 py-2  '>
             <FilterJob filterBy={filterBy} onSetFilter={onSetFilter} sortBy={sortBy} onSetSort={onSetSort} />
-            <div className='flex justify-between items-center'>
-              <h1 className='text-2xl capitalize font-medium'>{totalJobs} {totalJobs === 1 ? 'job' : 'jobs'} found</h1>
+            <div className='flex justify-between items-center mt-6 mb-2'>
+              <h1 className='text-xl sm:text-2xl capitalize font-semibold'>{totalJobs} {totalJobs === 1 ? 'job' : 'jobs'} found</h1>
+              <div className='inline-flex rounded-xl bg-base-100 border border-base-300 p-1' role='group' aria-label='Toggle view'>
+                <button
+                  onClick={() => onSetView('grid')}
+                  className={`p-2 rounded-lg transition ${view === 'grid' ? 'bg-sky-500 text-white' : 'text-base-content/50 hover:text-base-content'}`}
+                  aria-label='Grid view'
+                  aria-pressed={view === 'grid'}
+                >
+                  <FaThLarge />
+                </button>
+                <button
+                  onClick={() => onSetView('list')}
+                  className={`p-2 rounded-lg transition ${view === 'list' ? 'bg-sky-500 text-white' : 'text-base-content/50 hover:text-base-content'}`}
+                  aria-label='List view'
+                  aria-pressed={view === 'list'}
+                >
+                  <FaThList />
+                </button>
+              </div>
             </div>
-            <JobsList isDemoUser={isDemoUser} isLoading={isLoading} userJobs={userJobs} lastJobRef={lastJobRef} />
+            <JobsList isDemoUser={isDemoUser} isLoading={isLoading} userJobs={userJobs} lastJobRef={lastJobRef} view={view} />
             <Pagination totalJobs={totalJobs} filterBy={filterBy} onSetFilter={onSetFilter} />
             {!userJobs?.length && !filterBy.txt && !filterBy.status && !filterBy.jobType && <div className='flex flex-col justify-center items-center mt-4'>
               <img className='size-48 sm:size-96' src="https://res.cloudinary.com/dxm0sqcfp/image/upload/f_auto,q_auto/v1715154175/job%20tracker/ocfxopyi3lshmxzmucwd.svg" alt="Empty job list illustration" />

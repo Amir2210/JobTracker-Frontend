@@ -1,4 +1,5 @@
 import { useEffect } from 'react'
+import { createPortal } from 'react-dom'
 
 type ConfirmDialogProps = {
   isOpen: boolean
@@ -27,7 +28,7 @@ export function ConfirmDialog({
     return () => document.removeEventListener('keydown', onKeyDown)
   }, [isOpen, onClose])
 
-  return (
+  return createPortal(
     <div
       className={`fixed inset-0 z-[200] flex items-center justify-center p-4 ${isOpen ? '' : 'pointer-events-none'}`}
       aria-hidden={!isOpen}
@@ -59,6 +60,7 @@ export function ConfirmDialog({
           </button>
         </div>
       </div>
-    </div>
+    </div>,
+    document.body
   )
 }
