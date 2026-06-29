@@ -51,59 +51,55 @@ export function Navbar() {
     localStorage.setItem('theme', theme)
   }, [theme])
 
+  const themeToggle = (
+    <label className='swap swap-rotate btn btn-ghost btn-circle'>
+      <input type="checkbox" onChange={handleTheme} checked={theme === themes.dark} aria-label="Toggle light/dark theme" />
+      <MdSunny className='swap-on h-5 w-5' />
+      <FaMoon className='swap-off h-5 w-5' />
+    </label>
+  )
+
+  const profileMenu = (
+    <div className="dropdown dropdown-end">
+      <div tabIndex={0} role="button" className="btn bg-sky-500 hover:bg-sky-600 text-white border-none gap-2 capitalize">
+        <CgProfile className='text-xl' />
+        <span className='hidden sm:inline'>{user?.fullName}</span>
+      </div>
+      <ul tabIndex={0} className="dropdown-content menu mt-2 z-[100] p-2 shadow-lg bg-base-100 rounded-box w-44 border border-base-300">
+        <li><button onClick={onLogout} className='capitalize'>logout</button></li>
+      </ul>
+    </div>
+  )
+
   return (
-    <nav className="navbar bg-base-100 sticky top-0 px-8 z-10 sm:static small-container sm:big-container">
-      <div className="navbar-start">
-        <div className="dropdown">
-          <div tabIndex={0} role="button" className="btn btn-ghost btn-circle" aria-label='Toggle menu'>
-            <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16M4 18h7" /></svg>
+    <nav className="sticky top-0 z-30 bg-base-100/90 backdrop-blur border-b border-base-300 shadow-sm">
+      <div className="small-container sm:big-container flex items-center justify-between gap-2 py-2">
+        {/* Left: mobile menu + logo */}
+        <div className="flex items-center gap-1">
+          <div className="dropdown md:hidden">
+            <div tabIndex={0} role="button" className="btn btn-ghost btn-circle" aria-label='Toggle menu'>
+              <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16M4 18h7" /></svg>
+            </div>
+            <ul tabIndex={0} className="menu menu-sm dropdown-content mt-3 z-[100] p-2 gap-1 shadow-lg bg-base-100 rounded-box w-52 border border-base-300">
+              <NavLinks />
+            </ul>
           </div>
-          <ul tabIndex={0} className="menu menu-sm dropdown-content mt-3 z-[100] p-2 shadow bg-base-100 rounded-box w-52">
-            <NavLinks />
-          </ul>
+          <Link to={'/jobs'} className="flex items-center gap-2">
+            <div className="text-2xl bg-sky-500 text-white font-mono font-bold size-9 flex justify-center items-center rounded-lg">J</div>
+            <span className="text-xl sm:text-2xl font-bold tracking-wide hidden sm:inline">JobTracker</span>
+          </Link>
         </div>
-      </div>
-      <div className="navbar-center mx-2">
-        <Link to={'/jobs'} className=" text-2xl sm:text-3xl font-mono font-bold">JobTracker</Link>
-      </div>
-      <div className="navbar-end hidden sm:flex gap-2">
-        <label className='swap swap-rotate'>
-          <input type="checkbox" onChange={handleTheme} aria-label="Toggle light/dark theme" />
-          <MdSunny className='swap-on h-6 w-6 ' />
-          <FaMoon className='swap-off h-6 w-6 ' />
-        </label>
-        <ul className="menu menu-horizontal px-1">
-          <li>
-            <details>
-              <summary className='bg-sky-600 text-white text-lg hover:bg-sky-700 capitalize'>
-                <CgProfile className='text-2xl' />
-                {user?.fullName}
-              </summary>
-              <ul className="p-2 bg-base-100 rounded-t-none">
-                <li><button onClick={onLogout}>logout</button></li>
-              </ul>
-            </details>
-          </li>
+
+        {/* Center: desktop nav */}
+        <ul className="menu menu-horizontal hidden md:flex gap-1">
+          <NavLinks />
         </ul>
-      </div>
-      <div className="navbar-end flex sm:hidden gap-2">
-        <ul className="menu menu-horizontal px-1">
-          <li>
-            <details>
-              <summary className='bg-sky-600 text-white text-lg hover:bg-sky-700'>
-                <CgProfile className='text-2xl' />
-              </summary>
-              <ul className="p-2 bg-base-100 rounded-t-none ">
-                <li><button onClick={onLogout}>logout</button></li>
-              </ul>
-            </details>
-          </li>
-        </ul>
-        <label className='swap swap-rotate'>
-          <input type="checkbox" onChange={handleTheme} aria-label="Toggle light/dark theme" />
-          <MdSunny className='swap-on h-6 w-6 ' />
-          <FaMoon className='swap-off h-6 w-6 ' />
-        </label>
+
+        {/* Right: theme + profile */}
+        <div className="flex items-center gap-1 sm:gap-2">
+          {themeToggle}
+          {profileMenu}
+        </div>
       </div>
     </nav>
   )
