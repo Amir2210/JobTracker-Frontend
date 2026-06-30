@@ -65,7 +65,7 @@ export function JobsPreview({ job, index, userJobs, lastJobRef, isDemoUser, view
   )
 
   const titleBlock = (
-    <button onClick={() => setIsDetailsOpen(true)} className='text-left min-w-0' aria-label={`View details for ${job.position}`}>
+    <button onClick={() => setIsDetailsOpen(true)} className='block w-full min-w-0 text-left' aria-label={`View details for ${job.position}`}>
       <h2 className='text-lg font-semibold capitalize truncate hover:text-sky-600 transition'>{job.position}</h2>
       <p className='text-sm text-base-content/60 capitalize truncate'>{job.company}</p>
     </button>
